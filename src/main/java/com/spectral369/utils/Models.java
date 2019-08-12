@@ -6,7 +6,8 @@ import java.util.List;
 
 public enum Models {
 
-    Cerere_de_restituire(1, "Cerere de Restituire","com.spectral369.CDR.CDRInfo");
+    Cerere_de_restituire(1, "Cerere de Restituire","com.spectral369.CDR.CDRInfo"),
+	Declaratie_de_conrespondenta(2, "Declaratie de Corespondenta", "com.spectral369.DDC.DDCInfo");
 	
 	private java.lang.String cls;
     private java.lang.String name;

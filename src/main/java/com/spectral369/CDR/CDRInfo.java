@@ -184,12 +184,14 @@ public class CDRInfo extends CustomComponent implements View {
 		});
 		generateLayout.addComponent(generate);
 		 generate.setEnabled(false);
-		binder.addStatusChangeListener(event -> {
-			if (binder.isValid())
-				generate.setEnabled(true);
-			else
-				generate.setEnabled(false);
-		});
+		 binder.addStatusChangeListener(event -> {
+	            if (!this.complete.getValue() || this.binder.isValid()) {
+	                this.generate.setEnabled(true);
+	            }
+	            else {
+	                this.generate.setEnabled(false);
+	            }
+	        });
 		content.addComponent(generateLayout);
 		content.setComponentAlignment(generateLayout, Alignment.MIDDLE_CENTER);
 
