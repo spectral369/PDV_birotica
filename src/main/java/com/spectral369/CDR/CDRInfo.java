@@ -183,9 +183,9 @@ public class CDRInfo extends CustomComponent implements View {
 			MyUI.navigator.navigateTo(CDRPDF.NAME);
 		});
 		generateLayout.addComponent(generate);
-		 generate.setEnabled(false);
+	
 		 binder.addStatusChangeListener(event -> {
-	            if (!this.complete.getValue() || this.binder.isValid()) {
+	            if (!complete.getValue() || binder.isValid()) {
 	                this.generate.setEnabled(true);
 	            }
 	            else {
@@ -201,7 +201,8 @@ public class CDRInfo extends CustomComponent implements View {
 	}
 
 	private void toggleVisibility() {
-
 		infoLayout.setVisible(!infoLayout.isVisible());
+
+		generate.setEnabled(!generate.isEnabled());
 	}
 }
