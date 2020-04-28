@@ -340,7 +340,7 @@ public class DDCPDF extends CustomComponent implements View
         return sb.toString();
     }
     
-    private Phrase getPhraseStrWithDots(final int dots, final String str) {
+ /*  private Phrase getPhraseStrWithDots(final int dots, final String str) {
         final int strSize = str.length();
         final Phrase sb = new Phrase();
         int dotsRemained;
@@ -364,5 +364,41 @@ public class DDCPDF extends CustomComponent implements View
         }
         sb.add((Element)chDots);
         return sb;
-    }
+    }*/
+    private Phrase getPhraseStrWithDots(final int dots, final String str) {
+		final int strSize = str.length();
+		final Phrase sb = new Phrase();
+		int dotsRemained;
+		if (strSize > dots) {
+			dotsRemained = 0;
+		} else {
+			int nrLitereMari = 0;
+			int nrLitereMici = 0;
+			for (int k = 0; k < str.length(); k++) {
+			 if (Character.isUpperCase(str.charAt(k))) nrLitereMari++;
+			 if (Character.isLowerCase(str.charAt(k))) nrLitereMici++;
+			}
+			if(nrLitereMari>0) {
+			dotsRemained = dots-(nrLitereMari*2);
+			dotsRemained = dotsRemained-nrLitereMici;
+			}else {
+			   dotsRemained = dots - strSize;
+			}
+			//dotsRemained = dots - strSize;
+		}
+		Chunk chDots = new Chunk();
+		final Chunk chStr = new Chunk("", this.bold2);
+		chStr.setTextRise(1.7f);
+		for (int i = 0; i < dotsRemained; ++i) {
+			if (i == dotsRemained / 2) {
+				chStr.append(str);
+				sb.add((Element) chDots);
+				sb.add((Element) chStr);
+				chDots = new Chunk();
+			}
+			chDots.append(".");
+		}
+		sb.add((Element) chDots);
+		return sb;
+	}
 }

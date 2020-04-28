@@ -1,6 +1,7 @@
 package com.spectral369.utils;
 
 import java.io.File;
+import java.util.Random;
 
 
 public class Utils {
@@ -15,4 +16,20 @@ public class Utils {
 			return null;
 
 	}
+	
+	public static String getRandomStringSerial(String idetificator) {
+		String abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		StringBuilder sb =  new StringBuilder();
+		sb.append(idetificator.toUpperCase());
+		Random rd =  new Random();
+		for(int i = 0;i<6;i++) {
+		char letter = abc.charAt(rd.nextInt(abc.length()));
+		sb.append(letter);
+		}
+		return sb.toString();
+	  
+	}
+	
+	
+	
 }

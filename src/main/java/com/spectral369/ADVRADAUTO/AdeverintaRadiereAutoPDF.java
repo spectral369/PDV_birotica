@@ -237,34 +237,34 @@ public class AdeverintaRadiereAutoPDF extends CustomComponent implements View {
 			Chunk ch1 =  new Chunk("Se adevereste de catre noi prin prezenta ca ");
 			dec1.add(ch1);
 			dec1.add(map.get("titlu"));
-		    dec1.add(this.getPhraseStrWithDots(60, map.get("prenume")+" "+map.get("nume")));
+		    dec1.add(this.getPhraseStrWithDots(50, map.get("prenume")+" "+map.get("nume")));
 		    Chunk ch2 =  new Chunk("cu domiciliul in comuna Dudestii-Vechi sat ");
 		    dec1.add(ch2);
-		    dec1.add(this.getPhraseStrWithDots(30, map.get("localitate")));
+		    dec1.add(this.getPhraseStrWithDots(26, map.get("localitate")));
 		    Chunk ch3 =  new Chunk(" numarul ");
 		    dec1.add(ch3);
-		    dec1.add(this.getPhraseStrWithDots(10, map.get("nrStrada")));
+		    dec1.add(this.getPhraseStrWithDots(8, map.get("nrStrada")));
 		    Chunk ch4 =  new Chunk(" detine spatiu de depozitare pentru autoturismul marca ");
 		    dec1.add(ch4);
-		    dec1.add(this.getPhraseStrWithDots(20, map.get("marca")));
+		    dec1.add(this.getPhraseStrWithDots(16, map.get("marca")));
 		    Chunk ch5 =  new Chunk(" model ");
 		    dec1.add(ch5);
-		    dec1.add(this.getPhraseStrWithDots(20, map.get("model")));
+		    dec1.add(this.getPhraseStrWithDots(16, map.get("model")));
 		    Chunk ch6 =  new Chunk(" capacitate cilindrica ");
 		    dec1.add(ch6);
-		    dec1.add(this.getPhraseStrWithDots(15, map.get("capacitate")));
+		    dec1.add(this.getPhraseStrWithDots(12, map.get("capacitate")));
 		    Chunk ch7 =  new Chunk(" serie motor ");
 		    dec1.add(ch7);
-		    dec1.add(this.getPhraseStrWithDots(25, map.get("serieMotor")));
+		    dec1.add(this.getPhraseStrWithDots(20, map.get("serieMotor")));
 		    Chunk ch8 =  new Chunk(" serie sasiu ");
 		    dec1.add(ch8);
-		    dec1.add(this.getPhraseStrWithDots(40, map.get("serieSasiu")));
+		    dec1.add(this.getPhraseStrWithDots(32, map.get("serieSasiu")));
 		    Chunk ch9 =  new Chunk(" numar de inmatriculare ");
 		    dec1.add(ch9);
-		    dec1.add(this.getPhraseStrWithDots(20, map.get("nrInmatriculare")));
+		    dec1.add(this.getPhraseStrWithDots(16, map.get("nrInmatriculare")));
 		    Chunk ch10 =  new Chunk(" la adresa ");
 		    dec1.add(ch10);
-		    dec1.add(this.getPhraseStrWithDots(70, map.get("addrDepozitare")));
+		    dec1.add(this.getPhraseStrWithDots(60, map.get("addrDepozitare")));
 		    Chunk ch11 =  new Chunk(" .\n");
 		    dec1.add(ch11);
 		    
@@ -326,7 +326,19 @@ public class AdeverintaRadiereAutoPDF extends CustomComponent implements View {
 		if (strSize > dots) {
 			dotsRemained = 0;
 		} else {
-			dotsRemained = dots - strSize;
+			int nrLitereMari = 0;
+			int nrLitereMici = 0;
+			for (int k = 0; k < str.length(); k++) {
+			 if (Character.isUpperCase(str.charAt(k))) nrLitereMari++;
+			 if (Character.isLowerCase(str.charAt(k))) nrLitereMici++;
+			}
+			if(nrLitereMari>0) {
+			dotsRemained = dots-(nrLitereMari*2);
+			dotsRemained = dotsRemained-nrLitereMici;
+			}else {
+			   dotsRemained = dots - strSize;
+			}
+			//dotsRemained = dots - strSize;
 		}
 		Chunk chDots = new Chunk();
 		final Chunk chStr = new Chunk("", this.bold2);

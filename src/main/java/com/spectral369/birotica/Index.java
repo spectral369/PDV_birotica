@@ -134,7 +134,7 @@ public class Index extends CustomComponent implements View {
 		content.setComponentAlignment(submitLayout, Alignment.MIDDLE_CENTER);
 
 		footerLayout = new HorizontalLayout();
-		footer = new Button("spectral369 2019", VaadinIcons.COPYRIGHT);
+		footer = new Button("spectral369 2020", VaadinIcons.COPYRIGHT);
 		footer.setEnabled(false);
 		footer.setId("footer");
 		footer.addStyleNames(ValoTheme.BUTTON_BORDERLESS, "clearDisabled");

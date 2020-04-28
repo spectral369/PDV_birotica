@@ -4,13 +4,16 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+
 public enum Models {
 
     Cerere_de_restituire(1, "Cerere de Restituire","com.spectral369.CDR.CDRInfo"),
 	Declaratie_de_conrespondenta(2, "Declaratie de Corespondenta", "com.spectral369.DDC.DDCInfo"),
 	Instiintare_plata_iarba(3,"Instiintare Plata Iarba","com.spectral369.instiintareIarba.InstiintareIarbaInfo"),
 	Adeverinta_radiere_auto(4,"Adeverinta Radiere Auto","com.spectral369.ADVRADAUTO.AdeverintaRadiereAutoInfo"),
-	Process_verbal_spatii_verzi(5,"PV Intretinere Spatii Verzi","com.spectral369.PVIarba.PVIarbaInfo");
+	Process_verbal_spatii_verzi(5,"PV Intretinere Spatii Verzi","com.spectral369.PVIarba.PVIarbaInfo"),
+	Inchiriere_Utilaje(6,"Inchiriere Utilaje","com.spectral369.Utilaje.InchiriereUtilajeInfo"),
+	Cerere_acord_functionare(7,"Cerere Acord Functionare","com.spectral369.CEAF.CerereEmitereAutorizatieFunctionareInfo");
 	
 	private java.lang.String cls;
     private java.lang.String name;

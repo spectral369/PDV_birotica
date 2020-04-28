@@ -15213,3 +15213,17 @@ div.v-layout.v-horizontal.v-widget {
 	opacity: 1;
 	filter: alpha(opacity=1.0);
 }
+
+.mytheme .time-only .v-inline-datefield-calendarpanel-header, .mytheme .time-only .v-inline-datefield-calendarpanel-body {
+	display: none;
+}
+
+.mytheme .time-only .v-datefield-calendarpanel-header, .mytheme .time-only .v-datefield-calendarpanel-body {
+	display: none;
+}
+
+.mytheme #resizable {
+	resize: both;
+	width: 70%;
+	height: 80px;
+}

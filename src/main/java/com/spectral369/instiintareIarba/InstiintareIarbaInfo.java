@@ -30,6 +30,9 @@ public class InstiintareIarbaInfo extends CustomComponent implements View {
 	Button IarbaTitle;
 	HorizontalLayout checkLayout;
 	CheckBox complete;
+	CheckBox catreHide;
+	CheckBox sumaHide;
+	CheckBox hideHCL;
 	HorizontalLayout infoLayout;
 	VerticalLayout infoPart1;
 	VerticalLayout infoPart2;
@@ -68,18 +71,52 @@ public class InstiintareIarbaInfo extends CustomComponent implements View {
 		content.addComponent(titlelLayout);
 		content.setComponentAlignment(titlelLayout, Alignment.MIDDLE_CENTER);
 		checkLayout = new HorizontalLayout();
-		(complete = new CheckBox("Cu completare de date ?!", false)).addValueChangeListener(evt -> {
+		complete = new CheckBox("Cu completare de date ?!", false);
+		complete.addValueChangeListener(evt -> {
 			toggleVisibility();
 			UI.getCurrent().push();
 		});
 		checkLayout.addComponent(complete);
 		content.addComponent(checkLayout);
 		content.setComponentAlignment(checkLayout, Alignment.MIDDLE_CENTER);
+		catreHide =  new CheckBox("Afisare 'catre'?!", true);
+		catreHide.addValueChangeListener(evt -> {
+			toggleNameVisibility();
+			UI.getCurrent().push();
+		});
+		checkLayout.addComponent(catreHide);
+		content.addComponent(catreHide);
+		content.setComponentAlignment(catreHide, Alignment.MIDDLE_CENTER);
+		
+		sumaHide =  new CheckBox("Afisare 'sume'?!", false);
+		sumaHide.addValueChangeListener(evt -> {
+			
+			UI.getCurrent().push();
+		});
+		checkLayout.addComponent(sumaHide);
+		content.addComponent(sumaHide);
+		content.setComponentAlignment(sumaHide, Alignment.MIDDLE_CENTER);
+		
+		hideHCL =  new CheckBox("Afisare 'HCL'?!", false);
+		hideHCL .addValueChangeListener(evt -> {
+			
+			UI.getCurrent().push();
+		});
+		checkLayout.addComponent(hideHCL );
+		content.addComponent(hideHCL);
+		content.setComponentAlignment(hideHCL, Alignment.MIDDLE_CENTER);
+		
+		
+		
+		
+		
+		
 		(infoLayout = new HorizontalLayout()).setVisible(false);
 		infoPart1 = new VerticalLayout();
 		prenumeField = new TextField("Prenume:");
+		prenumeField.setVisible(false);
 		prenumeField.setRequiredIndicatorVisible(true);
-		binder.forField(prenumeField).asRequired()
+	/*	binder.forField(prenumeField).asRequired()
 		.withValidator(str -> str.length() >2, "Prenumele sa fie mai mare decat 2 caractere")
 
 				.bind(new ValueProvider<InstiintareIarbaInfo, String>() {
@@ -98,7 +135,7 @@ public class InstiintareIarbaInfo extends CustomComponent implements View {
 					public void accept(InstiintareIarbaInfo bean, String fieldvalue) {
 
 					}
-				});
+				});*/
 
 		prenumeField.setResponsive(true);
 		prenumeField.setComponentError((ErrorMessage) new UserError("Prenume Required !"));
@@ -107,8 +144,9 @@ public class InstiintareIarbaInfo extends CustomComponent implements View {
 		infoLayout.setComponentAlignment(infoPart1, Alignment.MIDDLE_CENTER);
 		infoPart2 = new VerticalLayout();
 		numeField = new TextField("Nume:");
+		numeField.setVisible(false);
 		numeField.setRequiredIndicatorVisible(true);
-		binder.forField(numeField).asRequired()
+	/*	binder.forField(numeField).asRequired()
 		.withValidator(str -> str.length() >2, "Numele sa fie mai mare decat 2 caractere")
 				.bind(new ValueProvider<InstiintareIarbaInfo, String>() {
 
@@ -127,7 +165,7 @@ public class InstiintareIarbaInfo extends CustomComponent implements View {
 
 					}
 				});
-
+*/
 		numeField.setResponsive(true);
 		numeField.setComponentError((ErrorMessage) new UserError("Nume Required !"));
 		infoPart2.addComponent(numeField);
@@ -200,13 +238,15 @@ public class InstiintareIarbaInfo extends CustomComponent implements View {
 		generate = new Button("Generate", VaadinIcons.FILE_PROCESS);
 		generate.addStyleNames("primary", "friendly");
 		generate.addClickListener(evt -> {
-			//String output = input.substring(0, 1).toUpperCase() + input.substring(1);
-			if (complete.getValue()) {
+			if (complete.getValue().equals(Boolean.TRUE)) {
+				if(catreHide.getValue().equals(Boolean.TRUE)) {
 				String prenume = prenumeField.getValue().trim().substring(0,1).toUpperCase()+prenumeField.getValue().trim().substring(1);
 				String nume = numeField.getValue().trim().substring(0,1).toUpperCase()+numeField.getValue().trim().substring(1);
-				String localitate = localitateField.getValue().trim().substring(0,1).toUpperCase()+localitateField.getValue().trim().substring(1);
+			
 				map.put("prenume", prenume);
 				map.put("nume", nume);
+				}
+				String localitate = localitateField.getValue().trim().substring(0,1).toUpperCase()+localitateField.getValue().trim().substring(1);
 				map.put("nrStrada", nrStrField.getValue().trim());
 				map.put("localitate", localitate);
 			}
@@ -214,7 +254,7 @@ public class InstiintareIarbaInfo extends CustomComponent implements View {
 			numeField.clear();
 			nrStrField.clear();
 			
-			pdf = new InstiitareIarbaPDF(map);
+			pdf = new InstiitareIarbaPDF(map,catreHide.getValue(),sumaHide.getValue(),hideHCL.getValue());
 			MyUI.navigator.navigateTo("InstiintareIarbaPDF");
 		});
 		generateLayout.addComponent(generate);
@@ -235,7 +275,14 @@ public class InstiintareIarbaInfo extends CustomComponent implements View {
 
 	private void toggleVisibility() {
 		infoLayout.setVisible(!infoLayout.isVisible());
-
+		prenumeField.setVisible(catreHide.getValue());
+		numeField.setVisible(catreHide.getValue());
 		generate.setEnabled(!generate.isEnabled());
+	}
+	
+	private void toggleNameVisibility() {
+		prenumeField.setVisible(catreHide.getValue());
+		numeField.setVisible(catreHide.getValue());
+		
 	}
 }

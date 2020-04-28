@@ -73,16 +73,16 @@ public class CDRPDF extends CustomComponent implements View {
 		String tm = time.format(sdf2);
 		// pdfFile = new File(tmp + "/CDR_" + tm + ".pdf");
 		try {
-			//pdfFile = File.createTempFile("CDR_" + tm, ".pdf");
+			// pdfFile = File.createTempFile("CDR_" + tm, ".pdf");
 			if (System.getProperty("os.name").toUpperCase().contains("WIN")) {
-				tm =  tm.replaceAll("\\.", "_");
-				tm =  tm.replaceAll(":", "_");
-				pdfFile = new File(System.getProperty("java.io.tmpdir")+File.separator+"CDR_"+tm+".pdf");
-			
+				tm = tm.replaceAll("\\.", "_");
+				tm = tm.replaceAll(":", "_");
+				pdfFile = new File(System.getProperty("java.io.tmpdir") + File.separator + "CDR_" + tm + ".pdf");
+
 				System.out.println(pdfFile.getCanonicalPath());
 				FNAME = pdfFile.getCanonicalPath();
 			} else {
-				pdfFile = new File(System.getProperty("java.io.tmpdir")+File.separator+"CDR_"+tm+".pdf");
+				pdfFile = new File(System.getProperty("java.io.tmpdir") + File.separator + "CDR_" + tm + ".pdf");
 				System.out.println(pdfFile.getCanonicalPath());
 				FNAME = pdfFile.getCanonicalPath();
 			}
@@ -526,39 +526,64 @@ public class CDRPDF extends CustomComponent implements View {
 		}
 		return sb.toString();
 	}
-
-	private Phrase getPhraseStrWithDots(int dots, String str) {
-
-		int strSize = str.length();
-		int dotsRemained;// =0
-		Phrase sb = new Phrase();
-		if ((strSize/**
-					 * 2
-					 */
-		) > dots) {
+	private Phrase getPhraseStrWithDots(final int dots, final String str) {
+		final int strSize = str.length();
+		final Phrase sb = new Phrase();
+		int dotsRemained;
+		if (strSize > dots) {
 			dotsRemained = 0;
 		} else {
-			dotsRemained = dots - (strSize/**
-											 * 2
-											 */
-			);
+			int nrLitereMari = 0;
+			int nrLitereMici = 0;
+			for (int k = 0; k < str.length(); k++) {
+			 if (Character.isUpperCase(str.charAt(k))) nrLitereMari++;
+			 if (Character.isLowerCase(str.charAt(k))) nrLitereMici++;
+			}
+			if(nrLitereMari>0) {
+			dotsRemained = dots-(nrLitereMari*2);
+			dotsRemained = dotsRemained-nrLitereMici;
+			}else {
+			   dotsRemained = dots - strSize;
+			}
+			//dotsRemained = dots - strSize;
 		}
 		Chunk chDots = new Chunk();
-		Chunk chStr = new Chunk("", bold2);
+		final Chunk chStr = new Chunk("", this.bold2);
 		chStr.setTextRise(1.7f);
-		for (int i = 0; i < dotsRemained; i++) {
-			if (i == (dotsRemained / 2)) {
+		for (int i = 0; i < dotsRemained; ++i) {
+			if (i == dotsRemained / 2) {
 				chStr.append(str);
-				sb.add(chDots);
-				sb.add(chStr);
+				sb.add((Element) chDots);
+				sb.add((Element) chStr);
 				chDots = new Chunk();
 			}
-
 			chDots.append(".");
-
 		}
-		sb.add(chDots);
+		sb.add((Element) chDots);
 		return sb;
 	}
+
+	/*
+	 * private Phrase getPhraseStrWithDots(int dots, String str) {
+	 * 
+	 * int strSize = str.length(); int dotsRemained;// =0 Phrase sb = new Phrase();
+	 * if ((strSize
+	 *//**
+		 * 2
+		 */
+	/*
+	 * ) > dots) { dotsRemained = 0; } else { dotsRemained = dots - (strSize
+	 *//**
+		 * 2
+		 *//*
+			 * ); } Chunk chDots = new Chunk(); Chunk chStr = new Chunk("", bold2);
+			 * chStr.setTextRise(1.7f); for (int i = 0; i < dotsRemained; i++) { if (i ==
+			 * (dotsRemained / 2)) { chStr.append(str); sb.add(chDots); sb.add(chStr);
+			 * chDots = new Chunk(); }
+			 * 
+			 * chDots.append(".");
+			 * 
+			 * } sb.add(chDots); return sb; }
+			 */
 
 }

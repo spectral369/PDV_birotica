@@ -49,5 +49,21 @@
 	filter: alpha(opacity=1.0);	
 }
 
+.time-only .v-inline-datefield-calendarpanel-header,
+.time-only .v-inline-datefield-calendarpanel-body {
+    display: none;
+}
+ 
+.time-only .v-datefield-calendarpanel-header,
+.time-only .v-datefield-calendarpanel-body {
+    display: none;
+}
+
+#resizable{
+	resize: both;
+	width: 70%;
+	height: 80px;
+}
+
 
 }
