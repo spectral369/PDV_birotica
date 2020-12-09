@@ -7,6 +7,7 @@ import java.time.format.*;
 import com.vaadin.icons.*;
 import com.vaadin.server.*;
 import com.spectral369.birotica.*;
+import com.spectral369.utils.PDFHelper;
 import com.spectral369.utils.Utils;
 import com.vaadin.ui.*;
 
@@ -153,8 +154,14 @@ public class AdeverintaRadiereAutoPDF extends CustomComponent implements View {
 			antet.add(antetLogo);
 			antet.setAlignment(1);
 			document.add(antet);
-			final Paragraph titlu = new Paragraph();
-		
+			
+			final Paragraph nrInreg = new Paragraph();
+			nrInreg.setAlignment(2);
+			Chunk nrI = new Chunk("\n\nNr. " + PDFHelper.getStrWithDots(15, "") + " " + "data " + PDFHelper.getStrWithDots(20, ""));
+			nrInreg.add(nrI);
+			this.document.add(nrInreg);
+			
+			final Paragraph titlu = new Paragraph();	
 			final Chunk t1 = new Chunk("\n\n\n\nAdeverinta\n\n\n",bold2);
 			titlu.setAlignment(1);
 			titlu.add(t1);
@@ -164,12 +171,12 @@ public class AdeverintaRadiereAutoPDF extends CustomComponent implements View {
 			declaratie.setLeading(20.0f);
 			declaratie.setTabSettings(new TabSettings(15.0f));
 			declaratie.add(Chunk.TABBING);
-			Chunk dec1 = new Chunk("Se adevereste  de catre noi ca prin prezenta ca Dl/D-na "+this.getStrWithDots(60, "")+" "
-					+ "cu domiciliul in comuna Dudestii-Vechi sat "+this.getStrWithDots(40, "")+" numarul "+this.getStrWithDots(15, "")+""
-					+ " detine spatiu de depozitare pentru autoturismul marca "+this.getStrWithDots(30, "")+""
-					+ " model "+this.getStrWithDots(30, "")+" capacitate cilindrica "+this.getStrWithDots(15, "")+" serie "
-					+ "motor "+this.getStrWithDots(25, "")+" serie sasiu "+this.getStrWithDots(35, "")+" numarul de inmatriculare "
-					+ ""+this.getStrWithDots(20, "")+" la adresa "+this.getStrWithDots(70, "")+" .\n");
+			Chunk dec1 = new Chunk("Se adevereste de catre noi ca prin prezenta ca Dl/D-na/Subscrisa "+PDFHelper.getStrWithDots(46, "")+" "
+					+ "cu domiciliul/punct de lucru in "+PDFHelper.getStrWithDots(55, "")+" numarul "+PDFHelper.getStrWithDots(22, "")+""
+					+ " detine spatiu de depozitare pentru autoturismul marca "+PDFHelper.getStrWithDots(60, "")+"\n"
+					+ "model "+PDFHelper.getStrWithDots(38, "")+" capacitate cilindrica "+PDFHelper.getStrWithDots(22, "")+" serie "
+					+ "motor "+PDFHelper.getStrWithDots(30, "")+" serie sasiu "+PDFHelper.getStrWithDots(55, "")+" numarul de inmatriculare "
+					+ ""+PDFHelper.getStrWithDots(30, "")+" la adresa "+PDFHelper.getStrWithDots(80, "")+" .\n");
 			declaratie.add(dec1);
 			declaratie.add(Chunk.TABBING);
 			Chunk dec2 =  new Chunk("Prezenta s-a eliberat spre a servi la radiere.");
@@ -184,10 +191,10 @@ public class AdeverintaRadiereAutoPDF extends CustomComponent implements View {
             dataSiSemnatura.add((Element)Chunk.TABBING);
             final Chunk semnatura = new Chunk("Intocmit\n");
             dataSiSemnatura.add((Element)semnatura);
-            final Chunk dat = new Chunk(this.getStrWithDots(30, ""));
+            final Chunk dat = new Chunk(PDFHelper.getStrWithDots(30, ""));
             dataSiSemnatura.add((Element)dat);
             dataSiSemnatura.add((Element)Chunk.TABBING);
-            final Chunk semn = new Chunk(this.getStrWithDots(30, ""));
+            final Chunk semn = new Chunk(PDFHelper.getStrWithDots(30, ""));
             dataSiSemnatura.add((Element)semn);
             this.document.add((Element)declaratie);
             this.document.add((Element)dataSiSemnatura);
@@ -222,56 +229,113 @@ public class AdeverintaRadiereAutoPDF extends CustomComponent implements View {
 			antet.add(antetLogo);
 			antet.setAlignment(1);
 			document.add(antet);
+			
+			final Paragraph nrInreg = new Paragraph();
+			nrInreg.setAlignment(2);
+			Chunk nrI = new Chunk("\n\nNr. " + PDFHelper.getStrWithDots(15, "") + " " + "data " + PDFHelper.getStrWithDots(20, ""));
+			nrInreg.add(nrI);
+			this.document.add(nrInreg);
+			
 			final Paragraph titlu = new Paragraph();
-		
 			final Chunk t1 = new Chunk("\n\n\n\nAdeverinta\n\n\n",bold2);
 			titlu.setAlignment(1);
 			titlu.add(t1);
 			this.document.add(titlu);
 			
-			final Paragraph declaratie = new Paragraph();
-			declaratie.setLeading(20.0f);
-			declaratie.setTabSettings(new TabSettings(15.0f));
-			declaratie.add(Chunk.TABBING);
-			Phrase dec1 =  new Phrase();
-			Chunk ch1 =  new Chunk("Se adevereste de catre noi prin prezenta ca ");
-			dec1.add(ch1);
-			dec1.add(map.get("titlu"));
-		    dec1.add(this.getPhraseStrWithDots(50, map.get("prenume")+" "+map.get("nume")));
-		    Chunk ch2 =  new Chunk("cu domiciliul in comuna Dudestii-Vechi sat ");
-		    dec1.add(ch2);
-		    dec1.add(this.getPhraseStrWithDots(26, map.get("localitate")));
-		    Chunk ch3 =  new Chunk(" numarul ");
-		    dec1.add(ch3);
-		    dec1.add(this.getPhraseStrWithDots(8, map.get("nrStrada")));
-		    Chunk ch4 =  new Chunk(" detine spatiu de depozitare pentru autoturismul marca ");
-		    dec1.add(ch4);
-		    dec1.add(this.getPhraseStrWithDots(16, map.get("marca")));
-		    Chunk ch5 =  new Chunk(" model ");
-		    dec1.add(ch5);
-		    dec1.add(this.getPhraseStrWithDots(16, map.get("model")));
-		    Chunk ch6 =  new Chunk(" capacitate cilindrica ");
-		    dec1.add(ch6);
-		    dec1.add(this.getPhraseStrWithDots(12, map.get("capacitate")));
-		    Chunk ch7 =  new Chunk(" serie motor ");
-		    dec1.add(ch7);
-		    dec1.add(this.getPhraseStrWithDots(20, map.get("serieMotor")));
-		    Chunk ch8 =  new Chunk(" serie sasiu ");
-		    dec1.add(ch8);
-		    dec1.add(this.getPhraseStrWithDots(32, map.get("serieSasiu")));
-		    Chunk ch9 =  new Chunk(" numar de inmatriculare ");
-		    dec1.add(ch9);
-		    dec1.add(this.getPhraseStrWithDots(16, map.get("nrInmatriculare")));
-		    Chunk ch10 =  new Chunk(" la adresa ");
-		    dec1.add(ch10);
-		    dec1.add(this.getPhraseStrWithDots(60, map.get("addrDepozitare")));
-		    Chunk ch11 =  new Chunk(" .\n");
-		    dec1.add(ch11);
-		    
-			declaratie.add(dec1);
-			declaratie.add(Chunk.TABBING);
-			Chunk dec2 =  new Chunk("Prezenta s-a eliberat spre a servi la radiere.");
-			declaratie.add(dec2);
+			
+			
+			Paragraph dec01 =  new Paragraph(Chunk.TABBING);
+			Chunk ch01 =  new Chunk("Se adevereste de catre noi prin prezenta ca ");
+			dec01.add(ch01);
+			Chunk ch02 =  new Chunk(PDFHelper.getEmptySpace(50));
+			dec01.add(ch02);
+			Chunk ch03 = null;
+			Chunk ch031 =  null;
+			 if(!map.get("titlu").contains("scris")) {
+			      ch03 =  new Chunk(" cu domiciliul ");
+			      ch031 =  new Chunk(" in ");
+			 }
+			 else {
+				  ch03 = new Chunk(" cu punct de ");
+				  ch031 =  new Chunk(" lucru in comuna Dudestii-Vechi sat ");	  
+			 }
+			 dec01.add(ch03);
+			 dec01.add(ch031);
+			 Chunk ch04 =  new Chunk(PDFHelper.getEmptySpace(40));
+			 dec01.add(ch04);
+			 Chunk  ch041 =  new Chunk(" numarul ");
+			 dec01.add(ch041);
+			 Chunk ch042 =  new Chunk(PDFHelper.getEmptySpace(11));
+			 dec01.add(ch042);
+			 Chunk ch05 =  new Chunk(" detine spatiu de depozitare pentru autovehicolul \n");
+			 dec01.add(ch05);
+			 Chunk ch051 =  new Chunk("marca ");
+			 dec01.add(ch051);
+			 Chunk ch06 =  new Chunk(PDFHelper.getEmptySpace(25));
+			 dec01.add(ch06);
+			 Chunk ch07 =  new Chunk(" model ");
+			 dec01.add(ch07);
+			 Chunk ch08 = new Chunk(PDFHelper.getEmptySpace(20));
+			 dec01.add(ch08);
+			 Chunk ch09 =  new Chunk(" capacitate cilindrica ");
+			 dec01.add(ch09);
+			 Chunk ch10 =  new Chunk(PDFHelper.getEmptySpace(10));
+			 dec01.add(ch10);
+			 Chunk ch11 =  new Chunk(" serie motor ");
+			 dec01.add(ch11);
+			 Chunk ch12 =  new Chunk(PDFHelper.getEmptySpace(20));
+			 dec01.add(ch12);
+			 Chunk ch13 =  new Chunk(" numar de inmatriculare ");
+			 dec01.add(ch13);
+			 Chunk ch14 =  new Chunk(PDFHelper.getEmptySpace(45));
+			 dec01.add(ch14);
+			 Chunk ch15  =  new Chunk(" la adresa ");
+			 dec01.add(ch15);
+			 Chunk ch16 =  new Chunk(PDFHelper.getEmptySpace(40));
+			 dec01.add(ch16);
+			 Chunk ch17 =  new Chunk(" .");
+			 dec01.add(ch17);
+			 document.add(dec01);
+			 
+			float y = writer.getVerticalPosition(false);
+			y += dec01.getLeading() * 3;//minus 3 randuri
+			float x2 = document.left() + ch01.getWidthPoint();
+			float x3 = x2 + ch02.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("prenume") + " " + map.get("nume"), document, y, x3, x2, writer,true);
+			y -= dec01.getLeading();//urmatorul rand
+			x2 = document.left() + ch031.getWidthPoint();
+			x3 = x2 + ch04.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("localitate"), document, y, x3, x2, writer,false);
+			x2 = x3 + ch041.getWidthPoint();
+			x3 = x2 + ch042.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("nrStrada"), document, y, x3, x2, writer,false);
+			y -= dec01.getLeading();//urmatorul rand
+			x2 = document.left() + ch051.getWidthPoint();
+			x3 = x2 + ch06.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("marca"), document, y, x3, x2, writer,false);
+			x2 = x3 + ch07.getWidthPoint();
+			x3 = x2 + ch08.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("model"), document, y, x3, x2, writer,false);
+			x2 = x3 + ch09.getWidthPoint();
+			x3 = x2 + ch10.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("capacitate"), document, y, x3, x2, writer,false);
+			x2 = x3 + ch11.getWidthPoint();
+			x3 = x2 + ch12.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("serieMotor"), document, y, x3, x2, writer,false);
+			y -= dec01.getLeading();//urmatorul rand
+			x2 = document.left() + ch13.getWidthPoint();
+			x3 = x2 + ch14.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("serieSasiu"), document, y, x3, x2, writer,false);
+			x2 = x3 + ch15.getWidthPoint();
+			x3 = x2 + ch16.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("addrDepozitare"), document, y, x3, x2, writer,false);
+			
+			document.add(Chunk.NEWLINE);
+			Paragraph dec02 =  new Paragraph(Chunk.TABBING);
+			Chunk gr01 =  new Chunk("Prezenta s-a eliberat spre a servi la radiere.");
+			dec02.add(gr01);
+			document.add(dec02);
+			document.add(Chunk.NEWLINE);
 			
 			final Paragraph dataSiSemnatura = new Paragraph();
             dataSiSemnatura.setLeading(25.0f);
@@ -282,12 +346,11 @@ public class AdeverintaRadiereAutoPDF extends CustomComponent implements View {
             dataSiSemnatura.add((Element)Chunk.TABBING);
             final Chunk semnatura = new Chunk("Intocmit\n");
             dataSiSemnatura.add((Element)semnatura);
-            final Chunk dat = new Chunk(this.getStrWithDots(30, ""));
+            final Chunk dat = new Chunk(PDFHelper.getStrWithDots(30, ""));
             dataSiSemnatura.add((Element)dat);
             dataSiSemnatura.add((Element)Chunk.TABBING);
             final Chunk semn = new Chunk(map.get("intocmit"));
             dataSiSemnatura.add((Element)semn);
-            this.document.add((Element)declaratie);
             this.document.add((Element)dataSiSemnatura);
 			final PdfContentByte canvas = this.writer.getDirectContent();
 			
@@ -301,58 +364,5 @@ public class AdeverintaRadiereAutoPDF extends CustomComponent implements View {
 		this.writer.flush();
 	}
 
-	private String getStrWithDots(final int dots, final String str) {
-		final int strSize = str.length();
-		final StringBuilder sb = new StringBuilder();
-		int dotsRemained;
-		if (strSize > dots) {
-			dotsRemained = 0;
-		} else {
-			dotsRemained = dots - strSize;
-		}
-		for (int i = 0; i < dotsRemained; ++i) {
-			if (i == dotsRemained / 2) {
-				sb.append(str);
-			}
-			sb.append(".");
-		}
-		return sb.toString();
-	}
 
-	private Phrase getPhraseStrWithDots(final int dots, final String str) {
-		final int strSize = str.length();
-		final Phrase sb = new Phrase();
-		int dotsRemained;
-		if (strSize > dots) {
-			dotsRemained = 0;
-		} else {
-			int nrLitereMari = 0;
-			int nrLitereMici = 0;
-			for (int k = 0; k < str.length(); k++) {
-			 if (Character.isUpperCase(str.charAt(k))) nrLitereMari++;
-			 if (Character.isLowerCase(str.charAt(k))) nrLitereMici++;
-			}
-			if(nrLitereMari>0) {
-			dotsRemained = dots-(nrLitereMari*2);
-			dotsRemained = dotsRemained-nrLitereMici;
-			}else {
-			   dotsRemained = dots - strSize;
-			}
-			//dotsRemained = dots - strSize;
-		}
-		Chunk chDots = new Chunk();
-		final Chunk chStr = new Chunk("", this.bold2);
-		chStr.setTextRise(1.7f);
-		for (int i = 0; i < dotsRemained; ++i) {
-			if (i == dotsRemained / 2) {
-				chStr.append(str);
-				sb.add((Element) chDots);
-				sb.add((Element) chStr);
-				chDots = new Chunk();
-			}
-			chDots.append(".");
-		}
-		sb.add((Element) chDots);
-		return sb;
-	}
 }

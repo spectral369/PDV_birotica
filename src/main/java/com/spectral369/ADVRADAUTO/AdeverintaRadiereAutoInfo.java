@@ -392,7 +392,7 @@ public class AdeverintaRadiereAutoInfo extends CustomComponent implements View {
 		
 		infoPart12 = new VerticalLayout();
 		titlu = new ComboBox<String>("Titlul: ");
-		titlu.setItems("Dl.", "D-na.");
+		titlu.setItems("Dl.", "D-na.","Subscrisa");
 		titlu.setSelectedItem(null);
 		titlu.setRequiredIndicatorVisible(true);
 		binder.forField(titlu).asRequired()
@@ -477,7 +477,9 @@ public class AdeverintaRadiereAutoInfo extends CustomComponent implements View {
 				map.put("nume", nume);
 				map.put("nrStrada", nrStrField.getValue().trim());
 				map.put("localitate", localitate);
-				map.put("marca", marcaAutoField.getValue().trim());
+				String marca =  new String();
+				marca = marcaAutoField.getValue().trim();
+				map.put("marca", marca);
 				map.put("model", modelAutoField.getValue().trim());
 				map.put("capacitate", capacitateCilField.getValue().trim());
 				map.put("serieMotor", serieMotorField.getValue().trim());
