@@ -8,6 +8,7 @@ import java.time.format.*;
 import com.vaadin.icons.*;
 import com.vaadin.server.*;
 import com.spectral369.birotica.*;
+import com.spectral369.utils.PDFHelper;
 import com.spectral369.utils.Utils;
 import com.vaadin.ui.*;
 
@@ -160,7 +161,7 @@ public class CerereConcediuOdihnaPDF extends CustomComponent implements View {
 			
 			Paragraph nrInreg = new Paragraph();
 			nrInreg.setAlignment(0);
-			Chunk t1 = new Chunk("\n\n\nNr. " + this.getStrWithDots(15, "") + " " + "data " + this.getStrWithDots(20, ""));
+			Chunk t1 = new Chunk("\n\n\nNr. " + PDFHelper.getStrWithDots(15, "") + " " + "data " + PDFHelper.getStrWithDots(20, ""));
 			nrInreg.add(t1);
 			this.document.add(nrInreg);
 			Paragraph aprobat = new Paragraph();
@@ -179,7 +180,7 @@ public class CerereConcediuOdihnaPDF extends CustomComponent implements View {
 			prim.add(Chunk.TABBING);
 			prim.add(Chunk.TABBING);
 			prim.add(new Chunk("\n"));
-			Chunk p3 = new Chunk(this.getStrWithDots(28, ""));
+			Chunk p3 = new Chunk(PDFHelper.getStrWithDots(28, ""));
 			prim.add(p3);
 			prim.add(Chunk.TABBING);
 			prim.add(Chunk.TABBING);
@@ -196,10 +197,10 @@ public class CerereConcediuOdihnaPDF extends CustomComponent implements View {
 			declaratie.setLeading(20.0f);
 			declaratie.setTabSettings(new TabSettings(15.0f));
 			declaratie.add(Chunk.TABBING);
-			Chunk dec1 = new Chunk("Subsemnatul/a "+this.getStrWithDots(65, "")+", salariat al Primariei Dudestii-vechi, jud. "
-					+ "Timis, avand functia de "+this.getStrWithDots(40, "")+" prin prezenta, va rog sa-mi aprobati efectuarea"
-					+ " a "+this.getStrWithDots(8, "")+" zile din concediul de odihna aferent anului "+this.getStrWithDots(10, "")+" "
-							+ "din data de "+this.getStrWithDots(22, "")+" pana in data de "+this.getStrWithDots(22, "")+".");
+			Chunk dec1 = new Chunk("Subsemnatul/a "+PDFHelper.getStrWithDots(65, "")+", salariat al Primariei Dudestii-vechi, jud. "
+					+ "Timis, avand functia de "+PDFHelper.getStrWithDots(40, "")+" prin prezenta, va rog sa-mi aprobati efectuarea"
+					+ " a "+PDFHelper.getStrWithDots(8, "")+" zile din concediul de odihna aferent anului "+PDFHelper.getStrWithDots(10, "")+" "
+							+ "din data de "+PDFHelper.getStrWithDots(22, "")+" pana in data de "+PDFHelper.getStrWithDots(22, "")+".");
 			declaratie.add(dec1);
 			declaratie.add(Chunk.TABBING);
 			Chunk dec2 =  new Chunk("\n\n\nVa multumesc!\n\n");
@@ -218,7 +219,7 @@ public class CerereConcediuOdihnaPDF extends CustomComponent implements View {
             final Chunk dat = new Chunk(dateNow);
             dataSiSemnatura.add((Element)dat);
             dataSiSemnatura.add((Element)Chunk.TABBING);
-            final Chunk semn = new Chunk(this.getStrWithDots(30, "")+"\n\n\n");
+            final Chunk semn = new Chunk(PDFHelper.getStrWithDots(30, "")+"\n\n\n");
             dataSiSemnatura.add((Element)semn);
             this.document.add((Element)declaratie);
             this.document.add((Element)dataSiSemnatura);
@@ -229,7 +230,7 @@ public class CerereConcediuOdihnaPDF extends CustomComponent implements View {
 			inlocuitor.setTabSettings(new TabSettings(15.0f));
 			inlocuitor.add(Chunk.TABBING);
 			Chunk inloc =  new Chunk("Pe perioada efectuarii concediului de odihna integral sau partial, atributiile de serviciu "
-					+ "sunt preluate de "+this.getStrWithDots(45, ""));
+					+ "sunt preluate de "+PDFHelper.getStrWithDots(45, ""));
 			inlocuitor.add(inloc);
 			document.add(inlocuitor);
 			
@@ -265,7 +266,7 @@ public class CerereConcediuOdihnaPDF extends CustomComponent implements View {
 			
 			Paragraph nrInreg = new Paragraph();
 			nrInreg.setAlignment(0);
-			Chunk t1 = new Chunk("\n\n\nNr. " + this.getStrWithDots(15, "") + " " + "data " + this.getStrWithDots(20, ""));
+			Chunk t1 = new Chunk("\n\n\nNr. " + PDFHelper.getStrWithDots(15, "") + " " + "data " + PDFHelper.getStrWithDots(20, ""));
 			nrInreg.add(t1);
 			this.document.add(nrInreg);
 			Paragraph aprobat = new Paragraph();
@@ -284,7 +285,7 @@ public class CerereConcediuOdihnaPDF extends CustomComponent implements View {
 			prim.add(Chunk.TABBING);
 			prim.add(Chunk.TABBING);
 			prim.add(new Chunk("\n"));
-			Chunk p3 = new Chunk(this.getStrWithDots(28, ""));
+			Chunk p3 = new Chunk(PDFHelper.getStrWithDots(28, ""));
 			prim.add(p3);
 			prim.add(Chunk.TABBING);
 			prim.add(Chunk.TABBING);
@@ -298,37 +299,70 @@ public class CerereConcediuOdihnaPDF extends CustomComponent implements View {
 			titlu.add(tit);
 			this.document.add(titlu);
 			
-			final Paragraph declaratie = new Paragraph();
-			declaratie.setLeading(20.0f);
-			declaratie.setTabSettings(new TabSettings(15.0f));
-			declaratie.add(Chunk.TABBING);
-
-			Phrase dec01 =  new Phrase();
-			Chunk ch01 =  new Chunk("Subsemnatul/a ");
-			dec01.add(ch01);
-			dec01.add(this.getPhraseStrWithDots(55, map.get("prenume")+" "+map.get("nume")));
-			Chunk ch02 =  new Chunk(", salariat al Primariei Dudestii-Vechi, jud. Timis, avand functia de ");
-			dec01.add(ch02);
-			dec01.add(this.getPhraseStrWithDots(40, map.get("functia")));
-			Chunk ch03 =  new Chunk(" prin prezenta, va rog sa-mi aprobati efectuarea a ");
-			dec01.add(ch03);
-			dec01.add(this.getPhraseStrWithDots(8, map.get("nrZile")));
-			Chunk ch04 =  new Chunk("zile din concediul de odihna aferent anului ");
-			dec01.add(ch04);
-			dec01.add(this.getPhraseStrWithDots(10, map.get("anConcediu")));
-			Chunk ch05 = new Chunk("din data \nde ");
-			dec01.add(ch05);
-			dec01.add(this.getPhraseStrWithDots(20, map.get("ziStart")+"/"+map.get("lunaStart")+"/"+map.get("anStart")));
-			Chunk ch06 =  new Chunk(" pana in data de ");
-			dec01.add(ch06);
-			dec01.add(this.getPhraseStrWithDots(20, map.get("ziEnd")+"/"+map.get("lunaEnd")+"/"+map.get("anEnd")));
-			Chunk ch07 = new Chunk(".");
-			dec01.add(ch07);
-			declaratie.add(dec01);
 			
-			declaratie.add(Chunk.TABBING);
+			
+			Paragraph dec01 =  new Paragraph(Chunk.TABBING);
+			Chunk d01 =  new Chunk("Subsemnatul/a ");
+			dec01.add(d01);
+			Chunk d02 =  new Chunk(PDFHelper.getEmptySpace(45));
+			dec01.add(d02);
+			Chunk d03 =  new Chunk(" salariat al Primariei Dudestii-Vechi, jud. Timis ");
+			dec01.add(d03);
+			Chunk  d031 =  new Chunk("avand functia de ");
+			dec01.add(d031);
+			Chunk d04 =  new Chunk(PDFHelper.getEmptySpace(40));
+			dec01.add(d04);
+			Chunk d05 =  new Chunk(" prin prezenta, va rog sa-mi aprobati efectuarea\n");
+			dec01.add(d05);
+			Chunk d051 =  new Chunk("a ");
+			dec01.add(d051);
+			Chunk d06 =  new Chunk(PDFHelper.getEmptySpace(8));
+			dec01.add(d06);
+			Chunk d07 =  new Chunk(" zile din concediul de odihna aferent anului ");
+			dec01.add(d07);
+			Chunk d08  =  new Chunk(PDFHelper.getEmptySpace(10));
+			dec01.add(d08);
+			Chunk d09 =  new Chunk(" din data de ");
+			dec01.add(d09);
+			Chunk d10 =  new Chunk(PDFHelper.getEmptySpace(16));
+			dec01.add(d10);
+			Chunk d11 =  new Chunk(" pana in \n");
+			dec01.add(d11);
+			Chunk d111 =  new Chunk("data de ");
+			dec01.add(d111);
+			Chunk d12 =  new Chunk(PDFHelper.getEmptySpace(16));
+			dec01.add(d12);
+			Chunk d13 =  new Chunk(" .");
+			dec01.add(d13);
+			document.add(dec01);
+			float y = writer.getVerticalPosition(false);
+			y += dec01.getLeading()* 3 ;
+			float x2 = document.left() + d01.getWidthPoint();
+			float x3 = x2 + d02.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("prenume") + " " + map.get("nume"), document, y, x3, x2, writer,true);
+			y -= dec01.getLeading();
+			x2 = document.left() + d031.getWidthPoint();
+			x3 = x2 + d04.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("functia"), document, y, x3, x2, writer,false);
+			y -= dec01.getLeading();
+			x2 = document.left() + d051.getWidthPoint();
+			x3 = x2 + d06.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("nrZile"), document, y, x3, x2, writer,false);
+			x2 = x3 + d07.getWidthPoint();
+			x3 = x2 + d08.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("anConcediu"), document, y, x3, x2, writer,false);
+			x2 = x3+ d09.getWidthPoint();
+			x3 = x2 + d10.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("ziStart")+"/"+map.get("lunaStart")+"/"+map.get("anStart"), document, y, x3, x2, writer,false);
+			y -= dec01.getLeading();
+			x2 = document.left() + d111.getWidthPoint();
+			x3 = x2 + d12.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("ziEnd")+"/"+map.get("lunaEnd")+"/"+map.get("anEnd"), document, y, x3, x2, writer,false);
+			
+			Paragraph thx =  new Paragraph(Chunk.TABBING);
 			Chunk dec2 =  new Chunk("\n\n\nVa multumesc!\n\n");
-			declaratie.add(dec2);
+			thx.add(dec2);
+			document.add(thx);
 			
 			final Paragraph dataSiSemnatura = new Paragraph();
             dataSiSemnatura.setLeading(25.0f);
@@ -343,13 +377,28 @@ public class CerereConcediuOdihnaPDF extends CustomComponent implements View {
             final Chunk dat = new Chunk(dateNow);
             dataSiSemnatura.add((Element)dat);
             dataSiSemnatura.add((Element)Chunk.TABBING);
-            final Chunk semn = new Chunk(this.getStrWithDots(30, "")+"\n\n\n");
+            final Chunk semn = new Chunk(PDFHelper.getStrWithDots(30, "")+"\n\n\n");
             dataSiSemnatura.add((Element)semn);
-            this.document.add((Element)declaratie);
+      
             this.document.add((Element)dataSiSemnatura);
 			final PdfContentByte canvas = this.writer.getDirectContent();
 			
-			Paragraph inlocuitor =  new Paragraph();
+			
+			
+			Paragraph inloc =  new Paragraph(Chunk.TABBING);
+			Chunk i01 =  new Chunk("Pe perioada efectuarii concediului de odihna integral sau partial, atributiile de serviciu "
+					+ "sunt ");
+			inloc.add(i01);
+			Chunk i011 =  new Chunk("preluate de ");
+			inloc.add(i011);
+			Chunk i02 =  new Chunk(PDFHelper.getEmptySpace(45));
+			inloc.add(i02);
+			document.add(inloc);
+			y = writer.getVerticalPosition(false);
+			x2 = document.left() + i011.getWidthPoint();
+			x3 = x2 + i02.getWidthPoint();
+			PDFHelper.getPlainFillTest(map.get("inlocuitor"), document, y, x3, x2, writer,false);
+			/*Paragraph inlocuitor =  new Paragraph();
 			inlocuitor.setLeading(20.0f);
 			inlocuitor.setTabSettings(new TabSettings(15.0f));
 			inlocuitor.add(Chunk.TABBING);
@@ -361,7 +410,7 @@ public class CerereConcediuOdihnaPDF extends CustomComponent implements View {
 			inloc.add(inCh01);
 			inloc.add(this.getPhraseStrWithDots(45, map.get("inlocuitor")));
 			inlocuitor.add(inloc);
-			document.add(inlocuitor);
+			document.add(inlocuitor);*/
 			
 			final Phrase footer = new Phrase(
 					String.valueOf(this.document.getPageNumber() + 1) + "/" + this.writer.getPageNumber());
@@ -373,59 +422,6 @@ public class CerereConcediuOdihnaPDF extends CustomComponent implements View {
 		this.writer.flush();
 	}
 
-	private String getStrWithDots(final int dots, final String str) {
-		final int strSize = str.length();
-		final StringBuilder sb = new StringBuilder();
-		int dotsRemained;
-		if (strSize > dots) {
-			dotsRemained = 0;
-		} else {
-			dotsRemained = dots - strSize;
-		}
-		for (int i = 0; i < dotsRemained; ++i) {
-			if (i == dotsRemained / 2) {
-				sb.append(str);
-			}
-			sb.append(".");
-		}
-		return sb.toString();
-	}
 
-	private Phrase getPhraseStrWithDots(final int dots, final String str) {
-		final int strSize = str.length();
-		final Phrase sb = new Phrase();
-		int dotsRemained;
-		if (strSize > dots) {
-			dotsRemained = 0;
-		} else {
-			int nrLitereMari = 0;
-			int nrLitereMici = 0;
-			for (int k = 0; k < str.length(); k++) {
-			 if (Character.isUpperCase(str.charAt(k))) nrLitereMari++;
-			 if (Character.isLowerCase(str.charAt(k))) nrLitereMici++;
-			}
-			if(nrLitereMari>0) {
-			dotsRemained = dots-(nrLitereMari*2);
-			dotsRemained = dotsRemained-nrLitereMici;
-			}else {
-			   dotsRemained = dots - strSize;
-			}
-			//dotsRemained = dots - strSize;
-		}
-		Chunk chDots = new Chunk();
-		final Chunk chStr = new Chunk("", this.bold2);
-		chStr.setTextRise(1.7f);
-		for (int i = 0; i < dotsRemained; ++i) {
-			if (i == dotsRemained / 2) {
-				chStr.append(str);
-				sb.add((Element) chDots);
-				sb.add((Element) chStr);
-				chDots = new Chunk();
-			}
-			chDots.append(".");
-		}
-		sb.add((Element) chDots);
-		return sb;
-	}
 }
 

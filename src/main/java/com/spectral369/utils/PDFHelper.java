@@ -1,5 +1,6 @@
 package com.spectral369.utils;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -61,7 +62,7 @@ public class PDFHelper {
 	                // shift baseline based on descent
 	                rec2.getBottom() - bf.getDescentPoint(str, fontSize),0);
 	     
-	      /*  cb.saveState();//patrulaterul albastru
+	        /*cb.saveState();//patrulaterul albastru
 	        cb.setColorStroke(BaseColor.BLUE);
 	        cb.rectangle(rec2.getLeft(), rec2.getBottom(), rec2.getWidth(), rec2.getHeight());
 	        cb.stroke();
