@@ -156,18 +156,20 @@ public class InchiriereUtilajePDF extends CustomComponent implements View {
 			antet.setAlignment(1);
 			document.add(antet);
 			final Paragraph titlu = new Paragraph();
+			
+			final Paragraph nrInreg = new Paragraph();
+			nrInreg.setAlignment(0);
+			Chunk t2 = new Chunk("\n\nNr. " + PDFHelper.getStrWithDots(15, "") + " " + "data "
+					+ PDFHelper.getStrWithDots(20, "") + "\n\n");
+			nrInreg.add(t2);
+			this.document.add(nrInreg);
 
-			final Chunk t1 = new Chunk("\n\n\n\nInchiriere Utilaje\n\n\n", bold2);
+			final Chunk t1 = new Chunk("\n\nCERERE PRIVIND\nINCHIRIEREA UTILAJELOR\n\n", bold2);
 			titlu.setAlignment(1);
 			titlu.add(t1);
 			this.document.add(titlu);
 
-			final Paragraph nrInreg = new Paragraph();
-			nrInreg.setAlignment(2);
-			Chunk t2 = new Chunk("Nr. " + PDFHelper.getStrWithDots(15, "") + " " + "data "
-					+ PDFHelper.getStrWithDots(20, "") + "\n\n");
-			nrInreg.add(t2);
-			this.document.add(nrInreg);
+			
 
 			final Paragraph declaratie = new Paragraph();
 			declaratie.setAlignment(1);
@@ -290,24 +292,34 @@ public class InchiriereUtilajePDF extends CustomComponent implements View {
 			declaratie2.setTabSettings(new TabSettings(15.0f));
 			declaratie2.add(Chunk.TABBING);
 			Chunk dec4 = new Chunk(
-					"Subsemnatul este obligat sa platesca inchirierea utilajelor in termen de 48 de ore de"
-							+ " la terminarea lucrarilor la caseria Primariei Dudestii-Vechi.\n");
+					"\n * Tarife stabilite in conformitate cu prevederile H.C.L Dudestii-Vechi  nr.28 din 11.08.2016.\n\n");
 			declaratie2.add(dec4);
 			declaratie2.add(Chunk.TABBING);
 			Chunk dec5 = new Chunk(
-					"In cazul neplatii in termen de 48 de ore se va impune ca debit la persoana solicitanta "
-							+ "ca taxa 'prestari servicii' de catre departamentul Taxe si Impozite.\n\n\n\n");
+					"Prezenta cerere este valabila doar insotita de dovada achitarii"
+					+ " taxei, conform estimarilor facute de catre solicitant.\n");
 			declaratie2.add(dec5);
+			declaratie2.add(Chunk.TABBING);
+			Chunk dec6 = new Chunk(
+					"Serviciul va fi prestat in limita taxei achitate urmand ca prestarea unui serviciu suplimentar"
+					+ " sa implice achitarea diferentei de taxa, raportat la numarul de ore de lucru.\n");
+			declaratie2.add(dec6);
+			declaratie2.add(Chunk.TABBING);
+			Chunk dec7 = new Chunk(
+					"Inchirierea utilajelor se face pentru minim o ora de lucru.\n\n\n");
+			declaratie2.add(dec7);
 			document.add(declaratie2);
 
 			final Paragraph dataSiSemnatura = new Paragraph();
 			dataSiSemnatura.setLeading(25.0f);
 			dataSiSemnatura.setTabSettings(new TabSettings(300.0f));
 			dataSiSemnatura.setIndentationLeft(65.0f);
-			final Chunk data = new Chunk("Semnatura Solicitant");
+			final Chunk data = new Chunk("Data");
+			data.setUnderline(1.0f, -2f);
 			dataSiSemnatura.add((Element) data);
 			dataSiSemnatura.add((Element) Chunk.TABBING);
-			final Chunk semnatura = new Chunk("Viceprimar\n");
+			final Chunk semnatura = new Chunk("Semnatura\n");
+			semnatura.setUnderline(1.0f, -2f);
 			dataSiSemnatura.add((Element) semnatura);
 			final Chunk dat = new Chunk(PDFHelper.getStrWithDots(30, ""));
 			dataSiSemnatura.add((Element) dat);
@@ -348,17 +360,18 @@ public class InchiriereUtilajePDF extends CustomComponent implements View {
 			antet.setAlignment(1);
 			document.add(antet);
 			final Paragraph titlu = new Paragraph();
-
-			final Chunk t1 = new Chunk("\n\n\n\nInchiriere Utilaje\n\n\n", bold2);
-			titlu.setAlignment(1);
-			titlu.add(t1);
-			this.document.add(titlu);
 			final Paragraph nrInreg = new Paragraph();
-			nrInreg.setAlignment(2);
-			Chunk t2 = new Chunk("Nr. " + PDFHelper.getStrWithDots(15, "") + " " + "data "
+			nrInreg.setAlignment(0);
+			Chunk t2 = new Chunk("\n\nNr. " + PDFHelper.getStrWithDots(15, "") + " " + "data "
 					+ PDFHelper.getStrWithDots(20, "") + "\n\n");
 			nrInreg.add(t2);
 			this.document.add(nrInreg);
+
+			final Chunk t1 = new Chunk("\n\nCERERE PRIVIND\nINCHIRIEREA UTILAJELOR\n\n", bold2);
+			titlu.setAlignment(1);
+			titlu.add(t1);
+			this.document.add(titlu);
+			
 
 			document.add(Chunk.NEWLINE);
 			//
@@ -475,7 +488,7 @@ public class InchiriereUtilajePDF extends CustomComponent implements View {
 			
 			x2 = x3+ pr32.getWidthPoint();
 			x3 = x2 + pr4.getWidthPoint();
-			PDFHelper.getPlainFillTest(map.get("nrCasaAddrLuc"), document, y, x3, x2, writer,false);
+			PDFHelper.getPlainFillTest(map.get("nrCasaAddrLuc")+" .", document, y, x3, x2, writer,false);
 			
 			
 			
@@ -583,24 +596,34 @@ public class InchiriereUtilajePDF extends CustomComponent implements View {
 			declaratie2.setTabSettings(new TabSettings(15.0f));
 			declaratie2.add(Chunk.TABBING);
 			Chunk dec4 = new Chunk(
-					"Subsemnatul este obligat sa platesca inchirierea utilajelor in termen de 48 de ore de"
-							+ " la terminarea lucrarilor la caseria Primariei Dudestii-Vechi.\n");
+					"\n * Tarife stabilite in conformitate cu prevederile H.C.L Dudestii-Vechi  nr.28 din 11.08.2016.\n\n");
 			declaratie2.add(dec4);
 			declaratie2.add(Chunk.TABBING);
 			Chunk dec5 = new Chunk(
-					"In cazul neplatii in termen de 48 de ore se va impune ca debit la persoana solicitanta "
-							+ "ca taxa 'prestari servicii' de catre departamentul Taxe si Impozite.\n\n\n\n");
+					"Prezenta cerere este valabila doar insotita de dovada achitarii"
+					+ " taxei, conform estimarilor facute de catre solicitant.\n");
 			declaratie2.add(dec5);
+			declaratie2.add(Chunk.TABBING);
+			Chunk dec6 = new Chunk(
+					"Serviciul va fi prestat in limita taxei achitate urmand ca prestarea unui serviciu suplimentar"
+					+ " sa implice achitarea diferentei de taxa, raportat la numarul de ore de lucru.\n");
+			declaratie2.add(dec6);
+			declaratie2.add(Chunk.TABBING);
+			Chunk dec7 = new Chunk(
+					"Inchirierea utilajelor se face pentru minim o ora de lucru.\n\n\n");
+			declaratie2.add(dec7);
 			document.add(declaratie2);
 
 			final Paragraph dataSiSemnatura = new Paragraph();
 			dataSiSemnatura.setLeading(25.0f);
 			dataSiSemnatura.setTabSettings(new TabSettings(300.0f));
 			dataSiSemnatura.setIndentationLeft(65.0f);
-			final Chunk data = new Chunk("Semnatura Solicitant");
+			final Chunk data = new Chunk("Data");
+			data.setUnderline(1.0f, -2f);
 			dataSiSemnatura.add((Element) data);
 			dataSiSemnatura.add((Element) Chunk.TABBING);
-			final Chunk semnatura = new Chunk("Viceprimar\n");
+			final Chunk semnatura = new Chunk("Semnatura\n");
+			semnatura.setUnderline(1.0f, -2f);
 			dataSiSemnatura.add((Element) semnatura);
 			final Chunk dat = new Chunk(PDFHelper.getStrWithDots(30, ""));
 			dataSiSemnatura.add((Element) dat);
