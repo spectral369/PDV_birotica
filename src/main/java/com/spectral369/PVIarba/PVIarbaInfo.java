@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import com.spectral369.birotica.MyUI;
+
 import com.vaadin.data.Binder;
 import com.vaadin.data.HasValue;
 import com.vaadin.data.ValueProvider;
@@ -91,7 +91,7 @@ public class PVIarbaInfo extends CustomComponent implements View {
 		backLayout.setMargin(true);
 		backbtn = new Button("Back", VaadinIcons.ARROW_CIRCLE_LEFT);
 		backbtn.addStyleName("quiet");
-		backbtn.addClickListener(evt -> MyUI.navigator.navigateTo("index"));
+		backbtn.addClickListener(evt -> UI.getCurrent().getNavigator().navigateTo("index"));
 		backLayout.addComponent(backbtn);
 		content.addComponent(backLayout);
 		content.setComponentAlignment(backLayout, Alignment.MIDDLE_LEFT);
@@ -522,7 +522,7 @@ public class PVIarbaInfo extends CustomComponent implements View {
 			cnpField.clear();
 
 			pdf = new PVIarbaPDF(map);
-			MyUI.navigator.navigateTo("PVIarbaPDF");
+			UI.getCurrent().getNavigator().navigateTo("PVIarbaPDF");
 		});
 		generateLayout.addComponent(generate);
 		binder.addStatusChangeListener(event -> {
@@ -537,7 +537,7 @@ public class PVIarbaInfo extends CustomComponent implements View {
 		content.setComponentAlignment(generateLayout, Alignment.MIDDLE_CENTER);
 		content.setMargin(false);
 		setCompositionRoot(content);
-		MyUI.navigator.addView("PVIarba", this);
+		UI.getCurrent().getNavigator().addView("PVIarba", this);
 	}
 
 	private void toggleVisibility() {

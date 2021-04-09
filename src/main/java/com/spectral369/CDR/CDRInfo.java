@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.spectral369.birotica.Index;
-import com.spectral369.birotica.MyUI;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValueProvider;
 import com.vaadin.icons.VaadinIcons;
@@ -70,7 +69,7 @@ public class CDRInfo extends CustomComponent implements View {
 		backbtn.addStyleName(ValoTheme.BUTTON_QUIET);
 		backbtn.addClickListener(evt -> {
 
-			MyUI.navigator.navigateTo(Index.NAME);
+			UI.getCurrent().getNavigator().navigateTo(Index.NAME);
 		});
 		backLayout.addComponent(backbtn);
 		content.addComponent(backLayout);
@@ -180,7 +179,7 @@ public class CDRInfo extends CustomComponent implements View {
 			denumireaAutoritatii.clear();
 
 			pdf = new CDRPDF(map);
-			MyUI.navigator.navigateTo(CDRPDF.NAME);
+			UI.getCurrent().getNavigator().navigateTo(CDRPDF.NAME);
 		});
 		generateLayout.addComponent(generate);
 	
@@ -197,7 +196,7 @@ public class CDRInfo extends CustomComponent implements View {
 
 		content.setMargin(false);
 		setCompositionRoot(content);
-		MyUI.navigator.addView(CDRInfo.NAME, this);
+		UI.getCurrent().getNavigator().addView(CDRInfo.NAME, this);
 	}
 
 	private void toggleVisibility() {

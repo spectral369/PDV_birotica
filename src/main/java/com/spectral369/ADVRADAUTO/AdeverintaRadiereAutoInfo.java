@@ -3,7 +3,6 @@ package com.spectral369.ADVRADAUTO;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.spectral369.birotica.MyUI;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValueProvider;
 import com.vaadin.data.converter.StringToIntegerConverter;
@@ -78,7 +77,7 @@ public class AdeverintaRadiereAutoInfo extends CustomComponent implements View {
 		backLayout.setMargin(true);
 		backbtn = new Button("Back", VaadinIcons.ARROW_CIRCLE_LEFT);
 		backbtn.addStyleName("quiet");
-		backbtn.addClickListener(evt -> MyUI.navigator.navigateTo("Index"));
+		backbtn.addClickListener(evt -> UI.getCurrent().getNavigator().navigateTo("Index"));
 		backLayout.addComponent(backbtn);
 		content.addComponent(backLayout);
 		content.setComponentAlignment(backLayout, Alignment.MIDDLE_LEFT);
@@ -503,7 +502,7 @@ public class AdeverintaRadiereAutoInfo extends CustomComponent implements View {
 			titlu.clear();
 			intocmitField.clear();
 			pdf = new AdeverintaRadiereAutoPDF(map);
-			MyUI.navigator.navigateTo("ADVRadiereAutoPDF");
+			UI.getCurrent().getNavigator().navigateTo("ADVRadiereAutoPDF");
 		});
 		generateLayout.addComponent(generate);
 		binder.addStatusChangeListener(event -> {
@@ -518,7 +517,7 @@ public class AdeverintaRadiereAutoInfo extends CustomComponent implements View {
 		content.setComponentAlignment(generateLayout, Alignment.MIDDLE_CENTER);
 		content.setMargin(false);
 		setCompositionRoot(content);
-		MyUI.navigator.addView("ADVRadiereAutoInfo", this);
+		UI.getCurrent().getNavigator().addView("ADVRadiereAutoInfo", this);
 	}
 
 	private void toggleVisibility() {

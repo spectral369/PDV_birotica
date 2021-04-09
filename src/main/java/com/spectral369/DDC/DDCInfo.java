@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.spectral369.birotica.MyUI;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValueProvider;
 import com.vaadin.data.converter.StringToBigIntegerConverter;
@@ -100,7 +99,7 @@ public class DDCInfo extends CustomComponent implements View {
 		backLayout.setMargin(true);
 		backbtn = new Button("Back",VaadinIcons.ARROW_CIRCLE_LEFT);
 		backbtn.addStyleName("quiet");
-		backbtn.addClickListener(evt -> MyUI.navigator.navigateTo("Index"));
+		backbtn.addClickListener(evt -> UI.getCurrent().getNavigator().navigateTo("Index"));
 		backLayout.addComponent(  backbtn);
 		content.addComponent(  backLayout);
 		content.setComponentAlignment(  backLayout, Alignment.MIDDLE_LEFT);
@@ -542,7 +541,7 @@ public class DDCInfo extends CustomComponent implements View {
 			dataField.clear();
 			titlu.clear();
 			pdf = new DDCPDF(map);
-			MyUI.navigator.navigateTo("DDCPDF");
+			UI.getCurrent().getNavigator().navigateTo("DDCPDF");
 		});
 		generateLayout.addComponent(generate);
 		binder.addStatusChangeListener(event -> {
@@ -557,7 +556,7 @@ public class DDCInfo extends CustomComponent implements View {
 		content.setComponentAlignment(  generateLayout, Alignment.MIDDLE_CENTER);
 		content.setMargin(false);
 		setCompositionRoot( content);
-		MyUI.navigator.addView("DDC",this);
+		UI.getCurrent().getNavigator().addView("DDC",this);
 	}
 
 	private void toggleVisibility() {

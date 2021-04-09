@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.spectral369.birotica.MyUI;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValueProvider;
 import com.vaadin.data.converter.StringToBigIntegerConverter;
@@ -80,7 +79,7 @@ public class InchiriereUtilajeInfo extends CustomComponent implements View {
 		backLayout.setMargin(true);
 		backbtn = new Button("Back", VaadinIcons.ARROW_CIRCLE_LEFT);
 		backbtn.addStyleName("quiet");
-		backbtn.addClickListener(evt -> MyUI.navigator.navigateTo("Index"));
+		backbtn.addClickListener(evt -> UI.getCurrent().getNavigator().navigateTo("Index"));
 		backLayout.addComponent(backbtn);
 		content.addComponent(backLayout);
 		content.setComponentAlignment(backLayout, Alignment.MIDDLE_LEFT);
@@ -564,7 +563,7 @@ public class InchiriereUtilajeInfo extends CustomComponent implements View {
 			tractorUtilajField.clear();
 			minicastorField.clear();
 			pdf = new InchiriereUtilajePDF(map);
-			MyUI.navigator.navigateTo("InchiriereUtilajePDF");
+			UI.getCurrent().getNavigator().navigateTo("InchiriereUtilajePDF");
 		});
 		generateLayout.addComponent(generate);
 
@@ -600,7 +599,7 @@ public class InchiriereUtilajeInfo extends CustomComponent implements View {
 		content.setComponentAlignment(generateLayout, Alignment.MIDDLE_CENTER);
 		content.setMargin(false);
 		setCompositionRoot(content);
-		MyUI.navigator.addView("InchiriereUtilajeInfo", this);
+		UI.getCurrent().getNavigator().addView("InchiriereUtilajeInfo", this);
 	}
 
 	private void toggleVisibility() {

@@ -1,23 +1,51 @@
 package com.spectral369.CEAF;
 
 
-import com.vaadin.navigator.*;
-import java.util.*;
-import java.time.*;
-import java.time.format.*;
-import com.vaadin.icons.*;
-import com.vaadin.server.*;
-import com.spectral369.birotica.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
+
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.TabSettings;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.spectral369.utils.Utils;
-import com.vaadin.ui.*;
+import com.vaadin.icons.VaadinIcons;
+import com.vaadin.navigator.View;
+import com.vaadin.server.FileResource;
+import com.vaadin.server.Page;
+import com.vaadin.server.Resource;
+import com.vaadin.server.Sizeable;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.BrowserFrame;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.JavaScript;
+import com.vaadin.ui.JavaScriptFunction;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 
 import elemental.json.JsonArray;
-
-import com.itextpdf.text.*;
-import com.itextpdf.text.Image;
-
-import java.io.*;
-import com.itextpdf.text.pdf.*;
 
 public class CerereEmitereAutorizatieFunctionarePDF extends CustomComponent implements View {
 	private static final long serialVersionUID = 1L;
@@ -100,16 +128,16 @@ public class CerereEmitereAutorizatieFunctionarePDF extends CustomComponent impl
 				this.pdfFile.delete();
 			}
 			CerereEmitereAutorizatieFunctionarePDF.FNAME = "";
-			MyUI.navigator.removeView("CerereEmitereAutorizatieFunctionareInfo");
-			MyUI.navigator.removeView("CerereEmitereAutorizatieFunctionarePDF");
-			MyUI.navigator.navigateTo("Index");
+			UI.getCurrent().getNavigator().removeView("CerereEmitereAutorizatieFunctionareInfo");
+			UI.getCurrent().getNavigator().removeView("CerereEmitereAutorizatieFunctionarePDF");
+			UI.getCurrent().getNavigator().navigateTo("Index");
 		});
 		this.backLayout.addComponent((Component) this.backbtn);
 		this.content.addComponent((Component) this.backLayout);
 		this.content.setComponentAlignment((Component) this.backLayout, Alignment.MIDDLE_CENTER);
 		this.content.setMargin(false);
 		this.setCompositionRoot((Component) this.content);
-		MyUI.navigator.addView("CerereEmitereAutorizatieFunctionarePDF", this);
+		UI.getCurrent().getNavigator().addView("CerereEmitereAutorizatieFunctionarePDF", this);
 		JavaScript.getCurrent().addFunction("aboutToClose", new JavaScriptFunction() {
 
 			/**

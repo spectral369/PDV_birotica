@@ -4,7 +4,6 @@ package com.spectral369.CEAF;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.spectral369.birotica.MyUI;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Alignment;
@@ -44,7 +43,7 @@ public class CerereEmitereAutorizatieFunctionareInfo extends CustomComponent imp
 		backLayout.setMargin(true);
 		backbtn = new Button("Back", VaadinIcons.ARROW_CIRCLE_LEFT);
 		backbtn.addStyleName("quiet");
-		backbtn.addClickListener(evt -> MyUI.navigator.navigateTo("Index"));
+		backbtn.addClickListener(evt -> UI.getCurrent().getNavigator().navigateTo("Index"));
 		backLayout.addComponent(backbtn);
 		content.addComponent(backLayout);
 		content.setComponentAlignment(backLayout, Alignment.MIDDLE_LEFT);
@@ -76,7 +75,7 @@ public class CerereEmitereAutorizatieFunctionareInfo extends CustomComponent imp
 			
 		
 			pdf = new CerereEmitereAutorizatieFunctionarePDF(map);
-			MyUI.navigator.navigateTo("CerereEmitereAutorizatieFunctionarePDF");
+			UI.getCurrent().getNavigator().navigateTo("CerereEmitereAutorizatieFunctionarePDF");
 		});
 		generateLayout.addComponent(generate);
 
@@ -85,7 +84,7 @@ public class CerereEmitereAutorizatieFunctionareInfo extends CustomComponent imp
 		content.setComponentAlignment(generateLayout, Alignment.MIDDLE_CENTER);
 		content.setMargin(false);
 		setCompositionRoot(content);
-		MyUI.navigator.addView("CerereEmitereAutorizatieFunctionareInfo", this);
+		UI.getCurrent().getNavigator().addView("CerereEmitereAutorizatieFunctionareInfo", this);
 	}
 
 	private void toggleVisibility() {

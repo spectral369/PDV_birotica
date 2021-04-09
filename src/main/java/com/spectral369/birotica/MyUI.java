@@ -37,7 +37,7 @@ public class MyUI extends UI {
 	Index index;
 	Panel viewContainer;
 	VerticalLayout layout;
-	public static Navigator navigator;
+	public Navigator navigator;
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {

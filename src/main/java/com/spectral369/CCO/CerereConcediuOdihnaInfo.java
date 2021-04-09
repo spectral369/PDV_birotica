@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.spectral369.birotica.MyUI;
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValueProvider;
 import com.vaadin.icons.VaadinIcons;
@@ -69,7 +68,7 @@ public class CerereConcediuOdihnaInfo extends CustomComponent implements View {
 		backLayout.setMargin(true);
 		backbtn = new Button("Back", VaadinIcons.ARROW_CIRCLE_LEFT);
 		backbtn.addStyleName("quiet");
-		backbtn.addClickListener(evt -> MyUI.navigator.navigateTo("Index"));
+		backbtn.addClickListener(evt -> UI.getCurrent().getNavigator().navigateTo("Index"));
 		backLayout.addComponent(backbtn);
 		content.addComponent(backLayout);
 		content.setComponentAlignment(backLayout, Alignment.MIDDLE_LEFT);
@@ -381,7 +380,7 @@ public class CerereConcediuOdihnaInfo extends CustomComponent implements View {
 			dataStartField.clear();
 			inloctiitorField.clear();
 			pdf = new CerereConcediuOdihnaPDF(map);
-			MyUI.navigator.navigateTo("CerereConcediuOdihnaPDF");
+			UI.getCurrent().getNavigator().navigateTo("CerereConcediuOdihnaPDF");
 		});
 		generateLayout.addComponent(generate);
 		binder.addStatusChangeListener(event -> {
@@ -396,7 +395,7 @@ public class CerereConcediuOdihnaInfo extends CustomComponent implements View {
 		content.setComponentAlignment(generateLayout, Alignment.MIDDLE_CENTER);
 		content.setMargin(false);
 		setCompositionRoot(content);
-		MyUI.navigator.addView("CerereConcediuOdihnaInfo", this);
+		UI.getCurrent().getNavigator().addView("CerereConcediuOdihnaInfo", this);
 	}
 
 	private void toggleVisibility() {

@@ -20,7 +20,6 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.TabSettings;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.spectral369.birotica.Index;
-import com.spectral369.birotica.MyUI;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.navigator.View;
 import com.vaadin.server.FileResource;
@@ -32,6 +31,7 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.JavaScript;
 import com.vaadin.ui.JavaScriptFunction;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -126,9 +126,9 @@ public class CDRPDF extends CustomComponent implements View {
 			if (pdfFile.exists())
 				pdfFile.delete();
 			FNAME = "";
-			MyUI.navigator.removeView(CDRInfo.NAME);
-			MyUI.navigator.removeView(CDRPDF.NAME);
-			MyUI.navigator.navigateTo(Index.NAME);
+			UI.getCurrent().getNavigator().removeView(CDRInfo.NAME);
+			UI.getCurrent().getNavigator().removeView(CDRPDF.NAME);
+			UI.getCurrent().getNavigator().navigateTo(Index.NAME);
 
 		});
 		backLayout.addComponent(backbtn);
@@ -137,7 +137,7 @@ public class CDRPDF extends CustomComponent implements View {
 
 		content.setMargin(false);
 		setCompositionRoot(content);
-		MyUI.navigator.addView(CDRPDF.NAME, this);
+		UI.getCurrent().getNavigator().addView(CDRPDF.NAME, this);
 
 		JavaScript.getCurrent().addFunction("aboutToClose", new JavaScriptFunction() {
 

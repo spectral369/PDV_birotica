@@ -14,7 +14,9 @@ public enum Models {
 	Process_verbal_spatii_verzi(5,"PV Intretinere Spatii Verzi","com.spectral369.PVIarba.PVIarbaInfo"),
 	Inchiriere_Utilaje(6,"Inchiriere Utilaje","com.spectral369.Utilaje.InchiriereUtilajeInfo"),
 	Cerere_acord_functionare(7,"Cerere Acord Functionare","com.spectral369.CEAF.CerereEmitereAutorizatieFunctionareInfo"),
-	Cerere_concediu_odihna(8,"Cerere Concediu","com.spectral369.CCO.CerereConcediuOdihnaInfo");
+	Cerere_concediu_odihna(8,"Cerere Concediu","com.spectral369.CCO.CerereConcediuOdihnaInfo"),
+	Cerere_Capela(9,"Cerere Capela","com.spectral369.capela.CerereCapelaInfo"),
+	Declaratie_pe_propria_raspundere(10,"Declaratie pe Propria Raspundere","com.spectral369.DPR.DeclaratiePePropriaRaspundereInfo");
 	
 	private java.lang.String cls;
     private java.lang.String name;

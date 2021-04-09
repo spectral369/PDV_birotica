@@ -17,6 +17,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -93,8 +94,8 @@ public class Index extends CustomComponent implements View {
 				
 				Constructor<?> constructor = clazz.getConstructor();
 				Object obj = constructor.newInstance();
-				if(obj instanceof CustomComponent)
-					currSel =  (Component)obj;
+				if(obj instanceof CustomComponent  ob)
+					currSel =  ob;
 				} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 				
 					e.printStackTrace();
@@ -126,7 +127,7 @@ public class Index extends CustomComponent implements View {
 				e.printStackTrace();
 			}
 			if(value!="")
-				MyUI.navigator.navigateTo(value);
+				UI.getCurrent().getNavigator().navigateTo(value);
 			
 		});
 		submitLayout.addComponent(submit);
