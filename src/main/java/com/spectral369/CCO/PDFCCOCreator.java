@@ -2,8 +2,6 @@ package com.spectral369.CCO;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 
 import com.itextpdf.io.font.constants.StandardFonts;
@@ -136,7 +134,7 @@ public class PDFCCOCreator {
 		    
 
 	    Paragraph titlu = new Paragraph();
-	    Text t1 = new Text("\n\nCererere Concediu Odihna\n\n\n").setBold().setUnderline();
+	    Text t1 = new Text("\n\nCerere Concediu Odihna\n\n\n").setBold().setUnderline();
 	    titlu.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    titlu.setTextAlignment(TextAlignment.CENTER);
 	    titlu.add(t1).addStyle(PDFHelper.bold12nr);
@@ -178,8 +176,8 @@ public class PDFCCOCreator {
 
 	    semnaturiR.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    Paragraph semnR = new Paragraph();
-	    String dateNow = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-	    Text semnPrim = new Text(dateNow);
+	  //  String dateNow = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+	    Text semnPrim = new Text(PDFHelper.getStrWithDots(30, ""));
 	  //  semnPrim.setUnderline();
 	    semnR.add(semnPrim);
 	    semnR.addTabStops(new TabStop(width / 1.18f, TabAlignment.RIGHT));
@@ -286,7 +284,7 @@ public class PDFCCOCreator {
 		    
 
 	    Paragraph titlu = new Paragraph();
-	    Text t1 = new Text("\n\nCererere Concediu Odihna\n\n\n").setBold().setUnderline();
+	    Text t1 = new Text("\n\nCerere Concediu Odihna\n\n\n").setBold().setUnderline();
 	    titlu.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    titlu.setTextAlignment(TextAlignment.CENTER);
 	    titlu.add(t1).addStyle(PDFHelper.bold12nr);
@@ -343,14 +341,15 @@ public class PDFCCOCreator {
 
 	    semnaturiR.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    Paragraph semnR = new Paragraph();
-	    String dateNow = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-	    Text semnPrim = new Text(dateNow);
-	    semnPrim.setUnderline();
+	    //String dateNow = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+	    
+	    Text semnPrim = new Text(map.get("ziCerere")+"/"+map.get("lunaCerere")+"/"+map.get("anCerere"));
+	    //semnPrim.setUnderline();
 	    semnR.add(semnPrim);
 	    semnR.addTabStops(new TabStop(width / 1.18f, TabAlignment.RIGHT));
 	    semnR.add(new Tab());
 	    Text semnIntocmit = new Text(PDFHelper.getStrWithDots(30, ""));
-	    semnIntocmit.setUnderline();
+	  //  semnIntocmit.setUnderline();
 	    semnR.add(semnIntocmit);
 	    Cell cellt2 = new Cell();
 	    cellt2.setBorder(Border.NO_BORDER);
@@ -369,7 +368,7 @@ public class PDFCCOCreator {
 		
 		 p.add(PDFHelper.createAdjustableParagraph(40,
 			    new Paragraph(map.get("inlocuitor")).setBold().setTextAlignment(TextAlignment.CENTER)).setTextAlignment(TextAlignment.CENTER));
-		 //p.setTextAlignment(TextAlignment.CENTER);
+		 p.setTextAlignment(TextAlignment.CENTER);
 		 Canvas canvas = new Canvas(pdfCanvas, remaining);
 		 canvas.add(p);
 		// canvas.add(p2);

@@ -49,6 +49,8 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
     VerticalLayout infoPart6;
     VerticalLayout infoPart7;
     VerticalLayout infoPart8;
+    HorizontalLayout infoLayout3;
+    VerticalLayout infoPart9;
 
     TextField prenumeField;
     TextField numeField;
@@ -58,6 +60,7 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
     DatePicker dataStartField;
     DatePicker dataEndField;
     TextField inloctiitorField;
+    DatePicker dataCerere;
 
     HorizontalLayout generateLayout;
     Button generate;
@@ -340,11 +343,48 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 	infoPart8.add(inloctiitorField);
 	infoLayout2.add(infoPart8);
 	infoLayout2.setAlignItems( Alignment.CENTER);
+	
+	infoLayout3 =  new HorizontalLayout();
+	infoLayout3.setVisible(false);
+	infoPart9 = new VerticalLayout();
+	dataCerere= new DatePicker("Data Cerere:");
+	dataCerere.setLocale(Locale.getDefault());
+	dataCerere.setRequiredIndicatorVisible(true);
+	binder.forField(dataCerere).asRequired()
+
+		.bind(new ValueProvider<CerereConcediuOdihnaInfo, LocalDate>() {
+
+		    private static final long serialVersionUID = 1L;
+
+		    @Override
+		    public LocalDate apply(CerereConcediuOdihnaInfo source) {
+			return null;
+		    }
+		}, new Setter<CerereConcediuOdihnaInfo, LocalDate>() {
+
+		    private static final long serialVersionUID = 1L;
+
+		    @Override
+		    public void accept(CerereConcediuOdihnaInfo bean, LocalDate fieldvalue) {
+
+		    }
+		});
+
+
+	dataCerere.setErrorMessage("Data Cerere Required !");
+	infoPart9.add(dataCerere);
+	infoLayout3.add(infoPart9);
+	infoLayout3.setAlignItems( Alignment.CENTER);
+	
+	
+	
 
 	content.add(infoLayout);
 	content.setAlignItems(Alignment.CENTER);
 	content.add(infoLayout2);
 	content.setAlignItems( Alignment.CENTER);
+	content.add(infoLayout3);
+	content.setAlignItems(Alignment.CENTER);
 
 	generateLayout = new HorizontalLayout();
 	generate = new Button("Generate", VaadinIcon.FILE_PROCESS.create());
@@ -374,6 +414,11 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 
 		map.put("anConcediu", anField.getValue().trim());
 		map.put("inlocuitor",PDFHelper.capitalizeWords(inloctiitorField.getValue().trim()));
+		dt  =  dataCerere.getValue();
+		dt.format(DateTimeFormatter.ISO_LOCAL_DATE);
+		map.put("ziCerere", String.valueOf(dt.getDayOfMonth()));
+		map.put("lunaCerere", String.valueOf(dt.getMonthValue()));
+		map.put("anCerere",String.valueOf(dt.getYear()));
 	    }
 	    //prenumeField.clear();
 	    numeField.clear();
@@ -383,6 +428,7 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 	    dataEndField.clear();
 	    dataStartField.clear();
 	    inloctiitorField.clear();
+	    dataCerere.clear();
 
 		PDFCCOCreator pdfcr =  new PDFCCOCreator(map,Utils.getTimeStr());
 	 	String fn =  pdfcr.getID();
@@ -416,6 +462,7 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
     private void toggleVisibility() {
 	infoLayout.setVisible(!infoLayout.isVisible());
 	infoLayout2.setVisible(!infoLayout2.isVisible());
+	infoLayout3.setVisible(!infoLayout3.isVisible());
 
 	generate.setEnabled(!generate.isEnabled());
     }
