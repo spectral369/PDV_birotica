@@ -303,8 +303,8 @@ public class PDFUtilajeCreator {
 
 	    semnaturiR.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    Paragraph semnR = new Paragraph();
-	    String dateNow = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-	    Text semnPrim = new Text(dateNow);
+	    //String dateNow = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+	    Text semnPrim = new Text(PDFHelper.getStrWithDots(30, ""));
 	    semnR.add(semnPrim);
 	    semnR.addTabStops(new TabStop(width / 1.18f, TabAlignment.RIGHT));
 	    semnR.add(new Tab());

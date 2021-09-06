@@ -243,7 +243,7 @@ public class PDFCR {
 	    else
 		PF = new String("cu domiciliul\n");
 
-	    dec1.add("Se adevereste de catre noi ca prin prezenta ca ");
+	    dec1.add("Se adevereste de catre noi prin prezenta ca ");
 	    
 	    dec1.add(map.get("titlu") + " ");
 	    dec1.add(PDFHelper.createAdjustableParagraph(46,
