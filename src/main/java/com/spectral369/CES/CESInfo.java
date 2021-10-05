@@ -165,6 +165,8 @@ public class CESInfo extends  HorizontalLayout implements RouterLayout, AfterNav
 		infoPart1.add(prenumeField);
 		infoLayout.add(infoPart1);
 		infoLayout.setAlignItems(  Alignment.CENTER);
+		
+		
 		infoPart2 = new VerticalLayout();
 		numeField = new TextField("Nume Complet Pers. Examinata:");
 		numeField.setRequiredIndicatorVisible(true);
@@ -449,20 +451,20 @@ public class CESInfo extends  HorizontalLayout implements RouterLayout, AfterNav
 		
 		(infoLayout4 = new HorizontalLayout()).setVisible(false);
 		infoPart15 = new VerticalLayout();
-		(incadrareHandicap = new Checkbox("Incadrarii intr-un grad de handicap:")).setRequiredIndicatorVisible(true);
+		(incadrareHandicap = new Checkbox("Incadrarii intr-un grad de handicap")).setRequiredIndicatorVisible(true);
 		infoPart15.add(  incadrareHandicap);
 		infoLayout4.add(  infoPart15);
 		infoLayout4.setAlignItems(   Alignment.CENTER);
 		
 		infoPart16 = new VerticalLayout();
-		(reevaluareHandicap = new Checkbox("Reevaliarii incadrarii in grad de handicap:")).setRequiredIndicatorVisible(true);
+		(reevaluareHandicap = new Checkbox("Reevaliarii incadrarii in grad de handicap")).setRequiredIndicatorVisible(true);
 		infoPart16.add(reevaluareHandicap);
 		infoLayout4.add(infoPart16);
 		infoLayout4.setAlignItems(Alignment.CENTER);
 		
 		infoPart17 = new VerticalLayout();
-		(obtinereOrientare = new Checkbox("Obtinerii certificatului de orientare profesionala:")).setRequiredIndicatorVisible(true);
-		infoPart17.add(reevaluareHandicap);
+		(obtinereOrientare = new Checkbox("Obtinerii certificatului de orientare profesionala")).setRequiredIndicatorVisible(true);
+		infoPart17.add(obtinereOrientare);
 		infoLayout4.add(infoPart17);
 		infoLayout4.setAlignItems(Alignment.CENTER);
 		
@@ -497,7 +499,7 @@ public class CESInfo extends  HorizontalLayout implements RouterLayout, AfterNav
 		addrCorespondenta .setWidth("100%");
 		addrCorespondenta.setMaxLength(50);
 		addrCorespondenta .setMinWidth(30f, Unit.EM);//test
-		infoPart18.add(prenumeField);
+		infoPart18.add(addrCorespondenta);
 		infoLayout4.add(infoPart18);
 		infoLayout4.setAlignItems(  Alignment.CENTER);
 		
@@ -600,7 +602,6 @@ public class CESInfo extends  HorizontalLayout implements RouterLayout, AfterNav
 				map.put("obtinereOrientare", obtinereOrientare.getValue().toString());
 				map.put("mobil", telMobilField.getValue().trim());
 				
-			
 				map.put("data", ((LocalDate) dataField.getValue()).format(DateTimeFormatter.ISO_LOCAL_DATE));
 				map.put("titlu", titlu.getOptionalValue().get());
 			}

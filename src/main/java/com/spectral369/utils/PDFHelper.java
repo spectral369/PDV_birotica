@@ -21,6 +21,7 @@ public class PDFHelper {
     public static final Style bold12nr = new Style();
     public static final Style bold14nr = new Style();
     public static final Style bold9nr = new Style();
+    public static int CODE;
 
     public static void init() {
 	try {
@@ -269,6 +270,11 @@ public class PDFHelper {
 	    str = "________";
 	}
 	return str;
+    }
+    
+    
+    public static void setCheckInt(int code) {
+	CODE = code;
     }
     
 }

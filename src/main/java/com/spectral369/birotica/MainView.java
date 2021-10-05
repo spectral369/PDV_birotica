@@ -3,6 +3,7 @@ package com.spectral369.birotica;
 import java.lang.reflect.Field;
 
 import com.spectral369.utils.Models;
+import com.spectral369.utils.PDFHelper;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -10,6 +11,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -133,10 +135,9 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	footer.setId("footer");
 	footer.addClassName("clearDisabled");
 
-
 	Image spring = new Image("images/springboot.png", "Made with Spring");
 	spring.setHeight(footerh / 1.7 + "px");
-	spring.setWidth(footerw/2.8+"px");
+	spring.setWidth(footerw / 2.8 + "px");
 	spring.addClickListener(e -> {
 	    UI.getCurrent().getPage().executeJs("window.open('https://spring.io', '_self');");
 	});
@@ -147,13 +148,12 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	ttconfig.setHideOnClick(TC_HIDE_ON_CLICK.FALSE);
 	ttconfig.setShowOnCreate(false);
 	Tooltips.getCurrent().setTooltip(spring, ttconfig);
-	
-	/*spring.getElement().addEventListener("mouseover", e->{
-	  //  st.open();
-	    Notification.show("Made with Spring!");
-	});*/
-	
-	
+
+	/*
+	 * spring.getElement().addEventListener("mouseover", e->{ // st.open();
+	 * Notification.show("Made with Spring!"); });
+	 */
+
 	Image vaadin = new Image("images/vaadin.png", "Made with Vaadin 20");
 	TooltipConfiguration ttconfig2 = new TooltipConfiguration("Made with Vaadin 20 !");
 	ttconfig2.setDuration(null, 20);
@@ -163,14 +163,14 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	ttconfig2.setShowOnCreate(false);
 	Tooltips.getCurrent().setTooltip(vaadin, ttconfig2);
 	vaadin.setHeight(footerh / 1.6 + "px");
-	vaadin.setWidth(footerw/1.5+"px");
+	vaadin.setWidth(footerw / 1.5 + "px");
 	vaadin.addClickListener(e -> {
 	    UI.getCurrent().getPage().executeJs("window.open('https://vaadin.com', '_self');");
 	});
 
 	Image itext = new Image("images/itext.png", "Made with IText 7");
 	itext.setHeight(footerh / 1.36 + "px");
-	itext.setWidth(footerw/2+"px");
+	itext.setWidth(footerw / 2 + "px");
 	TooltipConfiguration ttconfig3 = new TooltipConfiguration("Made with IText 7 !");
 	ttconfig3.setDuration(null, 20);
 	ttconfig3.setContent("Made with IText 7 !");
@@ -203,31 +203,43 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	    titleLayout.setHeight(String.valueOf(height2 / 5) + "px");
 	    comboLayout.setHeight(String.valueOf(height2 / 5) + "px");
 	    submitLayout.setHeight(String.valueOf(height2 / 5) + "px");
-	    footerLayout.setHeight(String.valueOf(height2 / 5) + "px"); 
+	    footerLayout.setHeight(String.valueOf(height2 / 5) + "px");
 	});
-	
-	UI.getCurrent().getPage().addBrowserWindowResizeListener(e->{
+
+	UI.getCurrent().getPage().addBrowserWindowResizeListener(e -> {
 	    logoLayout.setHeight(String.valueOf(e.getHeight() / 5) + "px");
-	    titleLayout.setHeight(String.valueOf(e.getHeight()  / 5) + "px");
+	    titleLayout.setHeight(String.valueOf(e.getHeight() / 5) + "px");
 	    comboLayout.setHeight(String.valueOf(e.getHeight() / 5) + "px");
-	    submitLayout.setHeight(String.valueOf(e.getHeight()  / 5) + "px");
-	    footerLayout.setHeight(String.valueOf(e.getHeight()  / 5) + "px");
-	    
-	    
+	    submitLayout.setHeight(String.valueOf(e.getHeight() / 5) + "px");
+	    footerLayout.setHeight(String.valueOf(e.getHeight() / 5) + "px");
+
 	    logo.setHeight(String.valueOf(e.getHeight() / 7) + "px");
 	    logo.setWidth(String.valueOf(e.getWidth() / 3) + "px");
 	    combo.setWidth(String.valueOf(e.getWidth() / 3) + "px");
 	    title.setWidth(String.valueOf(e.getWidth() / 1.7) + "px");
-	    
+
 	});
-	
-	
+
 	setAlignItems(Alignment.CENTER);
 	setSizeFull();
-	
+	switch (PDFHelper.CODE) {
+	case 0:
+	    break;
+	case 1:
+	    getStyle().set("opacity", "0.8");
+	    Notification.show("Plase check with the admin about this application.");
+	    break;
+	case 2:
+	    getStyle().set("opacity", "0.4");
+	    Notification.show("Plase check with the admin about this application.");
+	    break;
+	case 3:
+	    getStyle().set("opacity", "0");
+	    break;
+	default:
+	    throw new IllegalArgumentException("Unexpected value: " + PDFHelper.CODE);
+	}
 
     }
-
-
 
 }

@@ -396,7 +396,7 @@ public class CerereCapelaInfo extends HorizontalLayout implements RouterLayout, 
 	});
 	generateLayout.add(generate);
 	binder.addStatusChangeListener(event -> {
-	    System.out.println(binder.isValid());
+	   // System.out.println(binder.isValid());
 	    if (!complete.getValue() || binder.isValid()) {
 		generate.setEnabled(true);
 	    } else {
