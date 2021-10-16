@@ -190,16 +190,18 @@ public class PDFCEAFCreator {
 	    orar2.add(PDFHelper.addTab());
 	    orar2.add(PDFHelper.addTab());
 	    orar2.add(PDFHelper.addTab());
+	    orar2.add(PDFHelper.addTab());
 	    Text ora2 = new Text("Sambata " + PDFHelper.getStrWithDots(25, "") + "\n");
 	    orar2.add(ora2);
 
 	    Paragraph orar3 = new Paragraph();
-	    orar2.add(PDFHelper.addTab());
-	    orar2.add(PDFHelper.addTab());
-	    orar2.add(PDFHelper.addTab());
-	    orar2.add(PDFHelper.addTab());
-	    orar2.add(PDFHelper.addTab());
-	    orar2.add(PDFHelper.addTab());
+	    orar3.add(PDFHelper.addTab());
+	    orar3.add(PDFHelper.addTab());
+	    orar3.add(PDFHelper.addTab());
+	    orar3.add(PDFHelper.addTab());
+	    orar3.add(PDFHelper.addTab());
+	    orar3.add(PDFHelper.addTab());
+	    orar3.add(PDFHelper.addTab());
 	    Text ora3 = new Text("Duminica " + PDFHelper.getStrWithDots(25, "") + "\n");
 	    orar3.add(ora3);
 

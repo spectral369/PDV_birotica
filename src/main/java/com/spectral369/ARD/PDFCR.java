@@ -71,8 +71,6 @@ public class PDFCR {
 	    document.getDocumentInfo().addCreationDate();
 	    document.getDocumentInfo().setAuthor("spectral369");
 	    document.getDocumentInfo().setTitle("Adeverinta_de_radiere_auto_" + tm);
-	    // document.addHeader("Page count", String.valueOf( document.getPageNumber() +
-	    // 1));
 
 	    document.setDefaultPageSize(PageSize.A4);
 	    Document doc = new Document(document);
@@ -83,21 +81,14 @@ public class PDFCR {
 	    // document.addTitle();
 	    final Paragraph antet = new Paragraph();
 
-	    float documentWidth = document.getDefaultPageSize().getWidth() - doc.getLeftMargin() - doc.getRightMargin();// document.getPageSize().getWidth()
-															// -
-															// document.leftMargin()
-															// -
-															// document.rightMargin();
-
+	    float documentWidth = document.getDefaultPageSize().getWidth() - doc.getLeftMargin() - doc.getRightMargin();
 	    float documentHeight = document.getDefaultPageSize().getHeight() - doc.getTopMargin()
-		    - doc.getBottomMargin();// document.getPageSize().getHeight() - document.topMargin() -
-					    // document.bottomMargin();
+		    - doc.getBottomMargin();
 	    antetLogo.scaleToFit(documentWidth, documentHeight);
 
 	    antet.add(antetLogo);
-	    // antet.setAlignment(1);
+
 	    antet.setHorizontalAlignment(HorizontalAlignment.CENTER);
-	    // document.add(antet);
 	    doc.add(antet);
 
 	    final Paragraph nrInreg = new Paragraph();
@@ -160,12 +151,12 @@ public class PDFCR {
 	    Paragraph semnR = new Paragraph();
 
 	    Text semnPrim = new Text(PDFHelper.getStrWithDots(30, ""));
-	   // semnPrim.setUnderline();
+
 	    semnR.add(semnPrim);
 	    semnR.addTabStops(new TabStop(width / 1.18f, TabAlignment.RIGHT));
 	    semnR.add(new Tab());
 	    Text semnIntocmit = new Text(PDFHelper.getStrWithDots(30, ""));
-	   // semnIntocmit.setUnderline();
+
 	    semnR.add(semnIntocmit);
 	    Cell cell2 = new Cell();
 	    cell2.setBorder(Border.NO_BORDER);
@@ -187,7 +178,7 @@ public class PDFCR {
 	    writer = new PdfWriter(pdfFile);
 	    Image antetLogo = PDFHelper.getAntetLogo();
 	    document = new PdfDocument(writer);
-	    // document.getDocumentInfo.("spectral369");
+
 	    document.getDocumentInfo().addCreationDate();
 	    document.getDocumentInfo().setAuthor("spectral369");
 	    document.getDocumentInfo().setTitle("Adeverinta_de_radiere_auto_" + tm);
@@ -203,18 +194,9 @@ public class PDFCR {
 
 	    final Paragraph antet = new Paragraph();
 
-	    // float documentWidth = document.getPageSize().getWidth() -
-	    // document.leftMargin() - document.rightMargin();
-	    // float documentHeight = document.getPageSize().getHeight() -
-	    // document.topMargin() - document.bottomMargin();
-	    float documentWidth = document.getDefaultPageSize().getWidth() - doc.getLeftMargin() - doc.getRightMargin();// document.getPageSize().getWidth()
-															// -
-															// document.leftMargin()
-															// -
-															// document.rightMargin();
+	    float documentWidth = document.getDefaultPageSize().getWidth() - doc.getLeftMargin() - doc.getRightMargin();
 	    float documentHeight = document.getDefaultPageSize().getHeight() - doc.getTopMargin()
-		    - doc.getBottomMargin();// document.getPageSize().getHeight() - document.topMargin() -
-					    // document.bottomMargin();
+		    - doc.getBottomMargin();
 	    antetLogo.scaleToFit(documentWidth, documentHeight);
 
 	    antet.add(antetLogo);
@@ -244,11 +226,11 @@ public class PDFCR {
 		PF = new String("cu domiciliul\n");
 
 	    dec1.add("Se adevereste de catre noi prin prezenta ca ");
-	    
+
 	    dec1.add(map.get("titlu") + " ");
 	    dec1.add(PDFHelper.createAdjustableParagraph(46,
 		    new Paragraph(map.get("nume")).setBold().setTextAlignment(TextAlignment.CENTER)));
-	    dec1.add(" " + PF+" in");
+	    dec1.add(" " + PF + " in");
 	    dec1.add(PDFHelper.createAdjustableParagraph(40,
 		    new Paragraph(map.get("localitate")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" numarul ");
@@ -264,21 +246,22 @@ public class PDFCR {
 	    dec1.add(PDFHelper.createAdjustableParagraph(12,
 		    new Paragraph(map.get("capacitate")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" serie motor ");
-	    dec1.add(PDFHelper.createAdjustableParagraph(20,
-		    new Paragraph(PDFHelper.solveIfEmpty(map.get("serieMotor"))).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    dec1.add(
+		    PDFHelper.createAdjustableParagraph(20, new Paragraph(PDFHelper.solveIfEmpty(map.get("serieMotor")))
+			    .setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" serie sasiu ");
 	    dec1.add(PDFHelper.createAdjustableParagraph(60,
 		    new Paragraph(map.get("serieSasiu")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" numarul de inmatriculare ");
 	    dec1.add(PDFHelper.createAdjustableParagraph(30,
-		    new Paragraph(PDFHelper.solveIfEmpty(map.get("nrInmatriculare"))).setBold().setTextAlignment(TextAlignment.CENTER)));
+		    new Paragraph(PDFHelper.solveIfEmpty(map.get("nrInmatriculare"))).setBold()
+			    .setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" la \nadresa ");
 	    dec1.add(PDFHelper.createAdjustableParagraph(55,
 		    new Paragraph(map.get("addrDepozitare")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" .\n\n");
-   
-	    doc.add(dec1);
 
+	    doc.add(dec1);
 
 	    Paragraph dec02 = new Paragraph();
 	    dec02.add(new Text("\n\n"));

@@ -19,6 +19,9 @@ public class PdfList {
     public static String getPath(String id) {
 	return pdfList.get(id);
     }
+    public static Boolean isFilePresent(String id) {
+	return pdfList.containsKey(id);
+    }
 
     
 

@@ -1,12 +1,12 @@
 package com.spectral369.DDC;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
+import com.spectral369.ARD.AdeverintaRadiereAutoPDF;
 import com.spectral369.birotica.MainView;
 import com.spectral369.birotica.PdfList;
 import com.spectral369.utils.PdfView;
@@ -19,11 +19,13 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
+import com.vaadin.flow.router.BeforeLeaveEvent;
+import com.vaadin.flow.router.BeforeLeaveObserver;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
 
-public class DDCPDF extends HorizontalLayout implements RouterLayout, AfterNavigationObserver {
+public class DDCPDF extends HorizontalLayout implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver {
 
     private static final long serialVersionUID = 1L;
     public static final String NAME = "DDCPDF";
@@ -37,6 +39,7 @@ public class DDCPDF extends HorizontalLayout implements RouterLayout, AfterNavig
     Button backbtn;
     String fileName = null;
     PdfView pdfView = null;
+    private Map<String, List<String>> parameters = null;
 
     static {
 	DDCPDF.FNAME = "";
@@ -51,7 +54,7 @@ public class DDCPDF extends HorizontalLayout implements RouterLayout, AfterNavig
 
 	title = new Button("Generated PDF", VaadinIcon.FILE_PRESENTATION.create());
 	title.setEnabled(false);
-	// this.title.addStyleNames(new String[] { "borderless", "clearDisabled" });
+	
 	title.getClassNames().add("borderless");
 	title.getClassNames().add("clearDisabled");
 	titleLayout.add(title);
@@ -77,24 +80,7 @@ public class DDCPDF extends HorizontalLayout implements RouterLayout, AfterNavig
 
 	RouterLink routerLink = new RouterLink("", MainView.class);
 	routerLink.getElement().appendChild(backbtn.getElement());
-	this.backbtn.addClickListener(evt -> {
-	    if (fileName != null) {
-
-		File pd = new File(Utils.getFullPath(fileName, false));
-		try {
-		    System.out.println("before del: " + pd.getAbsolutePath());
-		    System.out.println("del1: " + Files.deleteIfExists(Path.of(pd.getAbsolutePath())));
-		} catch (IOException e) {
-		 
-		    e.printStackTrace();
-		}
-
-		PdfList.deleteFile(fileName);
-
-	    }
-	    RouteConfiguration.forSessionScope().removeRoute(DDCPDF.class);
-	    RouteConfiguration.forSessionScope().removeRoute(NAME);
-	});
+	
 	backLayout.add(routerLink);
 	content.add(backLayout);
 	content.setAlignItems(Alignment.CENTER);
@@ -103,41 +89,68 @@ public class DDCPDF extends HorizontalLayout implements RouterLayout, AfterNavig
 
 	setSizeFull();
 
-	UI.getCurrent().getPage().executeJs(
-		"window.addEventListener('beforeunload', function (e) {    $0.$server.windowClosed(); var nAgt = navigator.userAgent;if ((verOffset=nAgt.indexOf('Chrome'))!=-1) { (e || window.event).returnValue = null ; } return; });",
-		getElement());
-
+	 UI.getCurrent().getPage().executeJs(
+		 "window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ",getElement()); //does not trigger on tab close !!!!!!!
+	 UI.getCurrent().getPage().executeJs(
+		 "window.addEventListener('unload', () => $0.$server.windowClosed()); ",getElement()); //does  trigger on tab close !!!!!!!
+	
+	
+	
     }
 
     @ClientCallable
     public void windowClosed() {
 	System.out.println("Window closed");
-	
+
 	try {
 	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
 	} catch (IOException e) {
+
 	    e.printStackTrace();
 	}
-	PdfList.deleteFile(fileName);
+	if(PdfList.isFilePresent(fileName))
+	    PdfList.deleteFile(fileName);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
-	RouteConfiguration.forSessionScope().removeRoute(DDCPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
     }
+
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
+	parameters = event.getLocation().getQueryParameters().getParameters();
 
-	    Map<String, List<String>> parameters = event.getLocation().getQueryParameters().getParameters();
+	if (fileName == null) {
+	    fileName = new String(parameters.get("tm").get(0));
+	}
+	if (!fileName.isEmpty()) {
+
+	    pdfView.add(Utils.getFullPath(fileName, true));
+	}
 	
-	    	if(fileName == null) {
-	    	fileName = new String(parameters.get("tm").get(0));
-	    	}
-	    	if(!fileName.isEmpty()) {
-	    	 
-	    
-	    	pdfView.add(Utils.getFullPath(fileName,true));
-	    	}
-		
-		RouteConfiguration.forSessionScope().removeRoute(DDCPDF.class);
-		RouteConfiguration.forSessionScope().removeRoute(NAME);
+	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(NAME);
+    }
 
+    @Override
+    public void beforeLeave(BeforeLeaveEvent event) {
+	
+
+	if (fileName == null) {
+	    fileName = new String(parameters.get("tm").get(0));
+	}
+	if (!fileName.isEmpty()) {
+
+	    pdfView.add(Utils.getFullPath(fileName, true));
+	}
+	try {
+	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
+	    if(PdfList.isFilePresent(fileName))
+		    PdfList.deleteFile(fileName);
+	} catch (IOException e) {
+
+	    e.printStackTrace();
+	}
+	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(NAME);
+	
     }
 }
