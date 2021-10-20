@@ -5,10 +5,7 @@ import java.io.IOException;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.itextpdf.io.font.constants.StandardFonts;
 import com.itextpdf.io.image.ImageDataFactory;
-import com.itextpdf.kernel.font.PdfFont;
-import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.layout.Style;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
@@ -22,25 +19,6 @@ public class PDFHelper {
     public static final Style bold14nr = new Style();
     public static final Style bold9nr = new Style();
     public static int CODE;
-
-    public static void init() {
-	try {
-	    PdfFont bold10 = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
-	    bold10nr.setFont(bold10).setFontSize(10);
-
-	    PdfFont bold12 = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
-	    bold12nr.setFont(bold12).setFontSize(12);
-
-	    PdfFont bold14 = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
-	    bold14nr.setFont(bold14).setFontSize(14);
-
-	    PdfFont bold9 = PdfFontFactory.createFont(StandardFonts.TIMES_BOLD);
-	    bold9nr.setFont(bold9).setFontSize(9);
-
-	} catch (IOException e) {
-	    e.printStackTrace();
-	}
-    }
 
     public static Paragraph getPlainStr(final String str) {
 	Paragraph par = new Paragraph();

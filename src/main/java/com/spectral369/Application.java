@@ -14,7 +14,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.core.env.Environment;
 import org.vaadin.artur.helpers.LaunchUtil;
 
-import com.spectral369.utils.PDFHelper;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.component.page.Meta;
 import com.vaadin.flow.component.page.Push;
@@ -46,7 +45,7 @@ public class Application extends SpringBootServletInitializer implements AppShel
 	public static void main(String[] args) {
      //   LaunchUtil.launchBrowserInDevelopmentMode(SpringApplication.run(Application.class, args));
           SpringApplication app = new SpringApplication(Application.class);
-          PDFHelper.init();//test
+        //  PDFHelper.init();//test
        //   PDFHelper.setCheckInt(checkIfOK(setGetId()));
           app.setBanner(new Banner() {
 			

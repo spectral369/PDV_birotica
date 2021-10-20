@@ -1,4 +1,5 @@
-package com.spectral369.CES;
+package com.spectral369.CSPH;
+
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,10 +28,10 @@ import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
 
-public class CESPDF extends HorizontalLayout implements RouterLayout, AfterNavigationObserver,BeforeLeaveObserver,BeforeEnterObserver {
-
+public class CerereScutirePersoaneHandicapPDF extends HorizontalLayout
+	implements RouterLayout, AfterNavigationObserver,BeforeLeaveObserver, BeforeEnterObserver {
     private static final long serialVersionUID = 1L;
-    public static final String NAME = "CESPDF";
+    public static final String NAME = "CerereScutirePersoaneHandicap";
     public static String FNAME;
 
     VerticalLayout content;
@@ -44,10 +45,10 @@ public class CESPDF extends HorizontalLayout implements RouterLayout, AfterNavig
     private Map<String, List<String>> parameters = null;
 
     static {
-	CESPDF.FNAME = "";
+	CerereScutirePersoaneHandicapPDF.FNAME = "";
     }
 
-    public CESPDF() {
+    public CerereScutirePersoaneHandicapPDF() {
 
 	
 
@@ -81,7 +82,6 @@ public class CESPDF extends HorizontalLayout implements RouterLayout, AfterNavig
 
 	RouterLink routerLink = new RouterLink("", MainView.class);
 	routerLink.getElement().appendChild(backbtn.getElement());
-	
 	backLayout.add(routerLink);
 	content.add(backLayout);
 	content.setAlignItems(Alignment.CENTER);
@@ -89,6 +89,7 @@ public class CESPDF extends HorizontalLayout implements RouterLayout, AfterNavig
 	add(content);
 
 	setSizeFull();
+
 	 UI.getCurrent().getPage().executeJs(
 		 "window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ",getElement()); //does not trigger on tab close !!!!!!!
 	 UI.getCurrent().getPage().executeJs(
@@ -113,7 +114,6 @@ public class CESPDF extends HorizontalLayout implements RouterLayout, AfterNavig
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
 	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
     }
-
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
 	//parameters = event.getLocation().getQueryParameters().getParameters();
@@ -159,5 +159,6 @@ public class CESPDF extends HorizontalLayout implements RouterLayout, AfterNavig
 	     pdfView.add(Utils.getFullPath(fileName, true));
 
 	}
+	
     }
 }

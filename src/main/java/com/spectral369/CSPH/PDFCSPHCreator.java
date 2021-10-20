@@ -1,4 +1,5 @@
-package com.spectral369.DPR;
+package com.spectral369.CSPH;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -27,17 +28,17 @@ import com.spectral369.utils.FooterEvt;
 import com.spectral369.utils.PDFHelper;
 import com.spectral369.utils.Utils;
 
-public class PDFDPRCreator {
+public class PDFCSPHCreator {
 
     
     File pdff = null;
     private transient PdfDocument document;
     private transient PdfWriter writer;
-    String id = Utils.getRandomStringSerial("DPR");
+    String id = Utils.getRandomStringSerial("CSPH");
 
-    public PDFDPRCreator(Map<String, String> map, String tm) {
+    public PDFCSPHCreator(Map<String, String> map, String tm) {
 	
-	pdff = new File(Utils.getSaveFileLocation("Declaratie_pe_Propria_raspundere" + tm + ".pdf"));
+	pdff = new File(Utils.getSaveFileLocation("Cerere_Scutire_Persoane_Handicap" + tm + ".pdf"));
 	if (map.isEmpty()) {
 	    generatePDF(tm, pdff);
 	    PdfList.addFile(id, pdff.getAbsolutePath());
@@ -60,56 +61,43 @@ public class PDFDPRCreator {
     private void generatePDF(final String tm, final File pdfFile) {
 	try {
 	    writer = new PdfWriter(pdfFile);
-	    Image antetLogo = PDFHelper.getAntetLogo();
+	   
 	    document = new PdfDocument(writer);
 	    document.getDocumentInfo().addCreationDate();
 	    document.getDocumentInfo().setAuthor("spectral369");
-	    document.getDocumentInfo().setTitle("DPR_" + tm);
+	    document.getDocumentInfo().setTitle("CSPH_" + tm);
 	    document.setDefaultPageSize(PageSize.A4);
 	    Document doc = new Document(document);
 	    float width = doc.getPageEffectiveArea(PageSize.A4).getWidth();
 	    document.addEventHandler(PdfDocumentEvent.START_PAGE, new FooterEvt(width));
 
-	    final Paragraph antet = new Paragraph();
-
-	    float documentWidth = document.getDefaultPageSize().getWidth() - doc.getLeftMargin() - doc.getRightMargin();
-
-	    float documentHeight = document.getDefaultPageSize().getHeight() - doc.getTopMargin()
-		    - doc.getBottomMargin();
-
-	    antetLogo.scaleToFit(documentWidth, documentHeight);
-
-	    antet.add(antetLogo);
-	    antet.setHorizontalAlignment(HorizontalAlignment.CENTER);
-	    doc.add(antet);
-
 	    final Paragraph nrInreg = new Paragraph();
 	    nrInreg.add("\n\n");
-	    nrInreg.add(new Tab());
+	  //  nrInreg.add(new Tab());
 	    Text nrI = new Text(
-		    "\tNr. " + PDFHelper.getStrWithDots(15, "") + " " + "data " + PDFHelper.getStrWithDots(20, ""));
+		    "CERERE SCUTIRE PENTRU PERSOANELE \n"
+		    + "CU GRAD DE HANDICAP Nr. " + PDFHelper.getStrWithDots(15, "") + " " + "data " + PDFHelper.getStrWithDots(20, "")+"\n\n").setBold();
 	    nrInreg.add(nrI);
+	    nrInreg.setTextAlignment(TextAlignment.CENTER);
 	    doc.add(nrInreg);
-
-	    final Paragraph titlu = new Paragraph();
-	    Text t1 = new Text("\n\nDECLARATIE PE PROPRIA RASPUNDERE\n\n").setBold();
-	    titlu.setHorizontalAlignment(HorizontalAlignment.CENTER);
-	    titlu.setTextAlignment(TextAlignment.CENTER);
-	    titlu.add(t1).addStyle(PDFHelper.bold12nr);
-	    doc.add(titlu);
 
 	    final Paragraph declaratie = new Paragraph();
 	    declaratie.add(PDFHelper.addTab());
 	    Text dec1 = new Text("Subsemnatul/a " + PDFHelper.getStrWithDots(100, "") + " domiciliat/a \nin "
 		    + PDFHelper.getStrWithDots(135, "") + " legitimat/a cu C.I seria "
 		    + PDFHelper.getStrWithDots(10, "") + " nr. " + PDFHelper.getStrWithDots(15, "") + " avand C.N.P "
-		    + PDFHelper.getStrWithDots(55, "") + " .\n");
+		    + PDFHelper.getStrWithDots(55, "") + " telefon "+PDFHelper.getStrWithDots(20, ""));
 	    declaratie.add(dec1);
-	    declaratie.add(PDFHelper.addTab());
-	    Text dec11 = new Text("Prin prezenta declar ca:\n " + PDFHelper.getStrWithDots(466, "") + " .\n");
+	    Text dec11 = new Text(" solicit scutirea impozitului/taxei pe cladire si teren<curti constructii> la imobilul de domiciliu si mijlocul de transport"
+	    	+ " marca "+PDFHelper.getStrWithDots(20, "")+" conform art.456 alin. 1 lit. 't'; art. 454 alin. 1 lit 't', si/sau art. 469 alin. 1 lit 'b' din "
+	    		+ "Legea Nr. 227/2015 privind Codul Fiscal cu modificarile si completarile ulterioare. Declar ca imobilul [este] / [nu este] folosit "
+	    		+ "in scop economic sau de agrement.\n"
+	    		+ "Mentionez ca sunt(dupa caz) : - persoana cu handicap grav sau accentuat; -persoana incadrata in gradul I de invaliditate; "
+	    		+ "-reprezentant legal al persoanei cu handicap grav/ accentuat sau incadrata im grad I de invaliditate.\n");
 	    declaratie.add(dec11);
+	    //TODO finish this !
 	    declaratie.add(PDFHelper.addTab());
-	    Text dec12 = new Text("Anexez prezentei urmatoarele documente:\n");
+	    Text dec12 = new Text("Anexez prezentei copii ale documentelor justificative, certificate in conformitate cu originalul:\n");
 	    declaratie.add(dec12);
 	    Text dec13 = new Text(PDFHelper.getStrWithDots(310, "") + " .\n\n");
 	    declaratie.add(dec13);

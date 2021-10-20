@@ -20,6 +20,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.BeforeLeaveEvent;
 import com.vaadin.flow.router.BeforeLeaveObserver;
 import com.vaadin.flow.router.RouteConfiguration;
@@ -27,7 +29,7 @@ import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
 
 public class CerereConcediuOdihnaPDF extends HorizontalLayout
-	implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver {
+	implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver, BeforeEnterObserver {
     private static final long serialVersionUID = 1L;
     public static final String NAME = "CerereConcediuOdihnaPDF";
     public static String FNAME;
@@ -113,18 +115,17 @@ public class CerereConcediuOdihnaPDF extends HorizontalLayout
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
 	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
     }
-
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
-	parameters = event.getLocation().getQueryParameters().getParameters();
+	//parameters = event.getLocation().getQueryParameters().getParameters();
 
 	if (fileName == null) {
 	    fileName = new String(parameters.get("tm").get(0));
 	}
-	if (!fileName.isEmpty()) {
+	/*if (!fileName.isEmpty()) {
 
-	    pdfView.add(Utils.getFullPath(fileName, true));
-	}
+	     pdfView.add(Utils.getFullPath(fileName, true));
+	}*/
 
 	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
@@ -133,13 +134,6 @@ public class CerereConcediuOdihnaPDF extends HorizontalLayout
     @Override
     public void beforeLeave(BeforeLeaveEvent event) {
 
-	if (fileName == null) {
-	    fileName = new String(parameters.get("tm").get(0));
-	}
-	if (!fileName.isEmpty()) {
-
-	    pdfView.add(Utils.getFullPath(fileName, true));
-	}
 	try {
 	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
 	    if (PdfList.isFilePresent(fileName))
@@ -151,5 +145,20 @@ public class CerereConcediuOdihnaPDF extends HorizontalLayout
 	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
 
+    }
+
+    @Override
+    public void beforeEnter(BeforeEnterEvent event) {
+	
+	parameters = event.getLocation().getQueryParameters().getParameters();
+
+	if (fileName == null) {
+	    fileName = new String(parameters.get("tm").get(0));
+	}
+	if (!fileName.isEmpty()) {
+	  //  System.out.println("Before enter event "+fileName);
+	     pdfView.add(Utils.getFullPath(fileName, true));
+
+	}
     }
 }
