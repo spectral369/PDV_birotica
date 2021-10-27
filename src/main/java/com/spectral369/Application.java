@@ -1,9 +1,11 @@
 package com.spectral369;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.UUID;
 
@@ -47,6 +49,7 @@ public class Application extends SpringBootServletInitializer implements AppShel
           SpringApplication app = new SpringApplication(Application.class);
         //  PDFHelper.init();//test
        //   PDFHelper.setCheckInt(checkIfOK(setGetId()));
+     
           app.setBanner(new Banner() {
 			
 			@Override
@@ -59,7 +62,7 @@ public class Application extends SpringBootServletInitializer implements AppShel
 			}
 		});
        LaunchUtil.launchBrowserInDevelopmentMode( app.run(args));
-     
+       System.out.println("id ="+getid());
     }
 	
 	
@@ -99,6 +102,47 @@ public class Application extends SpringBootServletInitializer implements AppShel
 	    //TODO implement check
 	    
 	    return 0;
+	}
+	
+	protected static String getid() {
+	String OS = System.getProperty("os.name").toLowerCase();
+	    String machineId = null;
+	    if (OS.indexOf("win") >= 0) {
+	        StringBuffer output = new StringBuffer();
+	        Process process;
+	        String[] cmd = {"wmic", "csproduct", "get", "UUID"};  
+	        try {
+	            process = Runtime.getRuntime().exec(cmd);
+	            process.waitFor();
+	            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+	            String line = "";
+	            while ((line = reader.readLine()) != null) {
+	                output.append(line + "\n");
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        machineId = output.toString();
+	    } else if (OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0) {
+
+	        StringBuffer output = new StringBuffer();
+	        Process process;
+	       // String[] cmd = {"/bin/sh", "-c", "echo <root password> | sudo -S cat /sys/class/dmi/id/product_uuid"};
+	        String [] cmd = {"/bin/sh","-c", "lshw |grep -m1 'serial:'"};
+	        try {
+	            process = Runtime.getRuntime().exec(cmd);
+	            process.waitFor();
+	            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+	            String line = "";
+	            while ((line = reader.readLine()) != null) {
+	                output.append(line.trim() + "\n");
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        machineId = output.toString();
+	    }
+	    return machineId;
 	}
 	
 	

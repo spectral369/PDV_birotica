@@ -60,7 +60,7 @@ class AutoScalingParagraphRenderer extends ParagraphRenderer {
             		//System.out.println("--> innersize: "+diff);
             //	getOccupiedArea().getBBox().setY(getOccupiedArea().getBBox().getY()+0.135f*(diff));
             	}
-            	fontSizeL = 12;
+            	fontSizeL = 12;//orig 12
             }
             
             if(fontSizeL < 12) {

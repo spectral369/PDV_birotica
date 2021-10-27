@@ -1,19 +1,18 @@
 package com.spectral369.CSPH;
 
 import java.math.BigInteger;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import com.spectral369.birotica.MainView;
+import com.spectral369.utils.PDFHelper;
 import com.spectral369.utils.Utils;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.checkbox.Checkbox;
-import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -50,15 +49,17 @@ public class CerereScutirePersoaneHandicapInfo extends HorizontalLayout
     VerticalLayout infoPart6;
     VerticalLayout infoPart7;
     VerticalLayout infoPart8;
+    VerticalLayout infoPart9;
 
-    TextField prenumeField;
+    TextField marcaField;
     TextField numeField;
     TextField localitateField;
     TextField nrStrField;
-    TextField judetField;
+    TextField serieField;
     TextField cnpField;
-    TextField nrZileField;
-    DatePicker dateField;
+    TextField NrCI;
+    TextField telefonField;
+    ComboBox<String> titlu;
 
     HorizontalLayout generateLayout;
     Button generate;
@@ -94,45 +95,18 @@ public class CerereScutirePersoaneHandicapInfo extends HorizontalLayout
 	    toggleVisibility();
 	    UI.getCurrent().push();
 	});
-	complete.setEnabled(false);
+	//complete.setEnabled(false);
 	checkLayout.add(complete);
 	content.add(checkLayout);
 	content.setAlignItems(Alignment.CENTER);
-	(infoLayout = new HorizontalLayout()).setVisible(false);
-	infoPart1 = new VerticalLayout();
-	prenumeField = new TextField("Prenume:");
-	prenumeField.setRequiredIndicatorVisible(true);
-	binder.forField(prenumeField).asRequired()
-		.withValidator(str -> str.length() > 2, "Prenumele sa fie mai mare decat 2 caractere")
-
-		.bind(new ValueProvider<CerereScutirePersoaneHandicapInfo, String>() {
-
-		    private static final long serialVersionUID = 1L;
-
-		    @Override
-		    public String apply(CerereScutirePersoaneHandicapInfo source) {
-			return null;
-		    }
-		}, new Setter<CerereScutirePersoaneHandicapInfo, String>() {
-
-		    private static final long serialVersionUID = 1L;
-
-		    @Override
-		    public void accept(CerereScutirePersoaneHandicapInfo bean, String fieldvalue) {
-
-		    }
-		});
-
-	prenumeField.setErrorMessage("Prenume Required !");
-	infoPart1.add(prenumeField);
-	infoLayout.add(infoPart1);
-	infoLayout.setAlignItems( Alignment.CENTER);
-
+	
+	infoLayout =  new HorizontalLayout();
+	infoLayout.setVisible(false);
 	infoPart2 = new VerticalLayout();
-	numeField = new TextField("Nume:");
+	numeField = new TextField("Nume complet:");
 	numeField.setRequiredIndicatorVisible(true);
 	binder.forField(numeField).asRequired()
-		.withValidator(str -> str.length() > 2, "Numele sa fie mai mare decat 2 caractere")
+		.withValidator(str -> str.length() > 4, "Numele sa fie mai mare decat 4 caractere")
 		.bind(new ValueProvider<CerereScutirePersoaneHandicapInfo, String>() {
 
 		    private static final long serialVersionUID = 1L;
@@ -151,7 +125,10 @@ public class CerereScutirePersoaneHandicapInfo extends HorizontalLayout
 		    }
 		});
 
-	numeField.setErrorMessage("Nume Required !");
+	numeField.setErrorMessage("Nume Required");
+	numeField.setWidth("100%");
+	numeField.setMaxLength(25);
+	numeField.setMinWidth(20f, Unit.EM);//test
 	infoPart2.add(numeField);
 	infoLayout.add(infoPart2);
 	infoLayout.setAlignItems(Alignment.CENTER);
@@ -209,19 +186,21 @@ public class CerereScutirePersoaneHandicapInfo extends HorizontalLayout
 		    }
 		});
 
-	nrStrField.setErrorMessage("Model required !");
+	nrStrField.setErrorMessage("Nr. Casa Required !");
 	infoPart4.add(nrStrField);
 	infoLayout.add(infoPart4);
 	infoLayout.setAlignItems( Alignment.CENTER);
+	
 	/// info 2
 	infoLayout2 = new HorizontalLayout();
 	infoLayout2.setVisible(false);
 
 	infoPart5 = new VerticalLayout();
-	judetField = new TextField("Judet:");
-	judetField.setRequiredIndicatorVisible(true);
-	binder.forField(judetField).asRequired()
-		.withValidator(str -> str.length() > 2, "Judetul trebuie sa aibe mai mult de 2 caractere")
+	serieField = new TextField("Serie:");
+	serieField.setValue("TZ");
+	serieField.setRequiredIndicatorVisible(true);
+	binder.forField(serieField).asRequired()
+		.withValidator(str -> str.length() == 2, "Serie C.I trebuie sa fie de 2 caractere")
 		.bind(new ValueProvider<CerereScutirePersoaneHandicapInfo, String>() {
 
 		    private static final long serialVersionUID = 1L;
@@ -240,12 +219,47 @@ public class CerereScutirePersoaneHandicapInfo extends HorizontalLayout
 		    }
 		});
 
-	judetField.setErrorMessage("Judet Required !");
-	infoPart5.add(judetField);
+	serieField.setErrorMessage("Serie C.I Required !");
+	infoPart5.add(serieField);
 	infoLayout2.add(infoPart5);
 	infoLayout2.setAlignItems( Alignment.CENTER);
-
+	
+	
 	infoPart6 = new VerticalLayout();
+	NrCI = new TextField("Nr. C.I :");
+	NrCI.setRequiredIndicatorVisible(true);
+	binder.forField(NrCI).asRequired()
+	.withValidator(str -> str.length() == 6, "Serie C.I trebuie sa fie de 6 caractere")
+	.withConverter(new StringToIntegerConverter("Must be Integer"))
+	
+		.bind(new ValueProvider<CerereScutirePersoaneHandicapInfo, Integer>() {
+
+		    private static final long serialVersionUID = 1L;
+
+		    @Override
+		    public Integer apply(CerereScutirePersoaneHandicapInfo source) {
+			return null;
+		    }
+		}, new Setter<CerereScutirePersoaneHandicapInfo, Integer>() {
+
+		    private static final long serialVersionUID = 1L;
+
+		    @Override
+		    public void accept(CerereScutirePersoaneHandicapInfo bean, Integer fieldvalue) {
+
+		    }
+		});
+
+	NrCI.setErrorMessage("Nr. C.I Required !");
+	infoPart6.add(NrCI);
+	infoLayout2.add(infoPart6);
+	infoLayout2.setAlignItems(Alignment.CENTER);
+	
+	
+	
+	
+
+	infoPart7 = new VerticalLayout();
 	cnpField = new TextField("CNP:");
 	cnpField.setRequiredIndicatorVisible(true);
 	cnpField.addValueChangeListener(e -> {
@@ -274,69 +288,105 @@ public class CerereScutirePersoaneHandicapInfo extends HorizontalLayout
 		});
 
 	cnpField.setErrorMessage("CNP Required !");
-	infoPart6.add(cnpField);
-	infoLayout2.add(infoPart6);
-	infoLayout2.setAlignItems( Alignment.CENTER);
-
-	infoPart7 = new VerticalLayout();
-	nrZileField = new TextField("Nr. zile inchiriere:");
-	nrZileField.setRequiredIndicatorVisible(true);
-	binder.forField(nrZileField).asRequired().withConverter(new StringToIntegerConverter("Must be Integer"))
-		.bind(new ValueProvider<CerereScutirePersoaneHandicapInfo, Integer>() {
-
-		    private static final long serialVersionUID = 1L;
-
-		    @Override
-		    public Integer apply(CerereScutirePersoaneHandicapInfo source) {
-			return null;
-		    }
-		}, new Setter<CerereScutirePersoaneHandicapInfo, Integer>() {
-
-		    private static final long serialVersionUID = 1L;
-
-		    @Override
-		    public void accept(CerereScutirePersoaneHandicapInfo bean, Integer fieldvalue) {
-
-		    }
-		});
-
-	nrZileField.setErrorMessage("Nr. Zile Required !");
-	infoPart7.add(nrZileField);
+	infoPart7.add(cnpField);
 	infoLayout2.add(infoPart7);
-	infoLayout2.setAlignItems(Alignment.CENTER);
+	infoLayout2.setAlignItems( Alignment.CENTER);
 
 	infoPart8 = new VerticalLayout();
-	dateField = new DatePicker("Data inceput:");
-	//dateField.setDateFormat("dd-MM-yyyy");
-	dateField.setLocale(Locale.getDefault());
-	dateField.setRequiredIndicatorVisible(true);
+	telefonField = new TextField("Telefon:");
+	telefonField.setRequiredIndicatorVisible(true);
 
-	binder.forField(dateField).asRequired()
-		.withValidator(returnDate -> !returnDate.isBefore(LocalDate.now()),
-			"Data nu poate fi anterioara zilei de azi")
+	binder.forField(telefonField).asRequired()
+	.withValidator(str -> str.matches("^([00]{0,1}[\\d]{1,3}[0-9]{9,12})$"), "Numar de telefon invalid !")
+	.withConverter(new StringToBigIntegerConverter("Nr. telefon poate contine doar cifre"))
 
-		.bind(new ValueProvider<CerereScutirePersoaneHandicapInfo, LocalDate>() {
+	.bind(new ValueProvider<CerereScutirePersoaneHandicapInfo, BigInteger>() {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public BigInteger apply(CerereScutirePersoaneHandicapInfo source) {
+			return null;
+		}
+	}, new Setter<CerereScutirePersoaneHandicapInfo, BigInteger>() {
+
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public void accept(CerereScutirePersoaneHandicapInfo bean, BigInteger fieldvalue) {
+
+		}
+	});
+
+	telefonField.setErrorMessage("Date Required !");
+	infoPart8.add(telefonField);
+	infoLayout2.add(infoPart8);
+	infoLayout2.setAlignItems( Alignment.CENTER);
+	
+	infoPart1 = new VerticalLayout();
+	marcaField = new TextField("Marca Masinii:");
+	marcaField.setRequiredIndicatorVisible(true);
+	binder.forField(marcaField).asRequired()
+		.withValidator(str -> str.length() > 2, "Marca masinii trebuie sa fie mai mare decat 2 caractere")
+
+		.bind(new ValueProvider<CerereScutirePersoaneHandicapInfo, String>() {
 
 		    private static final long serialVersionUID = 1L;
 
 		    @Override
-		    public LocalDate apply(CerereScutirePersoaneHandicapInfo source) {
+		    public String apply(CerereScutirePersoaneHandicapInfo source) {
 			return null;
 		    }
-		}, new Setter<CerereScutirePersoaneHandicapInfo, LocalDate>() {
+		}, new Setter<CerereScutirePersoaneHandicapInfo, String>() {
 
 		    private static final long serialVersionUID = 1L;
 
 		    @Override
-		    public void accept(CerereScutirePersoaneHandicapInfo bean, LocalDate fieldvalue) {
+		    public void accept(CerereScutirePersoaneHandicapInfo bean, String fieldvalue) {
 
 		    }
 		});
 
-	dateField.setErrorMessage("Date Required !");
-	infoPart8.add(dateField);
-	infoLayout2.add(infoPart8);
+	marcaField.setErrorMessage("Marca masinii Required !");
+	infoPart1.add(marcaField);
+	infoLayout2.add(infoPart1);
 	infoLayout2.setAlignItems( Alignment.CENTER);
+	
+	
+	
+	infoPart9 = new VerticalLayout();
+	titlu = new ComboBox<String>("Titlul: ");
+	titlu.setItems("Dl.", "D-na.");
+	titlu.setRequired(true);
+	titlu.setValue("Dl.");
+	titlu.setRequiredIndicatorVisible(true);
+	binder.forField(titlu).asRequired().bind(new ValueProvider<CerereScutirePersoaneHandicapInfo, String>() {
+
+
+
+		    private static final long serialVersionUID = 1L;
+
+		    @Override
+		    public String apply(CerereScutirePersoaneHandicapInfo source) {
+			return null;
+		    }
+		}, new Setter<CerereScutirePersoaneHandicapInfo, String>() {
+
+		    private static final long serialVersionUID = 1L;
+
+		    @Override
+		    public void accept(CerereScutirePersoaneHandicapInfo bean, String fieldvalue) {
+
+		    }
+		});
+
+	titlu.setErrorMessage("Titlu Required !");
+	infoPart9.add(titlu);
+	infoLayout2.add(infoPart9);
+	infoLayout2.setAlignItems( Alignment.CENTER);
+	
+	
+	
 
 	content.add(infoLayout);
 	content.setAlignItems(Alignment.CENTER);
@@ -348,36 +398,35 @@ public class CerereScutirePersoaneHandicapInfo extends HorizontalLayout
 	generate.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 	generate.getClassNames().add("frendly");
 	generate.addClickListener(evt -> {
-	    // String output = input.substring(0, 1).toUpperCase() + input.substring(1);
 	    if (complete.getValue()) {
-		String prenume = prenumeField.getValue().trim().substring(0, 1).toUpperCase()
-			+ prenumeField.getValue().trim().substring(1);
-		String nume = numeField.getValue().trim().substring(0, 1).toUpperCase()
-			+ numeField.getValue().trim().substring(1);
-		String localitate = localitateField.getValue().trim().substring(0, 1).toUpperCase()
-			+ localitateField.getValue().trim().substring(1);
-		map.put("prenume", prenume);
-		map.put("nume", nume);
+		
+	
+		
+		map.put("nume", PDFHelper.capitalizeWords(numeField.getValue()));
+		map.put("localitate", localitateField.getValue().trim());
 		map.put("nrStrada", nrStrField.getValue().trim());
-		map.put("localitate", localitate);
-		map.put("judet", judetField.getValue().trim());
+		map.put("serie", serieField.getValue().trim());
+		map.put("nrSerie",NrCI.getValue().trim());
 		map.put("cnp", cnpField.getValue().trim());
-		LocalDate dt = dateField.getValue();
-		dt.format(DateTimeFormatter.ISO_LOCAL_DATE);
-		map.put("nrZile", nrZileField.getValue().trim());
-		map.put("ziua", String.valueOf(dt.getDayOfMonth()));
-		map.put("luna", String.valueOf(dt.getMonthValue()));
-		map.put("anul", String.valueOf(dt.getYear()));
+		map.put("telefon", telefonField.getValue().trim());
+		map.put("marcaAuto",PDFHelper.capitalizeWords(marcaField.getValue().trim()));
+		map.put("titlu", titlu.getOptionalValue().get());
+		
 
 	    }
-	    prenumeField.clear();
 	    numeField.clear();
-	    nrStrField.clear();
 	    localitateField.clear();
-	    judetField.clear();
-	    cnpField.clear();
 	    nrStrField.clear();
-	    dateField.clear();
+	    serieField.clear();
+	    NrCI.clear();
+	    cnpField.clear();
+	    telefonField.clear();
+	    marcaField.clear();
+	    titlu.clear();
+	    
+	  
+
+	  
 
 		PDFCSPHCreator pdfcr =  new PDFCSPHCreator(map,Utils.getTimeStr());
 	 	String fn =  pdfcr.getID();
