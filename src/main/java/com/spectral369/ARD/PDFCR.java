@@ -111,7 +111,7 @@ public class PDFCR {
 	    Text dec1 = new Text("Se adevereste de catre noi ca prin prezenta ca Dl/D-na/Subscrisa "
 		    + PDFHelper.getStrWithDots(46, "") + " " + "cu domiciliul/punct de lucru in "
 		    + PDFHelper.getStrWithDots(55, "") + " numarul " + PDFHelper.getStrWithDots(22, "") + ""
-		    + " detine spatiu de depozitare pentru autoturismul marca " + PDFHelper.getStrWithDots(32, "") + ""
+		    + " detine spatiu de depozitare pentru autoturismul marca " + PDFHelper.getStrWithDots(38, "") + ""
 		    + "model " + PDFHelper.getStrWithDots(38, "") + " capacitate cilindrica "
 		    + PDFHelper.getStrWithDots(22, "") + " serie " + "motor " + PDFHelper.getStrWithDots(30, "")
 		    + " serie sasiu " + PDFHelper.getStrWithDots(55, "") + " numarul de inmatriculare " + ""
@@ -228,8 +228,12 @@ public class PDFCR {
 	    dec1.add("Se adevereste de catre noi prin prezenta ca ");
 
 	    dec1.add(map.get("titlu") + " ");
-	    dec1.add(PDFHelper.createAdjustableParagraph(46,
+	    if (map.get("titlu").contains("scris"))
+	    dec1.add(PDFHelper.createAdjustableParagraph(58,
 		    new Paragraph(map.get("nume")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    else
+		 dec1.add(PDFHelper.createAdjustableParagraph(46,
+			    new Paragraph(map.get("nume")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" " + PF + " in");
 	    dec1.add(PDFHelper.createAdjustableParagraph(40,
 		    new Paragraph(map.get("localitate")).setBold().setTextAlignment(TextAlignment.CENTER)));
@@ -237,17 +241,24 @@ public class PDFCR {
 	    dec1.add(PDFHelper.createAdjustableParagraph(22,
 		    new Paragraph(map.get("nrStrada")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" detine spatiu de depozitare pentru autoturismul marca ");
-	    dec1.add(PDFHelper.createAdjustableParagraph(30,
+	    if (map.get("titlu").contains("scris"))
+	    dec1.add(PDFHelper.createAdjustableParagraph(31,
 		    new Paragraph(map.get("marca")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    else
+		dec1.add(PDFHelper.createAdjustableParagraph(24,
+			    new Paragraph(map.get("marca")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" model ");
-	    dec1.add(PDFHelper.createAdjustableParagraph(18,
+	    dec1.add(PDFHelper.createAdjustableParagraph(17,
 		    new Paragraph(map.get("model")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" capacitate cilindrica ");
 	    dec1.add(PDFHelper.createAdjustableParagraph(12,
 		    new Paragraph(map.get("capacitate")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" serie motor ");
-	    dec1.add(
-		    PDFHelper.createAdjustableParagraph(20, new Paragraph(PDFHelper.solveIfEmpty(map.get("serieMotor")))
+	    if (map.get("titlu").contains("scris"))
+	    dec1.add(PDFHelper.createAdjustableParagraph(29, new Paragraph(PDFHelper.solveIfEmpty(map.get("serieMotor")))
+			    .setBold().setTextAlignment(TextAlignment.CENTER)));
+	    else
+		dec1.add(PDFHelper.createAdjustableParagraph(25, new Paragraph(PDFHelper.solveIfEmpty(map.get("serieMotor")))
 			    .setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" serie sasiu ");
 	    dec1.add(PDFHelper.createAdjustableParagraph(60,
@@ -256,7 +267,10 @@ public class PDFCR {
 	    dec1.add(PDFHelper.createAdjustableParagraph(30,
 		    new Paragraph(PDFHelper.solveIfEmpty(map.get("nrInmatriculare"))).setBold()
 			    .setTextAlignment(TextAlignment.CENTER)));
+	    if (map.get("titlu").contains("scris"))
 	    dec1.add(" la \nadresa ");
+	    else
+		dec1.add(" la adresa ");
 	    dec1.add(PDFHelper.createAdjustableParagraph(55,
 		    new Paragraph(map.get("addrDepozitare")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" .\n\n");

@@ -19,7 +19,8 @@ public enum Models {
 	Cerere_Capela(9,"Cerere Capela","com.spectral369.capela.CerereCapelaInfo"),
 	Declaratie_pe_propria_raspundere(10,"Declaratie pe Propria Raspundere","com.spectral369.DPR.DeclaratiePePropriaRaspundereInfo"),
     	Declaratie_examinare_sociala(11,"Declaratie examinare sociala","com.spectral369.CES.CESInfo"),
-    	Cerere_scutire_persoane_cu_handicap(12,"Declaratie Scutire Persoane cu Handicap","com.spectral369.CSPH.CerereScutirePersoaneHandicapInfo");
+    	Cerere_scutire_persoane_cu_handicap(12,"Declaratie Scutire Persoane cu Handicap","com.spectral369.CSPH.CerereScutirePersoaneHandicapInfo"),
+    	Proces_verbal_de_predare_primire(13,"PV Predare-Primire","com.spectral369.PVPP.PVPredarePrimireInfo");
 	
 	private java.lang.String cls;
     private java.lang.String name;

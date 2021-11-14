@@ -50,3 +50,7 @@ vaadin-tab[selected] {
 	background: transparent;
 	color:black;
 }
+
+.clearDisabled:before{
+	background: transparent;
+}

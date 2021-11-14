@@ -131,9 +131,19 @@ public class MainView extends VerticalLayout implements RouterLayout {
 
 	footerLayout = new HorizontalLayout();
 	footer = new Button("spectral369 2021", VaadinIcon.COPYRIGHT.create());
-	footer.setEnabled(false);
+	// footer.setEnabled(false);
 	footer.setId("footer");
 	footer.addClassName("clearDisabled");
+	TooltipConfiguration toolgithub = new TooltipConfiguration("View me on Github !");
+	toolgithub.setDuration(null, 20);
+	toolgithub.setContent("View me on Github !");
+	toolgithub.setFollowCursor(TC_FOLLOW_CURSOR.HORIZONTAL);
+	toolgithub.setHideOnClick(TC_HIDE_ON_CLICK.FALSE);
+	toolgithub.setShowOnCreate(false);
+	Tooltips.getCurrent().setTooltip(footer, toolgithub);
+	footer.addClickListener(e -> {
+	    UI.getCurrent().getPage().executeJs("window.open('https://www.github.com/spectral369', '_self');");
+	});
 
 	Image spring = new Image("images/springboot.png", "Made with Spring");
 	spring.setHeight(footerh / 1.7 + "px");
