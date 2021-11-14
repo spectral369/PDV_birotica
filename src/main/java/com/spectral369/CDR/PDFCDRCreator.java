@@ -17,7 +17,7 @@ import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Text;
-import com.itextpdf.layout.property.TextAlignment;
+import com.itextpdf.layout.properties.TextAlignment;
 import com.spectral369.birotica.PdfList;
 import com.spectral369.utils.PDFHelper;
 import com.spectral369.utils.Utils;
