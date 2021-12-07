@@ -18,6 +18,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
+import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.VaadinSession;
 
 import dev.mett.vaadin.tooltip.Tooltips;
@@ -61,7 +62,9 @@ public class MainView extends VerticalLayout implements RouterLayout {
     public MainView() {
 
 	logoLayout = new HorizontalLayout();
-	Image logo = new Image("images/dvlogo.png", "Logo");
+	 StreamResource logoResource = new StreamResource("dvlogo.png",
+	    	    () -> getClass().getResourceAsStream("/META-INF/resources/images/dvlogo.png"));
+	Image logo = new Image(logoResource, "Logo");
 	logo.setId("mainLogo");
 	UI.getCurrent().getPage().retrieveExtendedClientDetails(details -> {
 	    logo.setHeight(String.valueOf(details.getWindowInnerHeight() / 8) + "px"); // logo size
@@ -145,7 +148,7 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	    UI.getCurrent().getPage().executeJs("window.open('https://www.github.com/spectral369', '_self');");
 	});
 
-	Image spring = new Image("images/springboot.png", "Made with Spring");
+	/*Image spring = new Image("images/springboot.png", "Made with Spring");
 	spring.setHeight(footerh / 1.7 + "px");
 	spring.setWidth(footerw / 2.8 + "px");
 	spring.addClickListener(e -> {
@@ -157,14 +160,13 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	ttconfig.setFollowCursor(TC_FOLLOW_CURSOR.HORIZONTAL);
 	ttconfig.setHideOnClick(TC_HIDE_ON_CLICK.FALSE);
 	ttconfig.setShowOnCreate(false);
-	Tooltips.getCurrent().setTooltip(spring, ttconfig);
+	Tooltips.getCurrent().setTooltip(spring, ttconfig);*/
 
-	/*
-	 * spring.getElement().addEventListener("mouseover", e->{ // st.open();
-	 * Notification.show("Made with Spring!"); });
-	 */
 
-	Image vaadin = new Image("images/vaadin.png", "Made with Vaadin 20");
+	 StreamResource vaadinResource = new StreamResource("vaadin.png",
+	    	    () -> getClass().getResourceAsStream("/META-INF/resources/images/vaadin.png"));
+
+	Image vaadin = new Image(vaadinResource, "Made with Vaadin 20");
 	TooltipConfiguration ttconfig2 = new TooltipConfiguration("Made with Vaadin 20 !");
 	ttconfig2.setDuration(null, 20);
 	ttconfig2.setContent("Made with Vaadin 20 !");
@@ -178,7 +180,10 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	    UI.getCurrent().getPage().executeJs("window.open('https://vaadin.com', '_self');");
 	});
 
-	Image itext = new Image("images/itext.png", "Made with IText 7");
+	
+	  StreamResource itextResource = new StreamResource("itext.png",
+	    	    () -> getClass().getResourceAsStream("/META-INF/resources/images/itext.png"));
+	Image itext = new Image(itextResource, "Made with IText 7");
 	itext.setHeight(footerh / 1.36 + "px");
 	itext.setWidth(footerw / 2 + "px");
 	TooltipConfiguration ttconfig3 = new TooltipConfiguration("Made with IText 7 !");
@@ -192,12 +197,12 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	    UI.getCurrent().getPage().executeJs("window.open('https://itextpdf.com/en', '_self');");
 	});
 
-	footerLayout.add(spring);
+	//footerLayout.add(spring);
 	footerLayout.add(vaadin);
 	footerLayout.add(itext);
 	footerLayout.add(footer);
 	footerLayout.setAlignSelf(Alignment.END, itext);
-	footerLayout.setAlignSelf(Alignment.END, spring);
+	//footerLayout.setAlignSelf(Alignment.END, spring);
 	footerLayout.setAlignSelf(Alignment.END, vaadin);
 	footerLayout.setAlignSelf(Alignment.END, footer);
 
@@ -237,11 +242,11 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	    break;
 	case 1:
 	    getStyle().set("opacity", "0.8");
-	    Notification.show("Plase check with the admin about this application.");
+	    Notification.show("Plase check with the admin about this application.").setDuration(10000);
 	    break;
 	case 2:
 	    getStyle().set("opacity", "0.4");
-	    Notification.show("Plase check with the admin about this application.");
+	    Notification.show("Plase check with the admin about this application.").setDuration(10000);
 	    break;
 	case 3:
 	    getStyle().set("opacity", "0");

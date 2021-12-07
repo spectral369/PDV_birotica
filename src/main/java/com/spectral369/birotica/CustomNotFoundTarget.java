@@ -22,6 +22,7 @@ public class CustomNotFoundTarget
 	@Override
     public int setErrorParameter(BeforeEnterEvent event,
           ErrorParameter<NotFoundException> parameter) {
+	    System.out.println("not found "+event.getErrorParameter()+" "+parameter.getCaughtException());
       Notification.show("Path Not available!",3000,Position.BOTTOM_END);
    
         return HttpServletResponse.SC_NOT_FOUND;

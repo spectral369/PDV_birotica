@@ -57,88 +57,85 @@ public class PDFCCOCreator {
 	return id;
     }
 
-   private void generatePDF(final String tm, final File pdfFile) {
+    private void generatePDF(final String tm, final File pdfFile) {
 	try {
-	    writer =  new PdfWriter(pdfFile);
+	    writer = new PdfWriter(pdfFile);
 	    Image antetLogo = PDFHelper.getAntetLogo();
 	    document = new PdfDocument(writer);
 	    document.getDocumentInfo().addCreationDate();
-	     document.getDocumentInfo().setAuthor("spectral369");
-	     document.setDefaultPageSize(PageSize.A4);
-	     document.getDocumentInfo().setTitle("Cerere_Concediu_Odihna" + tm);
-	     
-	     Document doc =  new Document(document);
-	     doc.setFontSize(12);
-	     float width = doc.getPageEffectiveArea(PageSize.A4).getWidth();
-	     document.addEventHandler(PdfDocumentEvent.START_PAGE,new handleEvt(width) );
-	  
-	     
-	     Paragraph antet = new Paragraph();
-	  
+	    document.getDocumentInfo().setAuthor("spectral369");
+	    document.setDefaultPageSize(PageSize.A4);
+	    document.getDocumentInfo().setTitle("Cerere_Concediu_Odihna" + tm);
 
-	     float documentWidth =    document.getDefaultPageSize().getWidth() - doc.getLeftMargin()- doc.getRightMargin();
-	     float documentHeight =  document.getDefaultPageSize().getHeight() - doc.getTopMargin()- doc.getBottomMargin();
-		    
+	    Document doc = new Document(document);
+	    doc.setFontSize(12);
+	    float width = doc.getPageEffectiveArea(PageSize.A4).getWidth();
+	    document.addEventHandler(PdfDocumentEvent.START_PAGE, new handleEvt(width));
+
+	    Paragraph antet = new Paragraph();
+
+	    float documentWidth = document.getDefaultPageSize().getWidth() - doc.getLeftMargin() - doc.getRightMargin();
+	    float documentHeight = document.getDefaultPageSize().getHeight() - doc.getTopMargin()
+		    - doc.getBottomMargin();
+
 	    antetLogo.scaleToFit(documentWidth, documentHeight);
 
 	    antet.add(antetLogo);
 	    antet.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    doc.add(antet);
 
-	    Table table1 =  new Table(1);
-		   table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-		    Paragraph l1 =  new  Paragraph();
-		    Text nrI = new Text(
-				    "\n\nNr. " +PDFHelper.getStrWithDots(15, "") + " " + "data " + PDFHelper.getStrWithDots(20, ""));
-		    l1.add(nrI);
-		    l1.addTabStops(new TabStop(width/1.2f, TabAlignment.RIGHT));
-		    l1.add(new Tab());
-		    Text aprobat =  new Text("Aprobat");
-		    l1.add(aprobat);
-		    l1.add(PDFHelper.addTab());
-		    Cell l1Cell =  new Cell();
-		    l1Cell.setBorder(Border.NO_BORDER);
-		    l1Cell.add(l1);
-		    table1.addCell(l1Cell);
-		    doc.add(table1);
-		    
-		    
-		    Table table2 =  new Table(1);
-		    Paragraph l2 =  new Paragraph();
-		    Text primSemn1=  new Text("");
-		    l2.add(primSemn1);
-		    l2.addTabStops(new TabStop(width/1.235f, TabAlignment.RIGHT));
-		    l2.add(new Tab());
-		    Text primartop =  new Text("Primar");
-		    l2.add(primartop);
-		    Cell l2Cell =  new Cell();
-		    l2Cell.add(l2);
-		    l2Cell.setBorder(Border.NO_BORDER);
-		    table2.addCell(l2Cell);
-		    doc.add(table2);
-		    
-		    Table table3 =  new Table(1);
-		    Paragraph l3 =  new Paragraph();
-		    Text topSemn1 =  new Text("");
-		    l3.add(topSemn1);
-		    l3.addTabStops(new TabStop(width/0.9f, TabAlignment.RIGHT));
-		    l3.add(new Tab());
-		    Text topSemn2 =  new Text(PDFHelper.getStrWithDots(28, ""));
-		    l3.add(topSemn2);
-		    l3.add(PDFHelper.addTab());
-		    Cell l3Cell =  new Cell();
-		    l3Cell.add(l3);
-		    l3Cell.setBorder(Border.NO_BORDER);
-		    table3.addCell(l3Cell);
-		    doc.add(table3);
-		    
+	    Table table1 = new Table(1);
+	    table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+	    Paragraph l1 = new Paragraph();
+	    Text nrI = new Text(
+		    "\n\nNr. " + PDFHelper.getStrWithDots(15, "") + " " + "data " + PDFHelper.getStrWithDots(20, ""));
+	    l1.add(nrI);
+	    l1.addTabStops(new TabStop(width / 1.2f, TabAlignment.RIGHT));
+	    l1.add(new Tab());
+	    Text aprobat = new Text("Aprobat");
+	    l1.add(aprobat);
+	    l1.add(PDFHelper.addTab());
+	    Cell l1Cell = new Cell();
+	    l1Cell.setBorder(Border.NO_BORDER);
+	    l1Cell.add(l1);
+	    table1.addCell(l1Cell);
+	    doc.add(table1);
+
+	    Table table2 = new Table(1);
+	    Paragraph l2 = new Paragraph();
+	    Text primSemn1 = new Text("");
+	    l2.add(primSemn1);
+	    l2.addTabStops(new TabStop(width / 1.235f, TabAlignment.RIGHT));
+	    l2.add(new Tab());
+	    Text primartop = new Text("Primar");
+	    l2.add(primartop);
+	    Cell l2Cell = new Cell();
+	    l2Cell.add(l2);
+	    l2Cell.setBorder(Border.NO_BORDER);
+	    table2.addCell(l2Cell);
+	    doc.add(table2);
+
+	    Table table3 = new Table(1);
+	    Paragraph l3 = new Paragraph();
+	    Text topSemn1 = new Text("");
+	    l3.add(topSemn1);
+	    l3.addTabStops(new TabStop(width / 0.9f, TabAlignment.RIGHT));
+	    l3.add(new Tab());
+	    Text topSemn2 = new Text(PDFHelper.getStrWithDots(28, ""));
+	    l3.add(topSemn2);
+	    l3.add(PDFHelper.addTab());
+	    Cell l3Cell = new Cell();
+	    l3Cell.add(l3);
+	    l3Cell.setBorder(Border.NO_BORDER);
+	    table3.addCell(l3Cell);
+	    doc.add(table3);
 
 	    Paragraph titlu = new Paragraph();
 	    Text t1 = new Text("\n\nCerere Concediu Odihna\n\n\n").setBold().setUnderline();
 	    titlu.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    titlu.setTextAlignment(TextAlignment.CENTER);
 	    titlu.add(t1).addStyle(PDFHelper.bold12nr);
-	     doc.add(titlu);
+	    doc.add(titlu);
 
 	    Paragraph declaratie = new Paragraph();
 	    declaratie.add(PDFHelper.addTab());
@@ -176,14 +173,14 @@ public class PDFCCOCreator {
 
 	    semnaturiR.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    Paragraph semnR = new Paragraph();
-	  //  String dateNow = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+	    // String dateNow = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 	    Text semnPrim = new Text(PDFHelper.getStrWithDots(30, ""));
-	  //  semnPrim.setUnderline();
+	    // semnPrim.setUnderline();
 	    semnR.add(semnPrim);
 	    semnR.addTabStops(new TabStop(width / 1.18f, TabAlignment.RIGHT));
 	    semnR.add(new Tab());
 	    Text semnIntocmit = new Text(PDFHelper.getStrWithDots(30, ""));
-	   // semnIntocmit.setUnderline();
+	    // semnIntocmit.setUnderline();
 	    semnR.add(semnIntocmit);
 	    Cell cell2 = new Cell();
 	    cell2.setBorder(Border.NO_BORDER);
@@ -191,20 +188,18 @@ public class PDFCCOCreator {
 	    semnaturiR.addCell(cell2);
 	    doc.add(semnaturiR);
 
-
-	    
 	    Text inloc = new Text(
 		    "Pe perioada efectuarii concediului de odihna integral sau partial, atributiile de serviciu "
 			    + "sunt preluate de " + PDFHelper.getStrWithDots(45, ""));
-	 setBottomtext(doc, document, inloc.getText());
+	    setBottomtext(doc, document, inloc.getText());
 
 	    doc.close();
 	    document.close();
 	    writer.flush();
-	
+
 	} catch (IOException ex2) {
 	}
-	
+
     }
 
     private void generatePDF(final String tm, final File pdfFile, final Map<String, String> map) {
@@ -234,54 +229,51 @@ public class PDFCCOCreator {
 	    antet.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    doc.add(antet);
 
-	    Table table1 =  new Table(1);
-		   table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
-		    Paragraph l1 =  new  Paragraph();
-		    Text nrI = new Text(
-				    "\n\nNr. " +PDFHelper.getStrWithDots(15, "") + " " + "data " + PDFHelper.getStrWithDots(20, ""));
-		    l1.add(nrI);
-		    l1.addTabStops(new TabStop(width/1.2f, TabAlignment.RIGHT));
-		    l1.add(new Tab());
-		    Text aprobat =  new Text("Aprobat");
-		    l1.add(aprobat);
-		    l1.add(PDFHelper.addTab());
-		    Cell l1Cell =  new Cell();
-		    l1Cell.setBorder(Border.NO_BORDER);
-		    l1Cell.add(l1);
-		    table1.addCell(l1Cell);
-		    doc.add(table1);
-		    
-		    
-		    Table table2 =  new Table(1);
-		    Paragraph l2 =  new Paragraph();
-		    Text primSemn1=  new Text("");
-		    l2.add(primSemn1);
-		    l2.addTabStops(new TabStop(width/1.235f, TabAlignment.RIGHT));
-		    l2.add(new Tab());
-		    Text primartop =  new Text("Primar");
-		    l2.add(primartop);
-		    Cell l2Cell =  new Cell();
-		    l2Cell.add(l2);
-		    l2Cell.setBorder(Border.NO_BORDER);
-		    table2.addCell(l2Cell);
-		    doc.add(table2);
-		    
-		    
-		    Table table3 =  new Table(1);
-		    Paragraph l3 =  new Paragraph();
-		    Text topSemn1 =  new Text("");
-		    l3.add(topSemn1);
-		    l3.addTabStops(new TabStop(width/0.9f, TabAlignment.RIGHT));
-		    l3.add(new Tab());
-		    Text topSemn2 =  new Text(PDFHelper.getStrWithDots(28, ""));
-		    l3.add(topSemn2);
-		    l3.add(PDFHelper.addTab());
-		    Cell l3Cell =  new Cell();
-		    l3Cell.add(l3);
-		    l3Cell.setBorder(Border.NO_BORDER);
-		    table3.addCell(l3Cell);
-		    doc.add(table3);
-		    
+	    Table table1 = new Table(1);
+	    table1.setHorizontalAlignment(HorizontalAlignment.CENTER);
+	    Paragraph l1 = new Paragraph();
+	    Text nrI = new Text(
+		    "\n\nNr. " + PDFHelper.getStrWithDots(15, "") + " " + "data " + PDFHelper.getStrWithDots(20, ""));
+	    l1.add(nrI);
+	    l1.addTabStops(new TabStop(width / 1.2f, TabAlignment.RIGHT));
+	    l1.add(new Tab());
+	    Text aprobat = new Text("Aprobat");
+	    l1.add(aprobat);
+	    l1.add(PDFHelper.addTab());
+	    Cell l1Cell = new Cell();
+	    l1Cell.setBorder(Border.NO_BORDER);
+	    l1Cell.add(l1);
+	    table1.addCell(l1Cell);
+	    doc.add(table1);
+
+	    Table table2 = new Table(1);
+	    Paragraph l2 = new Paragraph();
+	    Text primSemn1 = new Text("");
+	    l2.add(primSemn1);
+	    l2.addTabStops(new TabStop(width / 1.235f, TabAlignment.RIGHT));
+	    l2.add(new Tab());
+	    Text primartop = new Text("Primar");
+	    l2.add(primartop);
+	    Cell l2Cell = new Cell();
+	    l2Cell.add(l2);
+	    l2Cell.setBorder(Border.NO_BORDER);
+	    table2.addCell(l2Cell);
+	    doc.add(table2);
+
+	    Table table3 = new Table(1);
+	    Paragraph l3 = new Paragraph();
+	    Text topSemn1 = new Text("");
+	    l3.add(topSemn1);
+	    l3.addTabStops(new TabStop(width / 0.9f, TabAlignment.RIGHT));
+	    l3.add(new Tab());
+	    Text topSemn2 = new Text(PDFHelper.getStrWithDots(28, ""));
+	    l3.add(topSemn2);
+	    l3.add(PDFHelper.addTab());
+	    Cell l3Cell = new Cell();
+	    l3Cell.add(l3);
+	    l3Cell.setBorder(Border.NO_BORDER);
+	    table3.addCell(l3Cell);
+	    doc.add(table3);
 
 	    Paragraph titlu = new Paragraph();
 	    Text t1 = new Text("\n\nCerere Concediu Odihna\n\n\n").setBold().setUnderline();
@@ -289,9 +281,8 @@ public class PDFCCOCreator {
 	    titlu.setTextAlignment(TextAlignment.CENTER);
 	    titlu.add(t1).addStyle(PDFHelper.bold12nr);
 	    doc.add(titlu);
-	    
-	    
-	    Paragraph dec1 =  new Paragraph();
+
+	    Paragraph dec1 = new Paragraph();
 	    dec1.add("Subsemnatul/a ");
 	    dec1.add(PDFHelper.createAdjustableParagraph(42,
 		    new Paragraph(map.get("nume")).setBold().setTextAlignment(TextAlignment.CENTER)));
@@ -306,10 +297,12 @@ public class PDFCCOCreator {
 		    new Paragraph(map.get("anConcediu")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" din data de ");
 	    dec1.add(PDFHelper.createAdjustableParagraph(16,
-		    new Paragraph(map.get("ziStart")+"/"+map.get("lunaStart")+"/"+ map.get("anStart")).setBold().setTextAlignment(TextAlignment.CENTER)));
+		    new Paragraph(map.get("ziStart") + "/" + map.get("lunaStart") + "/" + map.get("anStart")).setBold()
+			    .setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add("pana in data de ");
 	    dec1.add(PDFHelper.createAdjustableParagraph(16,
-		    new Paragraph(map.get("ziEnd")+"/"+map.get("lunaEnd")+"/"+map.get("anEnd")).setBold().setTextAlignment(TextAlignment.CENTER)));
+		    new Paragraph(map.get("ziEnd") + "/" + map.get("lunaEnd") + "/" + map.get("anEnd")).setBold()
+			    .setTextAlignment(TextAlignment.CENTER)));
 	    dec1.add(" .");
 	    doc.add(dec1);
 
@@ -341,92 +334,98 @@ public class PDFCCOCreator {
 
 	    semnaturiR.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    Paragraph semnR = new Paragraph();
-	    //String dateNow = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-	    
-	    Text semnPrim = new Text(map.get("ziCerere")+"/"+map.get("lunaCerere")+"/"+map.get("anCerere"));
-	    //semnPrim.setUnderline();
+	    // String dateNow = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+	    Text semnPrim = new Text(map.get("ziCerere") + "/" + map.get("lunaCerere") + "/" + map.get("anCerere"));
+	    // semnPrim.setUnderline();
 	    semnR.add(semnPrim);
 	    semnR.addTabStops(new TabStop(width / 1.18f, TabAlignment.RIGHT));
 	    semnR.add(new Tab());
 	    Text semnIntocmit = new Text(PDFHelper.getStrWithDots(30, ""));
-	  //  semnIntocmit.setUnderline();
+	    // semnIntocmit.setUnderline();
 	    semnR.add(semnIntocmit);
 	    Cell cellt2 = new Cell();
 	    cellt2.setBorder(Border.NO_BORDER);
 	    cellt2.add(semnR);
 	    semnaturiR.addCell(cellt2);
 	    doc.add(semnaturiR);
-	    
+
 	    float height = doc.getPageEffectiveArea(PageSize.A4).getHeight();
-	    
+
 	    PdfCanvas pdfCanvas = new PdfCanvas(document.getFirstPage());
-		 Rectangle remaining = doc.getRenderer().getCurrentArea().getBBox();
-		 remaining.setHeight(height/12);
-		 Paragraph p = new Paragraph();
-		 p.add(new Tab());
-		 p.add("Pe perioada efectuarii concediului de odihna integral sau partial, atributiile de serviciu sunt preluate de ");
-		
-		 p.add(PDFHelper.createAdjustableParagraph(40,
-			    new Paragraph(map.get("inlocuitor")).setBold().setTextAlignment(TextAlignment.CENTER)).setTextAlignment(TextAlignment.CENTER));
-		 p.setTextAlignment(TextAlignment.CENTER);
-		 Canvas canvas = new Canvas(pdfCanvas, remaining);
-		 canvas.add(p);
-		// canvas.add(p2);
-		 canvas.close(); 
-	    
+	    Rectangle remaining = doc.getRenderer().getCurrentArea().getBBox();
+	    remaining.setHeight(height / 12);
+	    Paragraph p = new Paragraph();
+	    p.add(new Tab());
+	    p.add("Pe perioada efectuarii concediului de odihna integral sau partial, atributiile de serviciu sunt preluate de ");
+
+	    p.add(PDFHelper
+		    .createAdjustableParagraph(40,
+			    new Paragraph(map.get("inlocuitor")).setBold().setTextAlignment(TextAlignment.CENTER))
+		    .setTextAlignment(TextAlignment.CENTER));
+	    p.setTextAlignment(TextAlignment.CENTER);
+	    Canvas canvas = new Canvas(pdfCanvas, remaining);
+	    canvas.add(p);
+	    // canvas.add(p2);
+	    canvas.close();
+
 	    doc.close();
 	    document.close();
 	    writer.flush();
-	  
+
 	} catch (IOException ex2) {
 	}
 
     }
-	private  void setBottomtext(Document doc, PdfDocument document,String text) {
-		 float height = doc.getPageEffectiveArea(PageSize.A4).getHeight();
-		 PdfCanvas pdfCanvas = new PdfCanvas(document.getFirstPage());
-		 Rectangle remaining = doc.getRenderer().getCurrentArea().getBBox();
-		 remaining.setHeight(height/12);
-		 Text title = new Text(text);
-		 title.setHorizontalAlignment(HorizontalAlignment.CENTER);
-		 title.setTextAlignment(TextAlignment.CENTER);
-		 Paragraph p = new Paragraph().add(title);
-		 p.setHorizontalAlignment(HorizontalAlignment.CENTER);
-		 p.setTextAlignment(TextAlignment.CENTER);
-		 p.setVerticalAlignment(VerticalAlignment.BOTTOM);
-		 Canvas canvas = new Canvas(pdfCanvas, remaining);
-		 canvas.add(p);
-		// new PdfCanvas(document.getFirstPage()).rectangle(remaining).setStrokeColor(ColorConstants.BLACK).stroke();
-		 canvas.close(); 
-	}
-    
+
+    private void setBottomtext(Document doc, PdfDocument document, String text) {
+	float height = doc.getPageEffectiveArea(PageSize.A4).getHeight();
+	PdfCanvas pdfCanvas = new PdfCanvas(document.getFirstPage());
+	Rectangle remaining = doc.getRenderer().getCurrentArea().getBBox();
+	remaining.setHeight(height / 12);
+	Text title = new Text(text);
+	title.setHorizontalAlignment(HorizontalAlignment.CENTER);
+	title.setTextAlignment(TextAlignment.CENTER);
+	Paragraph p = new Paragraph().add(title);
+	p.setHorizontalAlignment(HorizontalAlignment.CENTER);
+	p.setTextAlignment(TextAlignment.CENTER);
+	p.setVerticalAlignment(VerticalAlignment.BOTTOM);
+	Canvas canvas = new Canvas(pdfCanvas, remaining);
+	canvas.add(p);
+	// new
+	// PdfCanvas(document.getFirstPage()).rectangle(remaining).setStrokeColor(ColorConstants.BLACK).stroke();
+	canvas.close();
+    }
+
 }
-class handleEvt implements IEventHandler{
+
+class handleEvt implements IEventHandler {
     float width = 0;
 
     @Override
     public void handleEvent(Event event) {
-	   PdfDocumentEvent docEvent = (PdfDocumentEvent) event;
-	        PdfPage page = docEvent.getPage();
-	        int pageNum = docEvent.getDocument().getPageNumber(page);
-	        int pageTotal =  docEvent.getDocument().getNumberOfPages();
-	        PdfCanvas canvas = new PdfCanvas(page);
-	        canvas.beginText();
-	        try {
-	            canvas.setFontAndSize(PdfFontFactory.createFont(StandardFonts.HELVETICA), 12);
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	        
-	        canvas.moveText(width/2, 0);
-	        canvas.showText(String.format("%d/%d", pageNum,pageTotal));
-	        canvas.endText();
-	        canvas.stroke();
-	        canvas.release();
-	
+	PdfDocumentEvent docEvent = (PdfDocumentEvent) event;
+	PdfPage page = docEvent.getPage();
+	int pageNum = docEvent.getDocument().getPageNumber(page);
+	int pageTotal = docEvent.getDocument().getNumberOfPages();
+	PdfCanvas canvas = new PdfCanvas(page);
+	canvas.beginText();
+	try {
+	    canvas.setFontAndSize(PdfFontFactory.createFont(StandardFonts.HELVETICA), 12);
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+
+	canvas.moveText(width / 2, 0);
+	canvas.showText(String.format("%d/%d", pageNum, pageTotal));
+	canvas.endText();
+	canvas.stroke();
+	canvas.release();
+
     }
+
     public handleEvt(float width) {
-	this.width=width;
+	this.width = width;
     }
-    
+
 }

@@ -20,7 +20,8 @@ public enum Models {
 	Declaratie_pe_propria_raspundere(10,"Declaratie pe Propria Raspundere","com.spectral369.DPR.DeclaratiePePropriaRaspundereInfo"),
     	Declaratie_examinare_sociala(11,"Declaratie examinare sociala","com.spectral369.CES.CESInfo"),
     	Cerere_scutire_persoane_cu_handicap(12,"Declaratie Scutire Persoane cu Handicap","com.spectral369.CSPH.CerereScutirePersoaneHandicapInfo"),
-    	Proces_verbal_de_predare_primire(13,"PV Predare-Primire","com.spectral369.PVPP.PVPredarePrimireInfo");
+    	Proces_verbal_de_predare_primire(13,"PV Predare-Primire","com.spectral369.PVPP.PVPredarePrimireInfo"),
+    	Adresa_Scoatere_Evidenta_Auto(14,"Adresa Scoatere Evidenta Auto","com.spectral369.ASEA.AdresaScoatereEvidentaAutoInfo");
 	
 	private java.lang.String cls;
     private java.lang.String name;

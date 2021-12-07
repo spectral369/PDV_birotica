@@ -1,5 +1,4 @@
-
-package com.spectral369.CCO;
+package com.spectral369.ASEA;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,6 +6,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
+import com.spectral369.ARD.AdeverintaRadiereAutoPDF;
 import com.spectral369.birotica.MainView;
 import com.spectral369.birotica.PdfList;
 import com.spectral369.utils.PdfView;
@@ -27,11 +27,12 @@ import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
 
-public class CerereConcediuOdihnaPDF extends HorizontalLayout
+public class AdresaScoatereEvidentaAutoPDF extends HorizontalLayout
 	implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver, BeforeEnterObserver {
     private static final long serialVersionUID = 1L;
-    public static final String NAME = "CerereConcediuOdihnaPDF";
+    public static final String NAME = "AdresaScoatereEvidentaAutoPDF";
     public static String FNAME;
+
     VerticalLayout content;
     HorizontalLayout titleLayout;
     Button title;
@@ -40,19 +41,22 @@ public class CerereConcediuOdihnaPDF extends HorizontalLayout
     Button backbtn;
     String fileName = null;
     PdfView pdfView = null;
+    String browser = null;
     private Map<String, List<String>> parameters = null;
 
     static {
-	CerereConcediuOdihnaPDF.FNAME = "";
+	AdeverintaRadiereAutoPDF.FNAME = "";
+
     }
 
-    public CerereConcediuOdihnaPDF() {
+    public AdresaScoatereEvidentaAutoPDF() {
 
 	content = new VerticalLayout();
 	titleLayout = new HorizontalLayout();
 
 	title = new Button("Generated PDF", VaadinIcon.FILE_PRESENTATION.create());
 	title.setEnabled(false);
+
 	title.getClassNames().add("borderless");
 	title.getClassNames().add("clearDisabled");
 	titleLayout.add(title);
@@ -61,7 +65,6 @@ public class CerereConcediuOdihnaPDF extends HorizontalLayout
 	pdfLayout = new HorizontalLayout();
 
 	pdfView = new PdfView();
-
 	pdfLayout.add(pdfView);
 	pdfLayout.setSizeFull();
 	pdfLayout.setId("pdfLayout");
@@ -86,6 +89,11 @@ public class CerereConcediuOdihnaPDF extends HorizontalLayout
 
 	setSizeFull();
 
+	/*
+	 * UI.getCurrent().getPage().executeJs(
+	 * "window.addEventListener('beforeunload', function (e) {    $0.$server.windowClosed(); var nAgt = navigator.userAgent;if ((verOffset=nAgt.indexOf('Chrome'))!=-1) { (e || window.event).returnValue = null ; } return; });"
+	 * , getElement()); //triggers on tab close with alert message !!!
+	 */
 	UI.getCurrent().getPage()
 		.executeJs("window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ", getElement()); // does
 															// not
@@ -112,12 +120,12 @@ public class CerereConcediuOdihnaPDF extends HorizontalLayout
 	if (PdfList.isFilePresent(fileName))
 	    PdfList.deleteFile(fileName);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
-	RouteConfiguration.forSessionScope().removeRoute(CerereConcediuOdihnaPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
     }
 
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
-	// parameters = event.getLocation().getQueryParameters().getParameters();
+//parameters = event.getLocation().getQueryParameters().getParameters();
 
 	if (fileName == null) {
 	    fileName = new String(parameters.get("tm").get(0));
@@ -128,7 +136,7 @@ public class CerereConcediuOdihnaPDF extends HorizontalLayout
 	 * pdfView.add(Utils.getFullPath(fileName, true)); }
 	 */
 
-	RouteConfiguration.forSessionScope().removeRoute(CerereConcediuOdihnaPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
     }
 
@@ -143,7 +151,7 @@ public class CerereConcediuOdihnaPDF extends HorizontalLayout
 
 	    e.printStackTrace();
 	}
-	RouteConfiguration.forSessionScope().removeRoute(CerereConcediuOdihnaPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
 
     }
@@ -157,7 +165,10 @@ public class CerereConcediuOdihnaPDF extends HorizontalLayout
 	    fileName = new String(parameters.get("tm").get(0));
 	}
 	if (!fileName.isEmpty()) {
+	    // System.out.println("Before enter event "+fileName);
 	    pdfView.add(Utils.getFullPath(fileName, true));
+
 	}
     }
+
 }

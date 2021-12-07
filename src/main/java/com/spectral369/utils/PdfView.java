@@ -17,8 +17,7 @@ public class PdfView extends Component {
 
 	com.vaadin.flow.dom.Element el = new com.vaadin.flow.dom.Element("iframe");
 
-	// el.setAttribute("src","pdfs/6LUNICerere.pdf");
-	el.setAttribute("src", "pdfs/" + name);
+	 el.setAttribute("src","pdfs/"+name);
 	
 
 	Element childWrapper = ElementFactory.createDiv();

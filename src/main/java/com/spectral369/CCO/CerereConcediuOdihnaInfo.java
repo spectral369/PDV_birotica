@@ -103,37 +103,32 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 	content.add(checkLayout);
 	content.setAlignItems(Alignment.CENTER);
 	(infoLayout = new HorizontalLayout()).setVisible(false);
-	/*infoPart1 = new VerticalLayout();
-	prenumeField = new TextField("Prenume:");
-	prenumeField.setRequiredIndicatorVisible(true);
-
-	binder.forField(prenumeField).asRequired()
-		.withValidator(str -> str.length() > 2, "Prenumele sa fie mai mare decat 2 caractere")
-		.bind(new ValueProvider<CerereConcediuOdihnaInfo, String>() {
-
-		    private static final long serialVersionUID = 1L;
-
-		    @Override
-		    public String apply(CerereConcediuOdihnaInfo source) {
-			return null;
-
-		    }
-		}, new Setter<CerereConcediuOdihnaInfo, String>() {
-
-		    private static final long serialVersionUID = 1L;
-
-		    @Override
-		    public void accept(CerereConcediuOdihnaInfo bean, String fieldvalue) {
-
-		    }
-		});
-
-
-	prenumeField.setErrorMessage("Prenume Required !");
-	infoPart1.add(prenumeField);
-	infoLayout.add(infoPart1);
-	infoLayout.setAlignItems(Alignment.CENTER);
-*/
+	/*
+	 * infoPart1 = new VerticalLayout(); prenumeField = new TextField("Prenume:");
+	 * prenumeField.setRequiredIndicatorVisible(true);
+	 * 
+	 * binder.forField(prenumeField).asRequired() .withValidator(str -> str.length()
+	 * > 2, "Prenumele sa fie mai mare decat 2 caractere") .bind(new
+	 * ValueProvider<CerereConcediuOdihnaInfo, String>() {
+	 * 
+	 * private static final long serialVersionUID = 1L;
+	 * 
+	 * @Override public String apply(CerereConcediuOdihnaInfo source) { return null;
+	 * 
+	 * } }, new Setter<CerereConcediuOdihnaInfo, String>() {
+	 * 
+	 * private static final long serialVersionUID = 1L;
+	 * 
+	 * @Override public void accept(CerereConcediuOdihnaInfo bean, String
+	 * fieldvalue) {
+	 * 
+	 * } });
+	 * 
+	 * 
+	 * prenumeField.setErrorMessage("Prenume Required !");
+	 * infoPart1.add(prenumeField); infoLayout.add(infoPart1);
+	 * infoLayout.setAlignItems(Alignment.CENTER);
+	 */
 	infoPart2 = new VerticalLayout();
 	numeField = new TextField("Nume complet:");
 	numeField.setRequiredIndicatorVisible(true);
@@ -157,11 +152,10 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 		    }
 		});
 
-	  
 	numeField.setErrorMessage("Nume Required !");
 	numeField.setWidth("100%");
 	numeField.setMaxLength(25);
-	numeField.setMinWidth(20f, Unit.EM);//test
+	numeField.setMinWidth(20f, Unit.EM);// test
 	infoPart2.add(numeField);
 	infoLayout.add(infoPart2);
 	infoLayout.setAlignItems(Alignment.CENTER);
@@ -191,11 +185,10 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 		    }
 		});
 
-	
 	functiaField.setErrorMessage("Functie required !");
 	infoPart3.add(functiaField);
 	infoLayout.add(infoPart3);
-	infoLayout.setAlignItems( Alignment.CENTER);
+	infoLayout.setAlignItems(Alignment.CENTER);
 
 	infoPart4 = new VerticalLayout();
 	nrZileField = new TextField("Nr. Zile Concediu:");
@@ -220,11 +213,10 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 		    }
 		});
 
-
 	nrZileField.setErrorMessage("Nr. Zile !");
 	infoPart4.add(nrZileField);
 	infoLayout.add(infoPart4);
-	infoLayout.setAlignItems( Alignment.CENTER); /// info
+	infoLayout.setAlignItems(Alignment.CENTER); /// info
 	infoLayout2 = new HorizontalLayout();
 	infoLayout2.setVisible(false);
 
@@ -252,7 +244,7 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 	anField.setErrorMessage("Zile Concediu din an Required !");
 	infoPart5.add(anField);
 	infoLayout2.add(infoPart5);
-	infoLayout2.setAlignItems( Alignment.CENTER);
+	infoLayout2.setAlignItems(Alignment.CENTER);
 
 	infoPart6 = new VerticalLayout();
 	dataStartField = new DatePicker("Data Start:");
@@ -278,15 +270,14 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 		    }
 		});
 
-
 	dataStartField.setErrorMessage("Data de start Required !");
 	infoPart6.add(dataStartField);
 	infoLayout2.add(infoPart6);
-	infoLayout2.setAlignItems( Alignment.CENTER);
+	infoLayout2.setAlignItems(Alignment.CENTER);
 
 	infoPart7 = new VerticalLayout();
 	dataEndField = new DatePicker("Data Sfarsit:");
-	//dataEndField.setDateFormat("dd-MM-yyyy");
+	// dataEndField.setDateFormat("dd-MM-yyyy");
 	dataEndField.setLocale(Locale.getDefault());
 	dataEndField.setRequiredIndicatorVisible(true);
 	binder.forField(dataEndField).asRequired()
@@ -309,11 +300,10 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 		    }
 		});
 
-
 	dataEndField.setErrorMessage("Data de incheiere Required !");
 	infoPart7.add(dataEndField);
 	infoLayout2.add(infoPart7);
-	infoLayout2.setAlignItems( Alignment.CENTER);
+	infoLayout2.setAlignItems(Alignment.CENTER);
 
 	infoPart8 = new VerticalLayout();
 	inloctiitorField = new TextField("Inlocuitor:");
@@ -338,16 +328,15 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 		    }
 		});
 
-
 	inloctiitorField.setErrorMessage("Inlocuitor Required !");
 	infoPart8.add(inloctiitorField);
 	infoLayout2.add(infoPart8);
-	infoLayout2.setAlignItems( Alignment.CENTER);
-	
-	infoLayout3 =  new HorizontalLayout();
+	infoLayout2.setAlignItems(Alignment.CENTER);
+
+	infoLayout3 = new HorizontalLayout();
 	infoLayout3.setVisible(false);
 	infoPart9 = new VerticalLayout();
-	dataCerere= new DatePicker("Data Cerere:");
+	dataCerere = new DatePicker("Data Cerere:");
 	dataCerere.setLocale(Locale.getDefault());
 	dataCerere.setRequiredIndicatorVisible(true);
 	binder.forField(dataCerere).asRequired()
@@ -370,19 +359,15 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 		    }
 		});
 
-
 	dataCerere.setErrorMessage("Data Cerere Required !");
 	infoPart9.add(dataCerere);
 	infoLayout3.add(infoPart9);
-	infoLayout3.setAlignItems( Alignment.CENTER);
-	
-	
-	
+	infoLayout3.setAlignItems(Alignment.CENTER);
 
 	content.add(infoLayout);
 	content.setAlignItems(Alignment.CENTER);
 	content.add(infoLayout2);
-	content.setAlignItems( Alignment.CENTER);
+	content.setAlignItems(Alignment.CENTER);
 	content.add(infoLayout3);
 	content.setAlignItems(Alignment.CENTER);
 
@@ -392,13 +377,7 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 	generate.getClassNames().add("frendly");
 	generate.addClickListener(evt -> { // String output = input.substring(0, 1).toUpperCase() + input.substring(1);
 	    if (complete.getValue()) {
-		/*String prenume = prenumeField.getValue().trim().substring(0, 1).toUpperCase()
-			+ prenumeField.getValue().trim().substring(1);*/
-		/*String nume = numeField.getValue().trim().substring(0, 1).toUpperCase()
-			+ numeField.getValue().trim().substring(1);*/
-
-		//map.put("prenume", prenume);
-		map.put("nume",PDFHelper.capitalizeWords(numeField.getValue().trim()));
+		map.put("nume", PDFHelper.capitalizeWords(numeField.getValue().trim()));
 		map.put("functia", functiaField.getValue().trim());
 		map.put("nrZile", nrZileField.getValue());
 		LocalDate dt = dataStartField.getValue();
@@ -413,14 +392,13 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 		map.put("anEnd", String.valueOf(dt.getYear()));
 
 		map.put("anConcediu", anField.getValue().trim());
-		map.put("inlocuitor",PDFHelper.capitalizeWords(inloctiitorField.getValue().trim()));
-		dt  =  dataCerere.getValue();
+		map.put("inlocuitor", PDFHelper.capitalizeWords(inloctiitorField.getValue().trim()));
+		dt = dataCerere.getValue();
 		dt.format(DateTimeFormatter.ISO_LOCAL_DATE);
 		map.put("ziCerere", String.valueOf(dt.getDayOfMonth()));
 		map.put("lunaCerere", String.valueOf(dt.getMonthValue()));
-		map.put("anCerere",String.valueOf(dt.getYear()));
+		map.put("anCerere", String.valueOf(dt.getYear()));
 	    }
-	    //prenumeField.clear();
 	    numeField.clear();
 	    functiaField.clear();
 	    anField.clear();
@@ -430,16 +408,19 @@ public class CerereConcediuOdihnaInfo extends HorizontalLayout implements Router
 	    inloctiitorField.clear();
 	    dataCerere.clear();
 
-		PDFCCOCreator pdfcr =  new PDFCCOCreator(map,Utils.getTimeStr());
-	 	String fn =  pdfcr.getID();
-	    
-		 RouteConfiguration.forSessionScope().removeRoute(CerereConcediuOdihnaPDF.class);
-	 	 RouteConfiguration.forSessionScope().setRoute(CerereConcediuOdihnaPDF.NAME, CerereConcediuOdihnaPDF.class);
-	Map <String,String> sss =  new HashMap<String,String>();
-	sss.put("tm", fn);
-	
-	UI.getCurrent().navigate("CerereConcediuOdihnaPDF",QueryParameters.simple(sss));
+	    PDFCCOCreator pdfcr = new PDFCCOCreator(map, Utils.getTimeStr());
+	    String fn = pdfcr.getID();
 
+	    RouteConfiguration.forSessionScope().removeRoute(CerereConcediuOdihnaPDF.class);
+	    RouteConfiguration.forSessionScope().setRoute(CerereConcediuOdihnaPDF.NAME, CerereConcediuOdihnaPDF.class);
+
+	    Map<String, String> sss = new HashMap<String, String>();
+	    sss.put("tm", fn);
+	    try {
+		UI.getCurrent().navigate("CerereConcediuOdihnaPDF", QueryParameters.simple(sss));
+	    } catch (Exception e) {
+		System.out.println("errr cerer");
+	    }
 	});
 	generateLayout.add(generate);
 	binder.addStatusChangeListener(event -> {
