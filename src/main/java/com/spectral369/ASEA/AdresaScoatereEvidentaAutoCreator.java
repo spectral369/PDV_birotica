@@ -62,6 +62,9 @@ public class AdresaScoatereEvidentaAutoCreator {
     public String getID() {
 	return id;
     }
+    public String getFileName() {
+	return pdff.getName();
+    }
 
     private void generatePDF(final String tm, final File pdfFile) {
 	try {

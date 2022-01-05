@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.spectral369.birotica.MainView;
 import com.spectral369.utils.PDFHelper;
-import com.spectral369.utils.Utils;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
@@ -22,9 +21,9 @@ import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
-import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
+import com.vaadin.flow.server.VaadinSession;
 
 public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements RouterLayout, AfterNavigationObserver {
     private static final long serialVersionUID = 1L;
@@ -51,10 +50,18 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
     VerticalLayout infoPart10;
     VerticalLayout infoPart11;
     VerticalLayout infoPart12;
+    HorizontalLayout infoLayout31;
+    VerticalLayout infopart14;
+    VerticalLayout infopart15;
+    VerticalLayout infopart16;
+    VerticalLayout infopart17;
+    HorizontalLayout infoLayout5;
+    VerticalLayout infopart18;
+    VerticalLayout infopart19;
+    VerticalLayout infopart20;
+    VerticalLayout infopart21;
     HorizontalLayout infoLayout4;
     VerticalLayout infoPart13;
-
-
 
     HorizontalLayout generateLayout;
     Button generate;
@@ -75,6 +82,12 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
     private TextField nrStrField;
     private ComboBox<String> titlu;
     private TextField intocmitField;
+    private TextField blField;
+    private TextField scField;
+    private TextField etField;
+    private TextField apField;
+    private TextField serieCIField;
+    private TextField nrCIField;
 
     public AdresaScoatereEvidentaAutoInfo() {
 
@@ -138,18 +151,17 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
 	catreField.setErrorMessage("Nume institutie Required");
 	catreField.setWidth("100%");
 	catreField.setMaxLength(35);
-	catreField.setMinWidth(20f, Unit.EM);//test
+	catreField.setMinWidth(20f, Unit.EM);// test
 	infoPart1.add(catreField);
 	infoLayout.add(infoPart1);
 	infoLayout.setAlignItems(Alignment.CENTER);
 
 	infoPart2 = new VerticalLayout();
 	act1Field = new TextField("Act 1:");
-	//act1Field.setValue("Dudestii-Vechi");
+	// act1Field.setValue("Dudestii-Vechi");
 	act1Field.setRequiredIndicatorVisible(true);
 	binder.forField(act1Field).asRequired()
 		.withValidator(str -> str.length() > 2, "Act1 sa fie mai mare decat 2 caractere")
-
 		.bind(new ValueProvider<AdresaScoatereEvidentaAutoInfo, String>() {
 
 		    private static final long serialVersionUID = 1L;
@@ -200,7 +212,7 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
 	infoPart3.add(dataAct1Field);
 	infoLayout.add(infoPart3);
 	infoLayout.setAlignItems(Alignment.CENTER);
-	
+
 	infoPart3 = new VerticalLayout();
 	contribuabilField = new TextField("Contribuabilul :");
 	contribuabilField.setRequiredIndicatorVisible(true);
@@ -227,15 +239,12 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
 	contribuabilField.setErrorMessage("Nume Contribuabil Required");
 	contribuabilField.setWidth("100%");
 	contribuabilField.setMaxLength(35);
-	contribuabilField.setMinWidth(20f, Unit.EM);//test
+	contribuabilField.setMinWidth(20f, Unit.EM);// test
+	infoPart4 = new VerticalLayout();
 	infoPart4.add(contribuabilField);
 	infoLayout.add(infoPart4);
 	infoLayout.setAlignItems(Alignment.CENTER);
-	
-	
-	
-	
-	
+
 	/// info 2
 	infoLayout2 = new HorizontalLayout();
 	infoLayout2.setVisible(false);
@@ -307,24 +316,25 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
 	localitateField = new TextField("Municipiul/Orasul sau comuna:");
 	localitateField.setRequiredIndicatorVisible(true);
 	binder.forField(localitateField).asRequired()
-	.withValidator(str -> str.length() > 2, "Municipiul/Orasul sau comuna trebuie sa fie mai mare decat 2 caractere")
-	.bind(new ValueProvider<AdresaScoatereEvidentaAutoInfo, String>() {
+		.withValidator(str -> str.length() > 2,
+			"Municipiul/Orasul sau comuna trebuie sa fie mai mare decat 2 caractere")
+		.bind(new ValueProvider<AdresaScoatereEvidentaAutoInfo, String>() {
 
-	    private static final long serialVersionUID = 1L;
+		    private static final long serialVersionUID = 1L;
 
-	    @Override
-	    public String apply(AdresaScoatereEvidentaAutoInfo source) {
-		return null;
-	    }
-	}, new Setter<AdresaScoatereEvidentaAutoInfo, String>() {
+		    @Override
+		    public String apply(AdresaScoatereEvidentaAutoInfo source) {
+			return null;
+		    }
+		}, new Setter<AdresaScoatereEvidentaAutoInfo, String>() {
 
-	    private static final long serialVersionUID = 1L;
+		    private static final long serialVersionUID = 1L;
 
-	    @Override
-	    public void accept(AdresaScoatereEvidentaAutoInfo bean, String fieldvalue) {
+		    @Override
+		    public void accept(AdresaScoatereEvidentaAutoInfo bean, String fieldvalue) {
 
-	    }
-	});
+		    }
+		});
 	localitateField.setErrorMessage("Municipiul/Orasul sau comuna Required !");
 	infoPart8.add(localitateField);
 	infoLayout2.add(infoPart8);
@@ -335,7 +345,7 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
 
 	infoPart9 = new VerticalLayout();
 	satField = new TextField("Satul:");
-	///set to option combo box dv/ch/col
+	/// set to option combo box dv/ch/col
 	infoPart9.add(satField);
 	infoLayout3.add(infoPart9);
 	infoLayout3.setAlignItems(Alignment.CENTER);
@@ -345,24 +355,24 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
 	stradaField.setRequiredIndicatorVisible(true);
 	stradaField.setValue("Nespecificata");
 	binder.forField(stradaField).asRequired()
-	.withValidator(str -> str.length() > 2, "Strada trebuie sa fie mai mare decat 2 caractere")
-	.bind(new ValueProvider<AdresaScoatereEvidentaAutoInfo, String>() {
+		.withValidator(str -> str.length() > 2, "Strada trebuie sa fie mai mare decat 2 caractere")
+		.bind(new ValueProvider<AdresaScoatereEvidentaAutoInfo, String>() {
 
-	    private static final long serialVersionUID = 1L;
+		    private static final long serialVersionUID = 1L;
 
-	    @Override
-	    public String apply(AdresaScoatereEvidentaAutoInfo source) {
-		return null;
-	    }
-	}, new Setter<AdresaScoatereEvidentaAutoInfo, String>() {
+		    @Override
+		    public String apply(AdresaScoatereEvidentaAutoInfo source) {
+			return null;
+		    }
+		}, new Setter<AdresaScoatereEvidentaAutoInfo, String>() {
 
-	    private static final long serialVersionUID = 1L;
+		    private static final long serialVersionUID = 1L;
 
-	    @Override
-	    public void accept(AdresaScoatereEvidentaAutoInfo bean, String fieldvalue) {
+		    @Override
+		    public void accept(AdresaScoatereEvidentaAutoInfo bean, String fieldvalue) {
 
-	    }
-	});
+		    }
+		});
 	stradaField.setErrorMessage("Strada Required !");
 	infoPart10.add(stradaField);
 	infoLayout3.add(infoPart10);
@@ -395,10 +405,95 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
 	infoPart11.add(nrStrField);
 	infoLayout3.add(infoPart11);
 	infoLayout3.setAlignItems(Alignment.CENTER);
-	///add here
 
-	//add here
-	
+	infoLayout31 = new HorizontalLayout();
+	infoLayout31.setVisible(false);
+	infopart14 = new VerticalLayout();
+	blField = new TextField("Bloc :");
+	infopart14.add(blField);
+	infoLayout31.add(infopart14);
+	infoLayout31.setAlignItems(Alignment.CENTER);
+
+	infopart15 = new VerticalLayout();
+	scField = new TextField("Scara :");
+	infopart15.add(scField);
+	infoLayout31.add(infopart15);
+	infoLayout31.setAlignItems(Alignment.CENTER);
+
+	infopart16 = new VerticalLayout();
+	etField = new TextField("Etaj :");
+	infopart16.add(etField);
+	infoLayout31.add(infopart16);
+	infoLayout31.setAlignItems(Alignment.CENTER);
+
+	infopart17 = new VerticalLayout();
+	apField = new TextField("Apartament :");
+	infopart17.add(apField);
+	infoLayout31.add(infopart17);
+	infoLayout31.setAlignItems(Alignment.CENTER);
+
+	infoLayout5 = new HorizontalLayout();
+	infopart18 = new VerticalLayout();
+	serieCIField = new TextField("Serie  :");
+	serieCIField.setRequiredIndicatorVisible(true);
+	binder.forField(serieCIField).asRequired()
+		.withValidator(str -> str.length() == 2, "Seria trebuie sa fie de 2 charactere")
+		.bind(new ValueProvider<AdresaScoatereEvidentaAutoInfo, String>() {
+
+		    private static final long serialVersionUID = 1L;
+
+		    @Override
+		    public String apply(AdresaScoatereEvidentaAutoInfo source) {
+			return null;
+		    }
+		}, new Setter<AdresaScoatereEvidentaAutoInfo, String>() {
+
+		    private static final long serialVersionUID = 1L;
+
+		    @Override
+		    public void accept(AdresaScoatereEvidentaAutoInfo bean, String fieldvalue) {
+
+		    }
+		});
+
+	serieCIField.setErrorMessage("Serie Required!");
+	infopart18.add(serieCIField);
+	infoLayout5.add(infopart18);
+	infoLayout5.setAlignItems(Alignment.CENTER);
+
+	infopart19 = new VerticalLayout();
+	nrCIField = new TextField("Numar CI  :");
+	nrCIField.setRequiredIndicatorVisible(true);
+	binder.forField(nrCIField).asRequired()
+		.withValidator(str -> str.length() == 6, "Numar CI trebuie sa fie de 6 cifre")
+		.withConverter(new StringToIntegerConverter("Must be Integer"))
+		.bind(new ValueProvider<AdresaScoatereEvidentaAutoInfo, Integer>() {
+
+		    private static final long serialVersionUID = 1L;
+
+		    @Override
+		    public Integer apply(AdresaScoatereEvidentaAutoInfo source) {
+			return null;
+		    }
+		}, new Setter<AdresaScoatereEvidentaAutoInfo, Integer>() {
+
+		    private static final long serialVersionUID = 1L;
+
+		    @Override
+		    public void accept(AdresaScoatereEvidentaAutoInfo bean, Integer fieldvalue) {
+
+		    }
+		});
+
+	serieCIField.setErrorMessage("Numar CI Required!");
+	infopart19.add(nrCIField);
+	infoLayout5.add(infopart19);
+	infoLayout5.setAlignItems(Alignment.CENTER);
+
+	/// add here
+
+	// add here
+
 	infoPart12 = new VerticalLayout();
 	titlu = new ComboBox<String>("Titlul: ");
 	titlu.setItems("Dl.", "D-na.", "Subscrisa");
@@ -465,6 +560,8 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
 	content.setAlignItems(Alignment.CENTER);
 	content.add(infoLayout3);
 	content.setAlignItems(Alignment.CENTER);
+	content.add(infoLayout31);
+	content.setAlignItems(Alignment.CENTER);
 	content.add(infoLayout4);
 	content.setAlignItems(Alignment.CENTER);
 
@@ -476,13 +573,6 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
 	generate.addClickListener(evt -> {
 
 	    if (complete.getValue()) {
-		/*String prenume = precatreField.getValue().trim().substring(0, 1).toUpperCase()
-			+ precatreField.getValue().trim().substring(1);*/
-		/*String nume = catreField.getValue().trim().substring(0, 1).toUpperCase()
-			+ catreField.getValue().trim().substring(1);
-		String localitate = act1Field.getValue().trim().substring(0, 1).toUpperCase()
-			+ act1Field.getValue().trim().substring(1);*/
-		//map.put("prenume", prenume);
 		map.put("nume", PDFHelper.capitalizeWords(catreField.getValue().trim()));
 		map.put("nrStrada", dataAct1Field.getValue().trim());
 		map.put("localitate", PDFHelper.capitalizeWords(act1Field.getValue().trim()));
@@ -496,9 +586,8 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
 		map.put("nrInmatriculare", stradaField.getValue().trim());
 		map.put("nrStrField", nrStrField.getValue().trim());
 		map.put("titlu", titlu.getOptionalValue().get());
-		map.put("intocmit",PDFHelper.capitalizeWords(intocmitField.getValue().trim()));
+		map.put("intocmit", PDFHelper.capitalizeWords(intocmitField.getValue().trim()));
 	    }
-	  //  precatreField.clear();
 	    catreField.clear();
 	    dataAct1Field.clear();
 	    contribuabilField.clear();
@@ -513,18 +602,12 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
 	    titlu.clear();
 	    intocmitField.clear();
 
-	   AdresaScoatereEvidentaAutoCreator ASEACreator = new AdresaScoatereEvidentaAutoCreator(map, Utils.getTimeStr());
-	    fn = ASEACreator.getID();
-
-	    RouteConfiguration.forSessionScope().removeRoute(AdresaScoatereEvidentaAutoPDF.class);
 	    RouteConfiguration.forSessionScope().setRoute(AdresaScoatereEvidentaAutoPDF.NAME,
 		    AdresaScoatereEvidentaAutoPDF.class);
-	    Map<String, String> sss = new HashMap<String, String>();
-	    sss.put("tm", fn);
+	    VaadinSession session = VaadinSession.getCurrent();
+	    session.setAttribute("map", map);
 
-	    UI.getCurrent().navigate("AdresaScoatereEvidentaAutoPDF", QueryParameters.simple(sss));
-
-	    // UI.getCurrent().getPage().setLocation(AdeverintaRadiereAutoPDF.NAME);
+	    UI.getCurrent().navigate(AdresaScoatereEvidentaAutoPDF.class);
 
 	});
 
@@ -548,6 +631,7 @@ public class AdresaScoatereEvidentaAutoInfo extends HorizontalLayout implements 
 	infoLayout.setVisible(!infoLayout.isVisible());
 	infoLayout2.setVisible(!infoLayout2.isVisible());
 	infoLayout3.setVisible(!infoLayout3.isVisible());
+	infoLayout31.setVisible(!infoLayout31.isVisible());
 	infoLayout4.setVisible(!infoLayout4.isVisible());
 
 	generate.setEnabled(!generate.isEnabled());

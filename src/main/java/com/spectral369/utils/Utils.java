@@ -17,11 +17,15 @@ import com.spectral369.birotica.PdfList;
 public class Utils {
 
     public static final String FOLDER_PDF = "pdfs";
-    
+
     public static String getResourcePath() {
 
-	URL resource1 = Utils.class.getClassLoader().getResource("");
-	return resource1.getPath() + "META-INF" + File.separator + "resources" + File.separator;
+	// URL resource1 = Utils.class.getClassLoader().getResource("");
+	String path = Utils.class.getClassLoader().getResource("").getPath();
+	if (System.getProperty("os.name").toLowerCase().contains("win")) {
+	    path = path.substring(1);
+	}
+	return path + "META-INF" + File.separator + "resources" + File.separator;
     }
 
     public static String getSaveFileLocation(String fileName) {
@@ -36,6 +40,15 @@ public class Utils {
 	return path + "META-INF" + File.separator + "resources" + File.separator + Utils.FOLDER_PDF + File.separator
 		+ fileName;
 
+    }
+
+    public static String getResourcePath(Class<?> currentClass, String fileName) {
+	String path = currentClass.getProtectionDomain().getCodeSource().getLocation().getPath();
+	if (path.startsWith("/")) {
+	    path = path.substring(1);
+	}
+
+	return path + "META-INF/resources/pdfs/" + fileName;
     }
 
     public static String getRandomStringSerial(String idetificator) {
@@ -73,98 +86,94 @@ public class Utils {
 	}
 	return fne;
     }
-    
+
     public static int checkIfOK(String ID) {
- 	URL url = null;
- 	int days = 30;
- 	try {
- 	    url = new URL("http://freelancingpeter.eu:8000/params/" + ID);
- 	
- 	} catch (MalformedURLException e) {
- 	    e.printStackTrace();
- 	}
- 	try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
- 	    for (String line; (line = reader.readLine()) != null;) {
- 		days = Integer.parseInt(line.substring(line.lastIndexOf(":") + 1).trim());
- 	    }
- 	} catch (IOException e) {
- 	    e.printStackTrace();
- 	}
- 	System.out.println("Days remaining: " + days);
+	URL url = null;
+	int days = 30;
+	try {
+	    url = new URL("http://freelancingpeter.eu:8000/params/" + ID);
 
- 	if (days > 10 && days < 15)
- 	    return 2;
- 	else if (days > 0 && days < 10)
- 	    return 1;
- 	else
- 	    return 0;
-     }
+	} catch (MalformedURLException e) {
+	    e.printStackTrace();
+	}
+	try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
+	    for (String line; (line = reader.readLine()) != null;) {
+		days = Integer.parseInt(line.substring(line.lastIndexOf(":") + 1).trim());
+	    }
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+	System.out.println("Days remaining: " + days);
 
-     public static String getid() {
- 	String OS = System.getProperty("os.name").toLowerCase();
- 	String machineId = null;
- 	if (OS.indexOf("win") >= 0) {
- 	    StringBuffer output = new StringBuffer();
- 	    Process process;
- 	    // String[] cmd = {"wmic", "csproduct", "get", "UUID"}; default i think requires
- 	    // admin priv
- 	    String[] cmd = { "cmd", "/c", "reg query", "HKLM\\SOFTWARE\\Microsoft\\Cryptography\\", "/v",
- 		    "MachineGuid" };
- 	    try {
- 		process = Runtime.getRuntime().exec(cmd);
- 		process.waitFor();
- 		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
- 		String line = "";
- 		while ((line = reader.readLine()) != null) {
- 		  //  System.out.println(line);
- 		    // output.append(line + "\n");
- 		    if (line.contains("REG_SZ"))
- 			output.append(line.substring(line.indexOf("REG_SZ") + 6).trim());
+	if (days > 10 && days < 15)
+	    return 2;
+	else if (days > 0 && days < 10)
+	    return 1;
+	else
+	    return 0;
+    }
 
- 		}
- 	    } catch (Exception e) {
- 		e.printStackTrace();
- 	    }
- 	    machineId = output.toString();
- 	} else if (OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0) {
- 	    StringBuffer output = new StringBuffer();
- 	    Process process;
- 	    // String[] cmd = {"/bin/sh", "-c", "echo <root password> | sudo -S cat
- 	    // /sys/class/dmi/id/product_uuid"};//var 0
- 	    // String [] cmd = {"/bin/sh","-c", "lshw |grep -m1 'serial:'"}; //var 1
- 	    String[] cmd = { "/bin/sh", "-c", "cat /var/lib/dbus/machine-id" }; // var 2
- 	    try {
- 		process = Runtime.getRuntime().exec(cmd);
- 		process.waitFor();
- 		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
- 		String line = "";
- 		while ((line = reader.readLine()) != null) {
- 		    output.append(line.trim() + "\n");
- 		}
- 	    } catch (Exception e) {
- 		e.printStackTrace();
- 	    }
- 	    machineId = output.toString();
- 	}
- 	
- 	return getMachineName().concat("_").concat(machineId);
-     }
-     
-     
-     public static String getMachineName() {
-	 String hostname =  new  String("unknown");
-	 try
-	 {
-	     InetAddress addr;
-	     addr = InetAddress.getLocalHost();
-	     hostname = addr.getHostName();
-	 }
-	 catch (UnknownHostException ex)
-	 {
-	     System.out.println("Hostname can not be resolved");
-	 }
-	
-	 return hostname.trim();
-     }
+    public static String getid() {
+	String OS = System.getProperty("os.name").toLowerCase();
+	String machineId = null;
+	if (OS.indexOf("win") >= 0) {
+	    StringBuffer output = new StringBuffer();
+	    Process process;
+	    // String[] cmd = {"wmic", "csproduct", "get", "UUID"}; default i think requires
+	    // admin priv
+	    String[] cmd = { "cmd", "/c", "reg query", "HKLM\\SOFTWARE\\Microsoft\\Cryptography\\", "/v",
+		    "MachineGuid" };
+	    try {
+		process = Runtime.getRuntime().exec(cmd);
+		process.waitFor();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		String line = "";
+		while ((line = reader.readLine()) != null) {
+		    // System.out.println(line);
+		    // output.append(line + "\n");
+		    if (line.contains("REG_SZ"))
+			output.append(line.substring(line.indexOf("REG_SZ") + 6).trim());
+
+		}
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+	    machineId = output.toString();
+	} else if (OS.indexOf("nix") >= 0 || OS.indexOf("nux") >= 0 || OS.indexOf("aix") > 0) {
+	    StringBuffer output = new StringBuffer();
+	    Process process;
+	    // String[] cmd = {"/bin/sh", "-c", "echo <root password> | sudo -S cat
+	    // /sys/class/dmi/id/product_uuid"};//var 0
+	    // String [] cmd = {"/bin/sh","-c", "lshw |grep -m1 'serial:'"}; //var 1
+	    String[] cmd = { "/bin/sh", "-c", "cat /var/lib/dbus/machine-id" }; // var 2
+	    try {
+		process = Runtime.getRuntime().exec(cmd);
+		process.waitFor();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		String line = "";
+		while ((line = reader.readLine()) != null) {
+		    output.append(line.trim() + "\n");
+		}
+	    } catch (Exception e) {
+		e.printStackTrace();
+	    }
+	    machineId = output.toString();
+	}
+
+	return getMachineName().concat("_").concat(machineId);
+    }
+
+    public static String getMachineName() {
+	String hostname = new String("unknown");
+	try {
+	    InetAddress addr;
+	    addr = InetAddress.getLocalHost();
+	    hostname = addr.getHostName();
+	} catch (UnknownHostException ex) {
+	    System.out.println("Hostname can not be resolved");
+	}
+
+	return hostname.trim();
+    }
 
 }

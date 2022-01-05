@@ -55,7 +55,9 @@ public class PDFCapelaCreator {
     public String getID() {
 	return id;
     }
-
+    public String getFileName() {
+	return pdff.getName();
+    }
     private void generatePDF(final String tm, final File pdfFile) {
 	try {
 	    writer = new PdfWriter(pdfFile);

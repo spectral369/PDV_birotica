@@ -10,7 +10,6 @@ import java.util.Map;
 
 import com.spectral369.birotica.MainView;
 import com.spectral369.utils.PDFHelper;
-import com.spectral369.utils.Utils;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
@@ -28,9 +27,9 @@ import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.router.AfterNavigationEvent;
 import com.vaadin.flow.router.AfterNavigationObserver;
-import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
+import com.vaadin.flow.server.VaadinSession;
 
 public class CerereCapelaInfo extends HorizontalLayout implements RouterLayout, AfterNavigationObserver {
     private static final long serialVersionUID = 1L;
@@ -381,17 +380,14 @@ public class CerereCapelaInfo extends HorizontalLayout implements RouterLayout, 
 	    cnpField.clear();
 	    nrStrField.clear();
 	    dateField.clear();
-
-	    
-		PDFCapelaCreator pdfcr =  new PDFCapelaCreator(map,Utils.getTimeStr());
-	 	String fn =  pdfcr.getID();
-	    
-		 RouteConfiguration.forSessionScope().removeRoute(CerereCapelaPDF.class);
-	 	 RouteConfiguration.forSessionScope().setRoute(CerereCapelaPDF.NAME, CerereCapelaPDF.class);
-	Map <String,String> sss =  new HashMap<String,String>();
-	sss.put("tm", fn);
+		  
+	    RouteConfiguration.forSessionScope().setRoute(CerereCapelaPDF.NAME,
+		    CerereCapelaPDF.class);
+	    VaadinSession session = VaadinSession.getCurrent();
+	    session.setAttribute("map", map);
 	
-	UI.getCurrent().navigate("CerereCapelaPDF",QueryParameters.simple(sss));
+	   
+	    UI.getCurrent().navigate(CerereCapelaPDF.class);
 
 	});
 	generateLayout.add(generate);

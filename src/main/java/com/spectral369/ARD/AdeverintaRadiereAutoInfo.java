@@ -26,7 +26,6 @@ import com.vaadin.flow.router.QueryParameters;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
 
-//@Route("ADVRadiereAutoInfo")
 public class AdeverintaRadiereAutoInfo extends HorizontalLayout implements RouterLayout, AfterNavigationObserver {
     private static final long serialVersionUID = 1L;
     public static final String NAME = "ADVRadiereAutoInfo";
@@ -511,8 +510,6 @@ public class AdeverintaRadiereAutoInfo extends HorizontalLayout implements Route
 	    sss.put("tm", fn);
 
 	    UI.getCurrent().navigate("ADVRadiereAutoPDF", QueryParameters.simple(sss));
-
-	    // UI.getCurrent().getPage().setLocation(AdeverintaRadiereAutoPDF.NAME);
 
 	});
 

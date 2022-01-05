@@ -8,11 +8,11 @@ import java.util.Map;
 
 import com.spectral369.birotica.MainView;
 import com.spectral369.birotica.PdfList;
-import com.spectral369.utils.PdfView;
 import com.spectral369.utils.Utils;
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.IFrame;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -26,9 +26,11 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.StreamRegistration;
+import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.server.VaadinSession;
 
 @PageTitle("AdeverintaRadiere")
-//@Route("ADVRadiereAutoPDF")//:tm
 public class AdeverintaRadiereAutoPDF extends HorizontalLayout
 	implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver, BeforeEnterObserver {
     private static final long serialVersionUID = 1L;
@@ -42,7 +44,6 @@ public class AdeverintaRadiereAutoPDF extends HorizontalLayout
     HorizontalLayout backLayout;
     Button backbtn;
     String fileName = null;
-    PdfView pdfView = null;
     String browser = null;
     private Map<String, List<String>> parameters = null;
 
@@ -66,8 +67,8 @@ public class AdeverintaRadiereAutoPDF extends HorizontalLayout
 	content.setAlignItems(Alignment.CENTER);
 	pdfLayout = new HorizontalLayout();
 
-	pdfView = new PdfView();
-	pdfLayout.add(pdfView);
+	//pdfView = new PdfView();
+	//pdfLayout.add(pdfView);
 	pdfLayout.setSizeFull();
 	pdfLayout.setId("pdfLayout");
 
@@ -166,8 +167,13 @@ public class AdeverintaRadiereAutoPDF extends HorizontalLayout
 	    fileName = new String(parameters.get("tm").get(0));
 	}
 	if (!fileName.isEmpty()) {
-	  //  System.out.println("Before enter event "+fileName);
-	     pdfView.add(Utils.getFullPath(fileName, true));
+		StreamResource streamResource = new StreamResource(Utils.getFullPath(fileName, true),
+			() -> getClass().getResourceAsStream("/META-INF/resources/pdfs/"+Utils.getFullPath(fileName, true)));
+		StreamRegistration registration = VaadinSession.getCurrent().getResourceRegistry()
+			.registerResource(streamResource);
+		IFrame iframe = new IFrame(registration.getResourceUri().toString());
+		iframe.setSizeFull();
+		pdfLayout.add(iframe);
 
 	}
     }

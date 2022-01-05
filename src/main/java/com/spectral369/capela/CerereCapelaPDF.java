@@ -4,17 +4,16 @@ package com.spectral369.capela;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
-import java.util.Map;
+import java.util.HashMap;
 
-import com.spectral369.ARD.AdeverintaRadiereAutoPDF;
 import com.spectral369.birotica.MainView;
 import com.spectral369.birotica.PdfList;
-import com.spectral369.utils.PdfView;
 import com.spectral369.utils.Utils;
 import com.vaadin.flow.component.ClientCallable;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.IFrame;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -27,8 +26,12 @@ import com.vaadin.flow.router.BeforeLeaveObserver;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.StreamRegistration;
+import com.vaadin.flow.server.StreamResource;
+import com.vaadin.flow.server.VaadinSession;
 
-public class CerereCapelaPDF extends HorizontalLayout implements RouterLayout, AfterNavigationObserver,BeforeLeaveObserver,BeforeEnterObserver {
+public class CerereCapelaPDF extends HorizontalLayout
+	implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver, BeforeEnterObserver {
     private static final long serialVersionUID = 1L;
     public static final String NAME = "CerereCapelaPDF";
     public static String FNAME;
@@ -39,14 +42,27 @@ public class CerereCapelaPDF extends HorizontalLayout implements RouterLayout, A
     HorizontalLayout backLayout;
     Button backbtn;
     String fileName = null;
-    PdfView pdfView = null;
-    private Map<String, List<String>> parameters = null;
-    
+    // PdfView pdfView = null;
+    StreamResource streamResource = null;
+    Div loading = null;
     static {
 	CerereCapelaPDF.FNAME = "";
     }
+    PDFCapelaCreator capela = null;
 
     public CerereCapelaPDF() {
+
+	try {
+	    loading = new Div();
+	    loading.addClassName("loader");
+	    VaadinSession session = VaadinSession.getCurrent();
+	    @SuppressWarnings("unchecked")
+	    HashMap<String, String> map = (HashMap<String, String>) session.getAttribute("map");
+
+	    capela = new PDFCapelaCreator(map, Utils.getTimeStr());
+	} finally {
+	    loading.setVisible(false);
+	}
 
 	content = new VerticalLayout();
 	titleLayout = new HorizontalLayout();
@@ -60,9 +76,6 @@ public class CerereCapelaPDF extends HorizontalLayout implements RouterLayout, A
 	content.setAlignItems(Alignment.CENTER);
 	pdfLayout = new HorizontalLayout();
 
-	pdfView = new PdfView();
-
-	pdfLayout.add(pdfView);
 	pdfLayout.setSizeFull();
 	pdfLayout.setId("pdfLayout");
 
@@ -86,13 +99,17 @@ public class CerereCapelaPDF extends HorizontalLayout implements RouterLayout, A
 
 	setSizeFull();
 
-	 UI.getCurrent().getPage().executeJs(
-		 "window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ",getElement()); //does not trigger on tab close !!!!!!!
-	 UI.getCurrent().getPage().executeJs(
-		 "window.addEventListener('unload', () => $0.$server.windowClosed()); ",getElement()); //does  trigger on tab close !!!!!!!
-	
-	
-	
+	UI.getCurrent().getPage()
+		.executeJs("window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ", getElement()); // does
+															// not
+															// trigger
+															// on
+															// tab
+															// close
+															// !!!!!!!
+	UI.getCurrent().getPage().executeJs("window.addEventListener('unload', () => $0.$server.windowClosed()); ",
+		getElement()); // does trigger on tab close !!!!!!!
+
     }
 
     @ClientCallable
@@ -100,30 +117,24 @@ public class CerereCapelaPDF extends HorizontalLayout implements RouterLayout, A
 	System.out.println("Window closed");
 
 	try {
-	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
+
+	    System.out.println(Files.deleteIfExists(
+		    Path.of(Utils.getResourcePath(CerereCapelaPDF.class, streamResource.getName())).normalize()));
+
 	} catch (IOException e) {
 
 	    e.printStackTrace();
 	}
-	if(PdfList.isFilePresent(fileName))
+	if (PdfList.isFilePresent(fileName))
 	    PdfList.deleteFile(fileName);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(CerereCapelaPDF.class);
     }
 
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
-	//parameters = event.getLocation().getQueryParameters().getParameters();
 
-	if (fileName == null) {
-	    fileName = new String(parameters.get("tm").get(0));
-	}
-	/*if (!fileName.isEmpty()) {
-
-	     pdfView.add(Utils.getFullPath(fileName, true));
-	}*/
-
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(CerereCapelaPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
     }
 
@@ -131,30 +142,28 @@ public class CerereCapelaPDF extends HorizontalLayout implements RouterLayout, A
     public void beforeLeave(BeforeLeaveEvent event) {
 
 	try {
-	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
-	    if (PdfList.isFilePresent(fileName))
-		PdfList.deleteFile(fileName);
+	    System.out.println(Files.deleteIfExists(
+		    Path.of(Utils.getResourcePath(CerereCapelaPDF.class, streamResource.getName()))));
 	} catch (IOException e) {
 
 	    e.printStackTrace();
 	}
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(CerereCapelaPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
+	VaadinSession.getCurrent().setAttribute("map", "");
 
     }
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
-	
-	parameters = event.getLocation().getQueryParameters().getParameters();
 
-	if (fileName == null) {
-	    fileName = new String(parameters.get("tm").get(0));
-	}
-	if (!fileName.isEmpty()) {
-	  //  System.out.println("Before enter event "+fileName);
-	     pdfView.add(Utils.getFullPath(fileName, true));
+	streamResource = new StreamResource(capela.getFileName(),
+		() -> getClass().getResourceAsStream("/META-INF/resources/pdfs/" + capela.getFileName()));
+	StreamRegistration registration = VaadinSession.getCurrent().getResourceRegistry()
+		.registerResource(streamResource);
+	IFrame iframe = new IFrame(registration.getResourceUri().toString());
+	iframe.setSizeFull();
+	pdfLayout.add(iframe);
 
-	}
     }
 }
