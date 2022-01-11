@@ -23,6 +23,7 @@ import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.BeforeLeaveEvent;
 import com.vaadin.flow.router.BeforeLeaveObserver;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
@@ -30,6 +31,8 @@ import com.vaadin.flow.server.StreamRegistration;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.VaadinSession;
 
+
+@PageTitle("CerereCapela")
 public class CerereCapelaPDF extends HorizontalLayout
 	implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver, BeforeEnterObserver {
     private static final long serialVersionUID = 1L;
@@ -98,17 +101,10 @@ public class CerereCapelaPDF extends HorizontalLayout
 	add(content);
 
 	setSizeFull();
-
 	UI.getCurrent().getPage()
-		.executeJs("window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ", getElement()); // does
-															// not
-															// trigger
-															// on
-															// tab
-															// close
-															// !!!!!!!
-	UI.getCurrent().getPage().executeJs("window.addEventListener('unload', () => $0.$server.windowClosed()); ",
-		getElement()); // does trigger on tab close !!!!!!!
+		.executeJs("window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ", getElement()); 
+															
+	UI.getCurrent().getPage().executeJs("window.addEventListener('unload', () => $0.$server.windowClosed()); ",getElement());
 
     }
 
@@ -117,9 +113,9 @@ public class CerereCapelaPDF extends HorizontalLayout
 	System.out.println("Window closed");
 
 	try {
-
-	    System.out.println(Files.deleteIfExists(
-		    Path.of(Utils.getResourcePath(CerereCapelaPDF.class, streamResource.getName())).normalize()));
+	    System.out.println(Path.of(Utils.getResourcePath(CerereCapelaPDF.class, streamResource.getName())));
+	    System.out.println(Files
+		    .deleteIfExists(Path.of(Utils.getResourcePath(CerereCapelaPDF.class, streamResource.getName()))));
 
 	} catch (IOException e) {
 
@@ -142,8 +138,9 @@ public class CerereCapelaPDF extends HorizontalLayout
     public void beforeLeave(BeforeLeaveEvent event) {
 
 	try {
-	    System.out.println(Files.deleteIfExists(
-		    Path.of(Utils.getResourcePath(CerereCapelaPDF.class, streamResource.getName()))));
+
+	    System.out.println(Files
+		    .deleteIfExists(Path.of(Utils.getResourcePath(CerereCapelaPDF.class, streamResource.getName()))));
 	} catch (IOException e) {
 
 	    e.printStackTrace();

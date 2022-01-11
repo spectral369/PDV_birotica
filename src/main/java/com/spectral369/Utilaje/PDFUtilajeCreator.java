@@ -96,7 +96,7 @@ public class PDFUtilajeCreator {
 	    
 	    final Paragraph declaratie = new Paragraph();
 	    declaratie.add(PDFHelper.addTab());
-	    Text dec1 = new Text("Subsemnatul " + PDFHelper.getStrWithDots(30, "") + " avand C.N.P "
+	    Text dec1 = new Text("Subsemnatul " + PDFHelper.getStrWithDots(45, "") + " avand C.N.P "//orig 30
 		    + PDFHelper.getStrWithDots(30, "") + " domiciliat in localitatea\n");
 	    declaratie.add(dec1);
 	    dec1.setTextAlignment(TextAlignment.CENTER);
@@ -152,7 +152,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("80 Ron"));
+	    cell.add(new Paragraph("120 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -174,7 +174,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("80 Ron"));
+	    cell.add(new Paragraph("120 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -196,7 +196,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("80 Ron"));
+	    cell.add(new Paragraph("120 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -218,7 +218,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("70 Ron"));
+	    cell.add(new Paragraph("120 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -440,7 +440,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("80 Ron"));
+	    cell.add(new Paragraph("120 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -449,7 +449,7 @@ public class PDFUtilajeCreator {
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
-	    int tr = (Integer.parseInt(map.get("tractorRemorca")) * 80);
+	    int tr = (Integer.parseInt(map.get("tractorRemorca")) * 120);
 	    cell = new Cell();
 	    cell.add(new Paragraph(String.valueOf(tr)));
 	    cell.setTextAlignment(TextAlignment.CENTER);
@@ -463,7 +463,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("80 Ron"));
+	    cell.add(new Paragraph("120 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -472,7 +472,7 @@ public class PDFUtilajeCreator {
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
-	    int ifron = (Integer.parseInt(map.get("ifron")) * 80);
+	    int ifron = (Integer.parseInt(map.get("ifron")) * 120);
 	    cell = new Cell();
 	    cell.add(new Paragraph(String.valueOf(ifron)));
 	    cell.setTextAlignment(TextAlignment.CENTER);
@@ -486,7 +486,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("80 Ron"));
+	    cell.add(new Paragraph("120 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -495,7 +495,7 @@ public class PDFUtilajeCreator {
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
-	    int tu = (Integer.parseInt(map.get("tractorUtilaj")) * 80);
+	    int tu = (Integer.parseInt(map.get("tractorUtilaj")) * 120);
 	    cell = new Cell();
 	    cell.add(new Paragraph(String.valueOf(tu)));
 	    cell.setTextAlignment(TextAlignment.CENTER);
@@ -509,7 +509,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("70 Ron"));
+	    cell.add(new Paragraph("120 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -518,7 +518,7 @@ public class PDFUtilajeCreator {
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
-	    int minicastor = (Integer.parseInt(map.get("minicastor")) * 70);
+	    int minicastor = (Integer.parseInt(map.get("minicastor")) * 120);
 	    cell = new Cell();
 	    cell.add(new Paragraph(String.valueOf(minicastor)));
 	    cell.setTextAlignment(TextAlignment.CENTER);

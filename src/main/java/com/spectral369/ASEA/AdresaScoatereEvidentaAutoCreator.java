@@ -103,7 +103,7 @@ public class AdresaScoatereEvidentaAutoCreator {
 	    doc.add(nrInreg);
 
 	    Paragraph titlu = new Paragraph();
-	    Text t1 = new Text("\n\n\n\nCatre"+PDFHelper.getStrWithDots(65, "")+"\n\n").setBold();   
+	    Text t1 = new Text("\n\n\n\nCatre"+PDFHelper.addTab()+PDFHelper.getStrWithDots(65, "")+"\n\n").setBold();   
 	    titlu.setTextAlignment(TextAlignment.JUSTIFIED);
 	    titlu.add(t1).addStyle(PDFHelper.bold12nr);
 	    doc.add(titlu);
@@ -129,7 +129,7 @@ public class AdresaScoatereEvidentaAutoCreator {
 	    Paragraph dec2 =  new Paragraph();
 	    dec2.add(new Tab());
 	    dec2.add("Va rugam sa luati masurile necesare pentru inscrierea in evidentele dvs. conform titlului IX din"
-	    	+ " Legea nr. 227/2015 priving Codus Fiscal, cu modificarile si completarile ulterioare.\n\n");
+	    	+ " Legea nr. 227/2015 privind Codul Fiscal, cu modificarile si completarile ulterioare.\n\n");
 	    
 	    doc.add(dec2);
 
@@ -217,6 +217,7 @@ public class AdresaScoatereEvidentaAutoCreator {
 	    Paragraph titlu = new Paragraph();
 	    Text t1 = new Text("\n\n\n\nCatre").setBold();
 	    titlu.add(t1);
+	    titlu.add(PDFHelper.addTab());
 	    titlu.add(PDFHelper.createAdjustableParagraph(58,
 		    new Paragraph(map.get("nume")).setBold()));
 	    Text t2 = new Text("\n\n");
@@ -227,26 +228,104 @@ public class AdresaScoatereEvidentaAutoCreator {
 
 	    Paragraph declaratie = new Paragraph();
 	    declaratie.add(PDFHelper.addTab());
-	    declaratie.add("Va facem cunoscut ca potrivit actului "+PDFHelper.getStrWithDots(10, "")+"/"+PDFHelper.getStrWithDots(12, "")+
-		    "contribuabilulul "+PDFHelper.getStrWithDots(40, "")+"cu domiciliul fiscal in ROMANIA/"+PDFHelper.getStrWithDots(20, "")+
-		    " judetul/sectorul "+PDFHelper.getStrWithDots(25, "")+" codul postal "+PDFHelper.getStrWithDots(15, "")+
-		    " municipiul/orasul"+" comuna "+PDFHelper.getStrWithDots(30, "")+" satul "+PDFHelper.getStrWithDots(25, "")+" str "+PDFHelper.getStrWithDots(35, "")+
-		    "nr. "+PDFHelper.getStrWithDots(10, "")+" bl. "+PDFHelper.getStrWithDots(8, "")+" et. "+PDFHelper.getStrWithDots(8, "")+
-		    " ap. "+PDFHelper.getStrWithDots(8, "")+" identificat prin B.I/C.I/C.I.P./Pasaport seria "+PDFHelper.getStrWithDots(10, "")+
-		    " nr. "+PDFHelper.getStrWithDots(18, "")+" C.I.F. "+PDFHelper.getStrWithDots(18, "")+" tel./fax "+PDFHelper.getStrWithDots(35, "")+
-		    " e-mail "+PDFHelper.getStrWithDots(20, "")+" a dobandit mijlocul de transport marca "+PDFHelper.getStrWithDots(35, "")+
-		    " cu seria motor "+PDFHelper.getStrWithDots(15, "")+" seria sasiu "+PDFHelper.getStrWithDots(25, "")+" capacitate cilindrica "+PDFHelper.getStrWithDots(10, "")+
-		    " cm3, capacitate "+PDFHelper.getStrWithDots(10, "")+"tone, conform contractului de instrainare - domandire nr. "+PDFHelper.getStrWithDots(10, "")+
-		    "/"+PDFHelper.getStrWithDots(15, "")+" (inregistrat la organul fiscal local) /factura seria "+PDFHelper.getStrWithDots(10, "")+" nr. "+PDFHelper.getStrWithDots(12, "")+
-		    "/"+PDFHelper.getStrWithDots(15, "")+" (inregistrata la organul fiscal local) sau alt act care atesta calitatea de proprietar "+PDFHelper.getStrWithDots(102, " ")
-		    +PDFHelper.getStrWithDots(126, "")+".\n\n"); 
-	    doc.add(declaratie);
 	    
+	    declaratie.add("Va facem cunoscut ca potrivit actului ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(8,
+		    new Paragraph(map.get("act")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add("/");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(17,
+		    new Paragraph(map.get("dataact")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" contribuabilul ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(52,
+		    new Paragraph(map.get("contribuabil")).setBold().setTextAlignment(TextAlignment.CENTER)));  
+	    declaratie.add(" cu domiciliul fiscal in ROMANIA/");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(12,
+		    new Paragraph(map.get("tara")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" judet/sectorul ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(25,
+		    new Paragraph(map.get("judet")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" codul postal ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(14,
+		    new Paragraph(map.get("zip")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" municipiul/orasul ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(30,
+		    new Paragraph(map.get("localitate")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" satul ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(25,
+		    new Paragraph(map.get("sat")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" strada ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(35,
+		    new Paragraph(map.get("strada")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" nr.");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(10,
+		    new Paragraph(map.get("nrStr")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" bl.");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(8,
+		    new Paragraph(map.get("bl")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" et.");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(8,
+		    new Paragraph(map.get("et")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" ap.");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(8,
+		    new Paragraph(map.get("ap")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" identificat prin B.I/C.I/C.I.P./Pasaport seria ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(10,
+		    new Paragraph(map.get("ciserie")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" nr.");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(18,
+		    new Paragraph(map.get("cinr")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" C.I.F.");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(18,
+		    new Paragraph(map.get("cui")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" tel./fax ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(35,
+		    new Paragraph(map.get("telefon")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" e-mail ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(28,
+		    new Paragraph(map.get("email")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" a dobandit mijlocul de transport marca ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(20,
+		    new Paragraph(map.get("marca")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" cu seria motor ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(20,
+		    new Paragraph(map.get("seriemotor")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" seria sasiu ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(40,
+		    new Paragraph(map.get("seriesasiu")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" capacitate cilindrica ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(8,
+		    new Paragraph(map.get("capacitate")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" cm3, capacitate ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(8,
+		    new Paragraph(map.get("tone")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" tone, conform contractului de instrainare-dobandire nr. ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(8,
+		    new Paragraph(map.get("nrcontract")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add("/");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(17,
+		    new Paragraph(map.get("datacontract")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" (inregistrat la organul fiscal local) /factura seria ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(12,
+		    new Paragraph(map.get("seriefactura")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" nr. ");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(12,
+		    new Paragraph(map.get("nrfactura")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add("/");
+	    declaratie.add(PDFHelper.createAdjustableParagraph(17,
+		    new Paragraph(map.get("datafactura")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    declaratie.add(" (inregistrata la organul fiscal local) sau alt act care atesta calitatea de proprietar ");
+	    if(map.get("altactprop").isBlank()||map.get("altactprop").isBlank())
+		declaratie.add(PDFHelper.getStrWithDots(50, ""));
+	    else
+	    declaratie.add(PDFHelper.createAdjustableParagraph(50,
+		    new Paragraph(map.get("altactprop")).setBold().setTextAlignment(TextAlignment.CENTER)));
+	    
+	    doc.add(declaratie);
 	    
 	    Paragraph dec2 =  new Paragraph();
 	    dec2.add(new Tab());
 	    dec2.add("Va rugam sa luati masurile necesare pentru inscrierea in evidentele dvs. conform titlului IX din"
-	    	+ " Legea nr. 227/2015 priving Codus Fiscal, cu modificarile si completarile ulterioare.\n\n");
+	    	+ " Legea nr. 227/2015 privind Codul Fiscal, cu modificarile si completarile ulterioare.\n\n");
 	    
 	    doc.add(dec2);
 
@@ -268,6 +347,7 @@ public class AdresaScoatereEvidentaAutoCreator {
 	    semnaturi.addCell(cell1);
 	    doc.add(semnaturi);
 
+	    doc.add(new Paragraph("\n"));
 	    Table semnaturiR = new Table(1);
 
 	    semnaturiR.setHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -278,7 +358,7 @@ public class AdresaScoatereEvidentaAutoCreator {
 	    semnR.add(semnPrim);
 	    semnR.addTabStops(new TabStop(width / 1.18f, TabAlignment.RIGHT));
 	    semnR.add(new Tab());
-	    Text semnIntocmit = new Text(PDFHelper.getStrWithDots(30, ""));
+	    Text semnIntocmit = new Text(map.get("intocmit"));
 
 	    semnR.add(semnIntocmit);
 	    Cell cell2 = new Cell();

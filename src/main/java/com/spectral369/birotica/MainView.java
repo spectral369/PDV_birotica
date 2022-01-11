@@ -133,7 +133,7 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	submitLayout.add(submit);
 
 	footerLayout = new HorizontalLayout();
-	footer = new Button("spectral369 2021", VaadinIcon.COPYRIGHT.create());
+	footer = new Button("spectral369 2022", VaadinIcon.COPYRIGHT.create());
 	// footer.setEnabled(false);
 	footer.setId("footer");
 	footer.addClassName("clearDisabled");

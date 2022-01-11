@@ -44,7 +44,7 @@ public class Utils {
 
     public static String getResourcePath(Class<?> currentClass, String fileName) {
 	String path = currentClass.getProtectionDomain().getCodeSource().getLocation().getPath();
-	if (path.startsWith("/")) {
+	if (System.getProperty("os.name").toLowerCase().contains("win"))  {
 	    path = path.substring(1);
 	}
 
