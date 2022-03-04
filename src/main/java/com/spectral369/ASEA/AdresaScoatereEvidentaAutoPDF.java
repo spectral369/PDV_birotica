@@ -30,7 +30,6 @@ import com.vaadin.flow.server.StreamRegistration;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.VaadinSession;
 
-//@PreserveOnRefresh
 public class AdresaScoatereEvidentaAutoPDF extends HorizontalLayout
 	implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver, BeforeEnterObserver {
     private static final long serialVersionUID = 1L;
@@ -153,7 +152,7 @@ public class AdresaScoatereEvidentaAutoPDF extends HorizontalLayout
 
 	if (PdfList.isFilePresent(fileName))
 	    PdfList.deleteFile(fileName);
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(AdresaScoatereEvidentaAutoPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
 
     }

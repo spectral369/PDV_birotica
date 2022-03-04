@@ -36,7 +36,7 @@ import com.vaadin.flow.theme.Theme;
  */
 @SpringBootApplication
 @Theme(value = "Birotica")
-@PWA(name = "Birotica", shortName = "Birotica", description = "Site Birotica Dudestii-Vechi", iconPath = "images/log.jpg", offlineResources = {
+@PWA(name = "Birotica", shortName = "Birotica", description = "Site Birotica Dudestii-Vechi", iconPath = "images/log.jpg",offlineResources = {
 	"images/log.jpg" })
 @Meta(name = "Author", content = "spectral369")
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
@@ -87,9 +87,5 @@ public class Application extends SpringBootServletInitializer implements AppShel
 	    }
 	}, 0, 4, TimeUnit.HOURS);
     }
-
-
-
- 
 
 }

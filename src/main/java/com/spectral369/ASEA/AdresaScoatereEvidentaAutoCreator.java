@@ -103,7 +103,7 @@ public class AdresaScoatereEvidentaAutoCreator {
 	    doc.add(nrInreg);
 
 	    Paragraph titlu = new Paragraph();
-	    Text t1 = new Text("\n\n\n\nCatre"+PDFHelper.addTab()+PDFHelper.getStrWithDots(65, "")+"\n\n").setBold();   
+	    Text t1 = new Text("\n\n\n\nCatre "+PDFHelper.getStrWithDots(65, "")+"\n\n").setBold();   
 	    titlu.setTextAlignment(TextAlignment.JUSTIFIED);
 	    titlu.add(t1).addStyle(PDFHelper.bold12nr);
 	    doc.add(titlu);

@@ -96,8 +96,8 @@ public class PDFUtilajeCreator {
 	    
 	    final Paragraph declaratie = new Paragraph();
 	    declaratie.add(PDFHelper.addTab());
-	    Text dec1 = new Text("Subsemnatul " + PDFHelper.getStrWithDots(45, "") + " avand C.N.P "//orig 30
-		    + PDFHelper.getStrWithDots(30, "") + " domiciliat in localitatea\n");
+	    Text dec1 = new Text("Subsemnatul " + PDFHelper.getStrWithDots(50, "") + " avand C.N.P "
+		    + PDFHelper.getStrWithDots(30, "") + " domiciliat in localitatea");
 	    declaratie.add(dec1);
 	    dec1.setTextAlignment(TextAlignment.CENTER);
 
@@ -372,7 +372,7 @@ public class PDFUtilajeCreator {
 	    Paragraph dec =  new Paragraph();
 	    dec.add(new Tab());
 	    dec.add("Subsemnatul/a ");
-	    dec.add(PDFHelper.createAdjustableParagraph(30,
+	    dec.add(PDFHelper.createAdjustableParagraph(50,
 		    new Paragraph(map.get("nume")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec.add(" avand C.N.P ");
 	    dec.add(PDFHelper.createAdjustableParagraph(32,

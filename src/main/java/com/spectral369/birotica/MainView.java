@@ -166,10 +166,10 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	 StreamResource vaadinResource = new StreamResource("vaadin.png",
 	    	    () -> getClass().getResourceAsStream("/META-INF/resources/images/vaadin.png"));
 
-	Image vaadin = new Image(vaadinResource, "Made with Vaadin 20");
-	TooltipConfiguration ttconfig2 = new TooltipConfiguration("Made with Vaadin 20 !");
+	Image vaadin = new Image(vaadinResource, "Made with Vaadin 22");
+	TooltipConfiguration ttconfig2 = new TooltipConfiguration("Made with Vaadin 22 !");
 	ttconfig2.setDuration(null, 20);
-	ttconfig2.setContent("Made with Vaadin 20 !");
+	ttconfig2.setContent("Made with Vaadin 22 !");
 	ttconfig2.setFollowCursor(TC_FOLLOW_CURSOR.HORIZONTAL);
 	ttconfig2.setHideOnClick(TC_HIDE_ON_CLICK.FALSE);
 	ttconfig2.setShowOnCreate(false);
