@@ -21,7 +21,9 @@ public enum Models {
     	Declaratie_examinare_sociala(11,"Declaratie examinare sociala","com.spectral369.CES.CESInfo"),
     	Cerere_scutire_persoane_cu_handicap(12,"Declaratie Scutire Persoane cu Handicap","com.spectral369.CSPH.CerereScutirePersoaneHandicapInfo"),
     	Proces_verbal_de_predare_primire(13,"PV Predare-Primire","com.spectral369.PVPP.PVPredarePrimireInfo"),
-    	Adresa_Scoatere_Evidenta_Auto(14,"Adresa Scoatere Evidenta Auto","com.spectral369.ASEA.AdresaScoatereEvidentaAutoInfo");
+    	Adresa_Scoatere_Evidenta_Auto(14,"Adresa Scoatere Evidenta Auto","com.spectral369.ASEA.AdresaScoatereEvidentaAutoInfo"),
+    	Cerere_Scutire(15,"Cerere Scutire","com.spectral369.CS.CerereScutireInfo");
+    	
 	
 	private java.lang.String cls;
     private java.lang.String name;

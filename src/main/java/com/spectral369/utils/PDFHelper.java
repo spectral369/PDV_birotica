@@ -222,6 +222,24 @@ public class PDFHelper {
 	}
 	return sb.toString();
     }
+    
+    public static String getStrWithDash(final int dots, final String str) {
+	final int strSize = str.length();
+	final StringBuilder sb = new StringBuilder();
+	int dotsRemained;
+	if (strSize > dots) {
+	    dotsRemained = 0;
+	} else {
+	    dotsRemained = dots - strSize;
+	}
+	for (int i = 0; i < dotsRemained; ++i) {
+	    if (i == dotsRemained / 2) {
+		sb.append(str);
+	    }
+	    sb.append("_");
+	}
+	return sb.toString();
+    }
 
     public static Image getAntetLogo() {
 	Image antetLogo = null;
