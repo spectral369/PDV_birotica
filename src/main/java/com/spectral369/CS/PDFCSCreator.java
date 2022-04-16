@@ -26,6 +26,7 @@ import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import com.itextpdf.layout.properties.TabAlignment;
 import com.itextpdf.layout.properties.TextAlignment;
+import com.itextpdf.layout.properties.VerticalAlignment;
 import com.spectral369.birotica.PdfList;
 import com.spectral369.utils.FooterEvt;
 import com.spectral369.utils.PDFHelper;
@@ -82,11 +83,13 @@ public class PDFCSCreator {
 	    float documentHeight = document.getDefaultPageSize().getHeight() - doc.getTopMargin()
 		    - doc.getBottomMargin();
 
-	    antetLogo.scaleToFit(documentWidth, documentHeight-20);
+	    antetLogo.scaleToFit(documentWidth-250, documentHeight-250);
 
 	    antet.add(antetLogo);
 	    antet.setHorizontalAlignment(HorizontalAlignment.CENTER);
-	    doc.add(antet);
+	    antet.setVerticalAlignment(VerticalAlignment.TOP);
+	    antet.setTextAlignment(TextAlignment.CENTER);
+	  //  doc.add(antet);
 
 	    final Paragraph nrInreg = new Paragraph();
 	    nrInreg.add("\n\n");
@@ -251,6 +254,41 @@ public class PDFCSCreator {
 	    cell2.add(semnR);
 	    semnaturiR.addCell(cell2);
 	    doc.add(semnaturiR);
+	    
+	    Paragraph footer1 =  new Paragraph();
+	    footer1.setFontSize(8.2f);
+	    footer1.add(PDFHelper.addTab());
+	    Text  f1  =  new Text("1 - Se ataseaza copii de pe documentele justificative certificate cu mentiunea \"conform cu originalul\","
+	    	+ " act de indentitate, legitimatie, \n");
+	    Text f11 =  new Text("     certificat, adeverinta, document care atesta calitatea de beneficiar al scutirii conform legilor speciale.\n");
+	    footer1.add(f1);
+	    footer1.add(PDFHelper.addTab());
+	    footer1.add(f11);
+	    footer1.add(PDFHelper.addTab());
+	    Text f2 =  new Text("2 - Pentru scutirea de impozit/taxa pe cladire, teren, mijloc de transport in functie de calitatea solicitantului se bufeaza unul "
+	    	+ "din urmatoarele\n");
+	    Text f21 =  new Text("     acte normative: Legea nr.168/2020, Decretul-Lege nr.118/1990, Legea nr.44/1994, Legea nr.341/2004 sau O.G. nr.105/1999, "
+	    		+ "scutirea\n");
+	    Text f22 =  new Text("     se acorda incepand cu anul urmator depunerii actelor prin care se atesta situatia.\n");
+	    footer1.add(f2);
+	    footer1.add(PDFHelper.addTab());
+	    footer1.add(f21);
+	    footer1.add(PDFHelper.addTab());
+	    footer1.add(f22);
+	    Text f3 =  new Text("3 - Pentru beneficiarii Legii nr.44/2006 scutirea de acorda cu data de 1 a lunii urmatoare depunerii actelor prin care se atesta situatia.\n");
+	    footer1.add(PDFHelper.addTab());
+	    footer1.add(f3);
+	    footer1.add(PDFHelper.addTab());
+	    Text f4 =  new Text("Nota bene:").setUnderline();
+	    Text f5 =  new Text(" nedepunerea dosarului complet cuprinzand toate documentele justificative acordarii scutirii de impozit pe cladire / teren / "
+	    	+ "mijloc\n");
+	    Text f51 =  new Text("de transport, poate atrage neacordarea scutirii.");
+	    footer1.add(f4);
+	    footer1.add(f5);
+	    footer1.add(PDFHelper.addTab());
+	    footer1.add(f51);
+	    doc.add(footer1);
+	    
 
 	    doc.close();
 	    document.close();
