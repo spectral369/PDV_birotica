@@ -41,6 +41,7 @@ public class CerereScutirePDF extends HorizontalLayout
     Button backbtn;
     String fileName = null;
     PdfView pdfView = null;
+    boolean isCalled =false;
     private Map<String, List<String>> parameters = null;
 
     static {
@@ -90,7 +91,7 @@ public class CerereScutirePDF extends HorizontalLayout
 	setSizeFull();
 
 	 UI.getCurrent().getPage().executeJs(
-		 "window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ",getElement()); //does not trigger on tab close !!!!!!!
+		 "window.addEventListener('beforeunload', () => $0.$server.windowClosed_browser()); ",getElement()); //does not trigger on tab close !!!!!!!
 	 UI.getCurrent().getPage().executeJs(
 		 "window.addEventListener('unload', () => $0.$server.windowClosed()); ",getElement()); //does  trigger on tab close !!!!!!!
 	
@@ -101,9 +102,17 @@ public class CerereScutirePDF extends HorizontalLayout
     @ClientCallable
     public void windowClosed() {
 	System.out.println("Window closed");
-
+	if(!isCalled) {
 	try {
-	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
+	    
+	    String path1 = Utils.getFullPath(fileName, false);
+	    Path path2 = Path.of(path1);
+	    
+	    boolean res = Files.deleteIfExists(path2);
+	    if(res)
+		isCalled=true;
+	    
+	    System.out.println(res);
 	} catch (IOException e) {
 
 	    e.printStackTrace();
@@ -112,7 +121,35 @@ public class CerereScutirePDF extends HorizontalLayout
 	    PdfList.deleteFile(fileName);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
 	RouteConfiguration.forSessionScope().removeRoute(CerereScutirePDF.class);
+	}
     }
+    
+    @ClientCallable
+    public void windowClosed_browser() {
+	System.out.println("Window closed_browser");
+	if(!isCalled) {
+	try {
+	    
+	    String path1 = Utils.getFullPath(fileName, false);
+	    Path path2 = Path.of(path1);
+	    
+	    boolean res = Files.deleteIfExists(path2);
+	    if(res)
+		isCalled=true;
+	    
+	    System.out.println(res);
+	} catch (IOException e) {
+
+	    e.printStackTrace();
+	}
+	if(PdfList.isFilePresent(fileName))
+	    PdfList.deleteFile(fileName);
+	RouteConfiguration.forSessionScope().removeRoute(NAME);
+	RouteConfiguration.forSessionScope().removeRoute(CerereScutirePDF.class);
+	}
+    }
+    
+    
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
 	//parameters = event.getLocation().getQueryParameters().getParameters();
@@ -132,6 +169,10 @@ public class CerereScutirePDF extends HorizontalLayout
     @Override
     public void beforeLeave(BeforeLeaveEvent event) {
 
+	if (fileName == null) {
+	    fileName = new String(parameters.get("tm").get(0));
+	}
+	
 	try {
 	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
 	    if (PdfList.isFilePresent(fileName))
@@ -154,9 +195,9 @@ public class CerereScutirePDF extends HorizontalLayout
 	    fileName = new String(parameters.get("tm").get(0));
 	}
 	if (!fileName.isEmpty()) {
-	  //  System.out.println("Before enter event "+fileName);
+	   System.out.println("Before enter event "+fileName);
 	     pdfView.add(Utils.getFullPath(fileName, true));
-
+	     
 	}
 	
     }
