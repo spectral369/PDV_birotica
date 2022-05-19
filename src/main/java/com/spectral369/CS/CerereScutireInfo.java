@@ -393,7 +393,6 @@ public class CerereScutireInfo extends HorizontalLayout
 	});
 	generateLayout.add(generate);
 	binder.addStatusChangeListener(event -> {
-	    System.out.println(binder.isValid());
 	    if (!complete.getValue() || binder.isValid()) {
 		generate.setEnabled(true);
 	    } else {

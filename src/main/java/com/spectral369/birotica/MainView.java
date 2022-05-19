@@ -1,6 +1,11 @@
 package com.spectral369.birotica;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import com.spectral369.utils.Models;
 import com.spectral369.utils.PDFHelper;
@@ -107,6 +112,22 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	submit.setEnabled(false);
 	submit.setDisableOnClick(true);
 	submit.addClickListener(evt -> {
+	    
+	    if(!PdfList.getPDFList().isEmpty()) {
+		 Iterator<Entry<String, String>> itr = PdfList.getPDFList().entrySet().iterator();
+		while(itr.hasNext()) {
+		    Entry<String, String> next = itr.next();
+		   try {
+		    Files.deleteIfExists(Path.of(next.getValue())) ;
+		    PdfList.deleteFile(next.getKey());
+		} catch (IOException e1) {
+		   System.out.println(e1.getLocalizedMessage());
+		}
+			
+		    
+		}
+		    
+	    }
 
 	    int cid = Models.getIDFromName(selValue);
 	    Class<?> clazz;
@@ -167,9 +188,9 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	    	    () -> getClass().getResourceAsStream("/META-INF/resources/images/vaadin.png"));
 
 	Image vaadin = new Image(vaadinResource, "Made with Vaadin 22");
-	TooltipConfiguration ttconfig2 = new TooltipConfiguration("Made with Vaadin 22 !");
+	TooltipConfiguration ttconfig2 = new TooltipConfiguration("Made with Vaadin 23 !");
 	ttconfig2.setDuration(null, 20);
-	ttconfig2.setContent("Made with Vaadin 22 !");
+	ttconfig2.setContent("Made with Vaadin 23 !");
 	ttconfig2.setFollowCursor(TC_FOLLOW_CURSOR.HORIZONTAL);
 	ttconfig2.setHideOnClick(TC_HIDE_ON_CLICK.FALSE);
 	ttconfig2.setShowOnCreate(false);

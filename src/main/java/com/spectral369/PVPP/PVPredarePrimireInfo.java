@@ -284,7 +284,7 @@ public class PVPredarePrimireInfo extends HorizontalLayout implements RouterLayo
 			
 				map.put("nume",PDFHelper.capitalizeWords(numeField.getValue().trim()));
 				map.put("suma", PDFHelper.capitalizeWords(sumaField.getValue().trim()));
-				map.put("casier", PDFHelper.capitalizeWords(numeField.getValue().trim()));
+				map.put("casier", PDFHelper.capitalizeWords(casierField.getValue().trim()));
 				map.put("foaie1", foaieVarsamant1.getValue().toString().trim());
 				map.put("foaie2",foaieVarsamant2.getValue().toString().trim());
 			

@@ -1,12 +1,11 @@
 package com.spectral369.birotica;
 
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class PdfList {
     
    
-    public static final Map<String,String> pdfList =  new LinkedHashMap<String,String>();
+    public static final LinkedHashMap<String,String> pdfList =  new LinkedHashMap<String,String>();
     
     public  static void addFile(String id,String path) {
 	pdfList.put(id, path);
@@ -21,6 +20,9 @@ public class PdfList {
     }
     public static Boolean isFilePresent(String id) {
 	return pdfList.containsKey(id);
+    }
+    public static LinkedHashMap<String, String> getPDFList() {
+	return pdfList;
     }
 
     

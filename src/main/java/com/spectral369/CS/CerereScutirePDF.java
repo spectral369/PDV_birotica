@@ -112,7 +112,7 @@ public class CerereScutirePDF extends HorizontalLayout
 	    if(res)
 		isCalled=true;
 	    
-	    System.out.println(res);
+	    System.out.println("window closed "+res);
 	} catch (IOException e) {
 
 	    e.printStackTrace();
@@ -137,7 +137,7 @@ public class CerereScutirePDF extends HorizontalLayout
 	    if(res)
 		isCalled=true;
 	    
-	    System.out.println(res);
+	    System.out.println("window closed_br "+res);
 	} catch (IOException e) {
 
 	    e.printStackTrace();
@@ -174,7 +174,7 @@ public class CerereScutirePDF extends HorizontalLayout
 	}
 	
 	try {
-	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
+	    System.out.println("before leave"+Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
 	    if (PdfList.isFilePresent(fileName))
 		PdfList.deleteFile(fileName);
 	} catch (IOException e) {
