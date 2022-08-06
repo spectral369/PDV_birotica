@@ -260,7 +260,7 @@ public class PDFUtilajeCreator {
 	 
 	    declaratie2.add(PDFHelper.addTab());
 	    Text dec4 = new Text(
-		    "\n * Tarife stabilite in conformitate cu prevederile H.C.L Dudestii-Vechi  nr.28 din 11.08.2016.\n\n");
+		    "\n * Tarife stabilite in conformitate cu prevederile H.C.L Dudestii-Vechi nr.32 din 19.07.2021.\n\n");
 	    dec4.setTextAlignment(TextAlignment.CENTER);
 	    declaratie2.add(dec4);
 	    declaratie2.add(PDFHelper.addTab());
@@ -549,7 +549,7 @@ public class PDFUtilajeCreator {
 	    final Paragraph declaratie2 = new Paragraph();
 	    declaratie2.add(PDFHelper.addTab());
 	    Text dec4 = new Text(
-		    "\n * Tarife stabilite in conformitate cu prevederile H.C.L Dudestii-Vechi  nr.28 din 11.08.2016.\n\n");
+		    "\n * Tarife stabilite in conformitate cu prevederile H.C.L Dudestii-Vechi nr.32 din 19.07.2021.\n\n");
 	    dec4.setTextAlignment(TextAlignment.CENTER);
 	    declaratie2.add(dec4);
 	

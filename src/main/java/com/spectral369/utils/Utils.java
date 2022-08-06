@@ -105,10 +105,13 @@ public class Utils {
 	}
 	System.out.println("Days remaining: " + days);
 
-	if (days > 10 && days < 15)
+	if (days > 5 && days < 10)
 	    return 2;
-	else if (days > 0 && days < 10)
+	else if (days > 0 && days <= 5)
 	    return 1;
+	else if (days <1) {
+	    return 3;
+	}
 	else
 	    return 0;
     }

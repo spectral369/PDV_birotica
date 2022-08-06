@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-import com.spectral369.ARD.AdeverintaRadiereAutoPDF;
 import com.spectral369.birotica.MainView;
 import com.spectral369.birotica.PdfList;
 import com.spectral369.utils.PdfView;
@@ -102,7 +101,15 @@ public class InchiriereUtilajePDF extends HorizontalLayout implements RouterLayo
 	System.out.println("Window closed");
 
 	try {
-	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
+	    
+	    
+	    System.out.println(fileName);
+	    String fullPath = Utils.getFullPath(fileName, false);
+	    System.out.println(fullPath);
+	    String fullPath2 = Path.of(fullPath).toString();
+	    System.out.println(fullPath2);
+	    
+	    System.out.println(Files.deleteIfExists(Path.of(fullPath)));
 	} catch (IOException e) {
 
 	    e.printStackTrace();
@@ -110,11 +117,12 @@ public class InchiriereUtilajePDF extends HorizontalLayout implements RouterLayo
 	if(PdfList.isFilePresent(fileName))
 	    PdfList.deleteFile(fileName);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(InchiriereUtilajePDF.class);
     }
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
-	//parameters = event.getLocation().getQueryParameters().getParameters();
+	if(event.getLocation().getQueryParameters()!=null)
+	parameters = event.getLocation().getQueryParameters().getParameters();
 
 	if (fileName == null) {
 	    fileName = new String(parameters.get("tm").get(0));
@@ -124,7 +132,7 @@ public class InchiriereUtilajePDF extends HorizontalLayout implements RouterLayo
 	     pdfView.add(Utils.getFullPath(fileName, true));
 	}*/
 
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(InchiriereUtilajePDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
     }
 
@@ -139,7 +147,7 @@ public class InchiriereUtilajePDF extends HorizontalLayout implements RouterLayo
 
 	    e.printStackTrace();
 	}
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(InchiriereUtilajePDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
 
     }

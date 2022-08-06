@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import com.spectral369.utils.Models;
 import com.spectral369.utils.PDFHelper;
@@ -42,12 +43,7 @@ public class MainView extends VerticalLayout implements RouterLayout {
      * 
      */
     private static final long serialVersionUID = -6845702965780995053L;
-    /*
-     * private Tabs menu; private H1 viewTitle;
-     */
-
-    /* new */
-    VerticalLayout content;
+ 
     HorizontalLayout logoLayout;
     Image logo;
     HorizontalLayout titleLayout;
@@ -187,7 +183,7 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	 StreamResource vaadinResource = new StreamResource("vaadin.png",
 	    	    () -> getClass().getResourceAsStream("/META-INF/resources/images/vaadin.png"));
 
-	Image vaadin = new Image(vaadinResource, "Made with Vaadin 22");
+	Image vaadin = new Image(vaadinResource, "Made with Vaadin 23");
 	TooltipConfiguration ttconfig2 = new TooltipConfiguration("Made with Vaadin 23 !");
 	ttconfig2.setDuration(null, 20);
 	ttconfig2.setContent("Made with Vaadin 23 !");
@@ -262,15 +258,19 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	case 0:
 	    break;
 	case 1:
-	    getStyle().set("opacity", "0.8");
-	    Notification.show("Plase check with the admin about this application.").setDuration(10000);
+	    getStyle().set("opacity", "0.4");
+	    Notification.show("Subscription will expire in less than 5 days. Plase check with the admin about this application.").setDuration(10000);
 	    break;
 	case 2:
-	    getStyle().set("opacity", "0.4");
-	    Notification.show("Plase check with the admin about this application.").setDuration(10000);
+	    getStyle().set("opacity", "0.8");
+	    Notification.show("Subscription will expire in less than 10 days. Plase check with the admin about this application.").setDuration(10000);
 	    break;
 	case 3:
-	    getStyle().set("opacity", "0");
+	    getStyle().set("opacity", "0.2");
+	    Notification.show("Subscription expired! Plase contact the admin about issue.").setDuration(25000);
+	   Optional<Component> parent = submit.getParent();
+	   HorizontalLayout parent2 = (HorizontalLayout) parent.get();
+	   parent2.remove(submit);    
 	    break;
 	default:
 	    throw new IllegalArgumentException("Unexpected value: " + PDFHelper.CODE);

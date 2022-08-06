@@ -103,10 +103,10 @@ public class PVPredarePrimirePDF extends HorizontalLayout implements RouterLayou
 	System.out.println("Window closed");
 
 	try {
-	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
+	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));//adresascoatereevidenta ex
 	} catch (IOException e) {
 
-	    e.printStackTrace();
+	   System.out.println(e.getLocalizedMessage());
 	}
 	if(PdfList.isFilePresent(fileName))
 	    PdfList.deleteFile(fileName);
@@ -124,7 +124,6 @@ public class PVPredarePrimirePDF extends HorizontalLayout implements RouterLayou
 
 	     pdfView.add(Utils.getFullPath(fileName, true));
 	}*/
-
 	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
     }
