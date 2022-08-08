@@ -26,11 +26,11 @@ import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
 
-public class InchiriereUtilajePDF extends HorizontalLayout implements RouterLayout, AfterNavigationObserver,BeforeLeaveObserver,BeforeEnterObserver {
+public class InchiriereUtilajePDF extends HorizontalLayout
+	implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver, BeforeEnterObserver {
     private static final long serialVersionUID = 1L;
     public static final String NAME = "InchiriereUtilajePDF";
     public static String FNAME;
-
 
     VerticalLayout content;
     HorizontalLayout titleLayout;
@@ -48,8 +48,6 @@ public class InchiriereUtilajePDF extends HorizontalLayout implements RouterLayo
 
     public InchiriereUtilajePDF() {
 
-	
-
 	content = new VerticalLayout();
 	titleLayout = new HorizontalLayout();
 
@@ -61,7 +59,6 @@ public class InchiriereUtilajePDF extends HorizontalLayout implements RouterLayo
 	content.add(titleLayout);
 	content.setAlignItems(Alignment.CENTER);
 	pdfLayout = new HorizontalLayout();
-
 
 	pdfView = new PdfView();
 
@@ -87,13 +84,17 @@ public class InchiriereUtilajePDF extends HorizontalLayout implements RouterLayo
 	add(content);
 
 	setSizeFull();
-	 UI.getCurrent().getPage().executeJs(
-		 "window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ",getElement()); //does not trigger on tab close !!!!!!!
-	 UI.getCurrent().getPage().executeJs(
-		 "window.addEventListener('unload', () => $0.$server.windowClosed()); ",getElement()); //does  trigger on tab close !!!!!!!
-	
-	
-	
+	UI.getCurrent().getPage()
+		.executeJs("window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ", getElement()); // does
+															// not
+															// trigger
+															// on
+															// tab
+															// close
+															// !!!!!!!
+	UI.getCurrent().getPage().executeJs("window.addEventListener('unload', () => $0.$server.windowClosed()); ",
+		getElement()); // does trigger on tab close !!!!!!!
+
     }
 
     @ClientCallable
@@ -101,36 +102,33 @@ public class InchiriereUtilajePDF extends HorizontalLayout implements RouterLayo
 	System.out.println("Window closed");
 
 	try {
-	    
-	    
-	    System.out.println(fileName);
 	    String fullPath = Utils.getFullPath(fileName, false);
-	    System.out.println(fullPath);
-	    String fullPath2 = Path.of(fullPath).toString();
-	    System.out.println(fullPath2);
-	    
-	    System.out.println(Files.deleteIfExists(Path.of(fullPath)));
+	    if (fullPath != null) {
+		System.out.println(Files.deleteIfExists(Path.of(fullPath)));
+	    }
 	} catch (IOException e) {
 
 	    e.printStackTrace();
 	}
-	if(PdfList.isFilePresent(fileName))
+	if (PdfList.isFilePresent(fileName))
 	    PdfList.deleteFile(fileName);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
 	RouteConfiguration.forSessionScope().removeRoute(InchiriereUtilajePDF.class);
     }
+
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
-	if(event.getLocation().getQueryParameters()!=null)
-	parameters = event.getLocation().getQueryParameters().getParameters();
+	if (event.getLocation().getQueryParameters() != null)
+	    parameters = event.getLocation().getQueryParameters().getParameters();
 
 	if (fileName == null) {
 	    fileName = new String(parameters.get("tm").get(0));
 	}
-	/*if (!fileName.isEmpty()) {
-
-	     pdfView.add(Utils.getFullPath(fileName, true));
-	}*/
+	/*
+	 * if (!fileName.isEmpty()) {
+	 * 
+	 * pdfView.add(Utils.getFullPath(fileName, true)); }
+	 */
 
 	RouteConfiguration.forSessionScope().removeRoute(InchiriereUtilajePDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
@@ -154,17 +152,17 @@ public class InchiriereUtilajePDF extends HorizontalLayout implements RouterLayo
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
-	
+
 	parameters = event.getLocation().getQueryParameters().getParameters();
 
 	if (fileName == null) {
 	    fileName = new String(parameters.get("tm").get(0));
 	}
 	if (!fileName.isEmpty()) {
-	  //  System.out.println("Before enter event "+fileName);
-	     pdfView.add(Utils.getFullPath(fileName, true));
+	    // System.out.println("Before enter event "+fileName);
+	    pdfView.add(Utils.getFullPath(fileName, true));
 
 	}
-	
+
     }
 }

@@ -67,8 +67,8 @@ public class AdeverintaRadiereAutoPDF extends HorizontalLayout
 	content.setAlignItems(Alignment.CENTER);
 	pdfLayout = new HorizontalLayout();
 
-	//pdfView = new PdfView();
-	//pdfLayout.add(pdfView);
+	// pdfView = new PdfView();
+	// pdfLayout.add(pdfView);
 	pdfLayout.setSizeFull();
 	pdfLayout.setId("pdfLayout");
 
@@ -115,7 +115,10 @@ public class AdeverintaRadiereAutoPDF extends HorizontalLayout
 	System.out.println("Window closed");
 
 	try {
-	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
+	    String fullPath = Utils.getFullPath(fileName, false);
+	    if (fullPath != null) {
+		System.out.println(Files.deleteIfExists(Path.of(fullPath)));
+	    }
 	} catch (IOException e) {
 
 	    e.printStackTrace();
@@ -128,15 +131,16 @@ public class AdeverintaRadiereAutoPDF extends HorizontalLayout
 
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
-	//parameters = event.getLocation().getQueryParameters().getParameters();
+	// parameters = event.getLocation().getQueryParameters().getParameters();
 
 	if (fileName == null) {
 	    fileName = new String(parameters.get("tm").get(0));
 	}
-	/*if (!fileName.isEmpty()) {
-
-	     pdfView.add(Utils.getFullPath(fileName, true));
-	}*/
+	/*
+	 * if (!fileName.isEmpty()) {
+	 * 
+	 * pdfView.add(Utils.getFullPath(fileName, true)); }
+	 */
 
 	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
@@ -160,20 +164,20 @@ public class AdeverintaRadiereAutoPDF extends HorizontalLayout
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
-	
+
 	parameters = event.getLocation().getQueryParameters().getParameters();
 
 	if (fileName == null) {
 	    fileName = new String(parameters.get("tm").get(0));
 	}
 	if (!fileName.isEmpty()) {
-		StreamResource streamResource = new StreamResource(Utils.getFullPath(fileName, true),
-			() -> getClass().getResourceAsStream("/META-INF/resources/pdfs/"+Utils.getFullPath(fileName, true)));
-		StreamRegistration registration = VaadinSession.getCurrent().getResourceRegistry()
-			.registerResource(streamResource);
-		IFrame iframe = new IFrame(registration.getResourceUri().toString());
-		iframe.setSizeFull();
-		pdfLayout.add(iframe);
+	    StreamResource streamResource = new StreamResource(Utils.getFullPath(fileName, true), () -> getClass()
+		    .getResourceAsStream("/META-INF/resources/pdfs/" + Utils.getFullPath(fileName, true)));
+	    StreamRegistration registration = VaadinSession.getCurrent().getResourceRegistry()
+		    .registerResource(streamResource);
+	    IFrame iframe = new IFrame(registration.getResourceUri().toString());
+	    iframe.setSizeFull();
+	    pdfLayout.add(iframe);
 
 	}
     }

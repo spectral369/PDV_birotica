@@ -31,7 +31,6 @@ import com.vaadin.flow.server.StreamRegistration;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.server.VaadinSession;
 
-
 @PageTitle("CerereCapela")
 public class CerereCapelaPDF extends HorizontalLayout
 	implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver, BeforeEnterObserver {
@@ -102,9 +101,10 @@ public class CerereCapelaPDF extends HorizontalLayout
 
 	setSizeFull();
 	UI.getCurrent().getPage()
-		.executeJs("window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ", getElement()); 
-															
-	UI.getCurrent().getPage().executeJs("window.addEventListener('unload', () => $0.$server.windowClosed()); ",getElement());
+		.executeJs("window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ", getElement());
+
+	UI.getCurrent().getPage().executeJs("window.addEventListener('unload', () => $0.$server.windowClosed()); ",
+		getElement());
 
     }
 
@@ -113,10 +113,10 @@ public class CerereCapelaPDF extends HorizontalLayout
 	System.out.println("Window closed");
 
 	try {
-	    System.out.println(Path.of(Utils.getResourcePath(CerereCapelaPDF.class, streamResource.getName())));
-	    System.out.println(Files
-		    .deleteIfExists(Path.of(Utils.getResourcePath(CerereCapelaPDF.class, streamResource.getName()))));
-
+	    String fullPath = Utils.getFullPath(fileName, false);
+	    if (fullPath != null) {
+		System.out.println(Files.deleteIfExists(Path.of(fullPath)));
+	    }
 	} catch (IOException e) {
 
 	    e.printStackTrace();

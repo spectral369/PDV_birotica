@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-import com.spectral369.ARD.AdeverintaRadiereAutoPDF;
 import com.spectral369.birotica.MainView;
 import com.spectral369.birotica.PdfList;
 import com.spectral369.utils.PdfView;
@@ -27,7 +26,8 @@ import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
 
-public class InstiitareIarbaPDF extends HorizontalLayout implements RouterLayout, AfterNavigationObserver,BeforeLeaveObserver,BeforeEnterObserver {
+public class InstiitareIarbaPDF extends HorizontalLayout
+	implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver, BeforeEnterObserver {
     private static final long serialVersionUID = 1L;
     public static final String NAME = "InstiitareIarbaPDF";
     public static String FNAME;
@@ -47,8 +47,6 @@ public class InstiitareIarbaPDF extends HorizontalLayout implements RouterLayout
 
     public InstiitareIarbaPDF() {
 
-	
-
 	content = new VerticalLayout();
 	titleLayout = new HorizontalLayout();
 
@@ -60,7 +58,6 @@ public class InstiitareIarbaPDF extends HorizontalLayout implements RouterLayout
 	content.add(titleLayout);
 	content.setAlignItems(Alignment.CENTER);
 	pdfLayout = new HorizontalLayout();
-
 
 	pdfView = new PdfView();
 
@@ -88,13 +85,17 @@ public class InstiitareIarbaPDF extends HorizontalLayout implements RouterLayout
 
 	setSizeFull();
 
-	 UI.getCurrent().getPage().executeJs(
-		 "window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ",getElement()); //does not trigger on tab close !!!!!!!
-	 UI.getCurrent().getPage().executeJs(
-		 "window.addEventListener('unload', () => $0.$server.windowClosed()); ",getElement()); //does  trigger on tab close !!!!!!!
-	
-	
-	
+	UI.getCurrent().getPage()
+		.executeJs("window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ", getElement()); // does
+															// not
+															// trigger
+															// on
+															// tab
+															// close
+															// !!!!!!!
+	UI.getCurrent().getPage().executeJs("window.addEventListener('unload', () => $0.$server.windowClosed()); ",
+		getElement()); // does trigger on tab close !!!!!!!
+
     }
 
     @ClientCallable
@@ -102,29 +103,34 @@ public class InstiitareIarbaPDF extends HorizontalLayout implements RouterLayout
 	System.out.println("Window closed");
 
 	try {
-	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
+	    String fullPath = Utils.getFullPath(fileName, false);
+	    if (fullPath != null) {
+		System.out.println(Files.deleteIfExists(Path.of(fullPath)));
+	    }
 	} catch (IOException e) {
 
 	    e.printStackTrace();
 	}
-	if(PdfList.isFilePresent(fileName))
+	if (PdfList.isFilePresent(fileName))
 	    PdfList.deleteFile(fileName);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(InstiitareIarbaPDF.class);
     }
+
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
-	//parameters = event.getLocation().getQueryParameters().getParameters();
+	// parameters = event.getLocation().getQueryParameters().getParameters();
 
 	if (fileName == null) {
 	    fileName = new String(parameters.get("tm").get(0));
 	}
-	/*if (!fileName.isEmpty()) {
+	/*
+	 * if (!fileName.isEmpty()) {
+	 * 
+	 * pdfView.add(Utils.getFullPath(fileName, true)); }
+	 */
 
-	     pdfView.add(Utils.getFullPath(fileName, true));
-	}*/
-
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(InstiitareIarbaPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
     }
 
@@ -139,24 +145,24 @@ public class InstiitareIarbaPDF extends HorizontalLayout implements RouterLayout
 
 	    e.printStackTrace();
 	}
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(InstiitareIarbaPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
 
     }
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
-	
+
 	parameters = event.getLocation().getQueryParameters().getParameters();
 
 	if (fileName == null) {
 	    fileName = new String(parameters.get("tm").get(0));
 	}
 	if (!fileName.isEmpty()) {
-	  //  System.out.println("Before enter event "+fileName);
-	     pdfView.add(Utils.getFullPath(fileName, true));
+	    // System.out.println("Before enter event "+fileName);
+	    pdfView.add(Utils.getFullPath(fileName, true));
 
 	}
-	
+
     }
 }

@@ -121,9 +121,11 @@ public class AdresaScoatereEvidentaAutoPDF extends HorizontalLayout
 	System.out.println("Window closed");
 
 	try {
-	    System.out.println(Files.deleteIfExists(
-		    Path.of(Utils.getResourcePath(AdresaScoatereEvidentaAutoPDF.class, streamResource.getName()))));
-	} catch (Exception e) {
+	    String fullPath = Utils.getFullPath(fileName, false);
+	    if (fullPath != null) {
+		System.out.println(Files.deleteIfExists(Path.of(fullPath)));
+	    }
+	} catch (IOException e) {
 
 	    e.printStackTrace();
 	}

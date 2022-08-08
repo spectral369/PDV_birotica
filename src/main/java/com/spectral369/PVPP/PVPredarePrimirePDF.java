@@ -1,13 +1,11 @@
 package com.spectral369.PVPP;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-import com.spectral369.ARD.AdeverintaRadiereAutoPDF;
 import com.spectral369.birotica.MainView;
 import com.spectral369.birotica.PdfList;
 import com.spectral369.utils.PdfView;
@@ -28,11 +26,11 @@ import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
 
-public class PVPredarePrimirePDF extends HorizontalLayout implements RouterLayout, AfterNavigationObserver,BeforeLeaveObserver,BeforeEnterObserver {
+public class PVPredarePrimirePDF extends HorizontalLayout
+	implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver, BeforeEnterObserver {
     private static final long serialVersionUID = 1L;
     public static final String NAME = "PVPredarePrimirePDF";
     public static String FNAME;
-
 
     VerticalLayout content;
     HorizontalLayout titleLayout;
@@ -50,8 +48,6 @@ public class PVPredarePrimirePDF extends HorizontalLayout implements RouterLayou
 
     public PVPredarePrimirePDF() {
 
-	
-
 	content = new VerticalLayout();
 	titleLayout = new HorizontalLayout();
 
@@ -63,7 +59,6 @@ public class PVPredarePrimirePDF extends HorizontalLayout implements RouterLayou
 	content.add(titleLayout);
 	content.setAlignItems(Alignment.CENTER);
 	pdfLayout = new HorizontalLayout();
-
 
 	pdfView = new PdfView();
 
@@ -89,42 +84,50 @@ public class PVPredarePrimirePDF extends HorizontalLayout implements RouterLayou
 	add(content);
 
 	setSizeFull();
-	 UI.getCurrent().getPage().executeJs(
-		 "window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ",getElement()); //does not trigger on tab close !!!!!!!
-	 UI.getCurrent().getPage().executeJs(
-		 "window.addEventListener('unload', () => $0.$server.windowClosed()); ",getElement()); //does  trigger on tab close !!!!!!!
-	
-	
-	
+	UI.getCurrent().getPage()
+		.executeJs("window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ", getElement()); // does
+															// not
+															// trigger
+															// on
+															// tab
+															// close
+															// !!!!!!!
+	UI.getCurrent().getPage().executeJs("window.addEventListener('unload', () => $0.$server.windowClosed()); ",
+		getElement()); // does trigger on tab close !!!!!!!
+
     }
 
     @ClientCallable
     public void windowClosed() {
 	System.out.println("Window closed");
-
 	try {
-	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));//adresascoatereevidenta ex
+	    String fullPath = Utils.getFullPath(fileName, false);
+	    if (fullPath != null) {
+		System.out.println(Files.deleteIfExists(Path.of(fullPath)));
+	    }
 	} catch (IOException e) {
 
-	   System.out.println(e.getLocalizedMessage());
+	    e.printStackTrace();
 	}
-	if(PdfList.isFilePresent(fileName))
+	if (PdfList.isFilePresent(fileName))
 	    PdfList.deleteFile(fileName);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(PVPredarePrimirePDF.class);
     }
+
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
-	//parameters = event.getLocation().getQueryParameters().getParameters();
+	// parameters = event.getLocation().getQueryParameters().getParameters();
 
 	if (fileName == null) {
 	    fileName = new String(parameters.get("tm").get(0));
 	}
-	/*if (!fileName.isEmpty()) {
-
-	     pdfView.add(Utils.getFullPath(fileName, true));
-	}*/
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	/*
+	 * if (!fileName.isEmpty()) {
+	 * 
+	 * pdfView.add(Utils.getFullPath(fileName, true)); }
+	 */
+	RouteConfiguration.forSessionScope().removeRoute(PVPredarePrimirePDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
     }
 
@@ -139,24 +142,24 @@ public class PVPredarePrimirePDF extends HorizontalLayout implements RouterLayou
 
 	    e.printStackTrace();
 	}
-	RouteConfiguration.forSessionScope().removeRoute(AdeverintaRadiereAutoPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(PVPredarePrimirePDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
 
     }
 
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
-	
+
 	parameters = event.getLocation().getQueryParameters().getParameters();
 
 	if (fileName == null) {
 	    fileName = new String(parameters.get("tm").get(0));
 	}
 	if (!fileName.isEmpty()) {
-	  //  System.out.println("Before enter event "+fileName);
-	     pdfView.add(Utils.getFullPath(fileName, true));
+	    // System.out.println("Before enter event "+fileName);
+	    pdfView.add(Utils.getFullPath(fileName, true));
 
 	}
-	
+
     }
 }
