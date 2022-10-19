@@ -139,11 +139,15 @@ public class PVIarbaPDF extends HorizontalLayout
     public void beforeLeave(BeforeLeaveEvent event) {
 
 	try {
-	    System.out.println(Files.deleteIfExists(Path.of(Utils.getFullPath(fileName, false))));
+	    String fullPath = Utils.getFullPath(fileName, false);
+	    if(fullPath!=null) {
+		 System.out.println(Files.deleteIfExists(Path.of(fullPath)));
+	    }
+
 	    if (PdfList.isFilePresent(fileName))
 		PdfList.deleteFile(fileName);
 	} catch (IOException e) {
-
+	
 	    e.printStackTrace();
 	}
 	RouteConfiguration.forSessionScope().removeRoute(PVIarbaPDF.class);

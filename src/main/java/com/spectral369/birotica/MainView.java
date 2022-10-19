@@ -12,6 +12,7 @@ import com.spectral369.utils.Models;
 import com.spectral369.utils.PDFHelper;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.Unit;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -58,20 +59,55 @@ public class MainView extends VerticalLayout implements RouterLayout {
     private transient String selValue;
     float footerh = 58;
     float footerw = 128;
+    private Settings settings_class = null;
 
     @SuppressWarnings("unchecked")
     public MainView() {
+	
+HorizontalLayout topLayout =  new HorizontalLayout();
+topLayout.setWidthFull();
 
 	logoLayout = new HorizontalLayout();
+	
 	 StreamResource logoResource = new StreamResource("dvlogo.png",
 	    	    () -> getClass().getResourceAsStream("/META-INF/resources/images/dvlogo.png"));
 	Image logo = new Image(logoResource, "Logo");
 	logo.setId("mainLogo");
 	UI.getCurrent().getPage().retrieveExtendedClientDetails(details -> {
 	    logo.setHeight(String.valueOf(details.getWindowInnerHeight() / 8) + "px"); // logo size
+	    logoLayout.setWidth(details.getWindowInnerWidth(), Unit.PIXELS);
 	});
+	
+	
 	logoLayout.add(logo);
 	logoLayout.setAlignItems(Alignment.CENTER);
+	logoLayout.setJustifyContentMode(JustifyContentMode.CENTER);
+	
+	
+	HorizontalLayout settingsLayout =  new HorizontalLayout();
+	Button settings =  new Button(VaadinIcon.COG_O.create());
+	settings.addClassName("clearDisabled");
+	settings.addClickListener(click->{
+	   settings_class = new Settings();
+	   settings_class.open();
+	   
+	});
+	
+	settingsLayout.add(settings);
+	settingsLayout.setAlignItems(Alignment.END);
+	
+	settingsLayout.getStyle().set("position", "absolute");
+	settingsLayout.getStyle().set("top", "0");
+	settingsLayout.getStyle().set("right", "0");
+
+	
+	
+	topLayout.setAlignItems(Alignment.CENTER);
+	topLayout.add(logoLayout,settingsLayout);
+	
+	
+	
+	
 
 	titleLayout = new HorizontalLayout();
 
@@ -223,7 +259,7 @@ public class MainView extends VerticalLayout implements RouterLayout {
 	footerLayout.setAlignSelf(Alignment.END, vaadin);
 	footerLayout.setAlignSelf(Alignment.END, footer);
 
-	add(logoLayout);
+	add(/* logoLayout */ topLayout);
 	add(titleLayout);
 	add(comboLayout);
 	add(submitLayout);

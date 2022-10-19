@@ -1,4 +1,4 @@
-package com.spectral369.DDC;
+package com.spectral369.ADP;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -26,11 +26,10 @@ import com.vaadin.flow.router.RouteConfiguration;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
 
-public class DDCPDF extends HorizontalLayout
+public class AdeverintaDetinerePamantPDF extends HorizontalLayout
 	implements RouterLayout, AfterNavigationObserver, BeforeLeaveObserver, BeforeEnterObserver {
-
     private static final long serialVersionUID = 1L;
-    public static final String NAME = "DDCPDF";
+    public static final String NAME = "AdeverintaDetinerePamantPDF";
     public static String FNAME;
 
     VerticalLayout content;
@@ -41,20 +40,19 @@ public class DDCPDF extends HorizontalLayout
     Button backbtn;
     String fileName = null;
     PdfView pdfView = null;
-    private Map<String, List<String>> parameters = null;
+    Map<String, List<String>> parameters = null;
 
     static {
-	DDCPDF.FNAME = "";
+	AdeverintaDetinerePamantPDF.FNAME = "";
     }
 
-    public DDCPDF() {
+    public AdeverintaDetinerePamantPDF() {
 
 	content = new VerticalLayout();
 	titleLayout = new HorizontalLayout();
 
 	title = new Button("Generated PDF", VaadinIcon.FILE_PRESENTATION.create());
 	title.setEnabled(false);
-
 	title.getClassNames().add("borderless");
 	title.getClassNames().add("clearDisabled");
 	titleLayout.add(title);
@@ -79,7 +77,6 @@ public class DDCPDF extends HorizontalLayout
 
 	RouterLink routerLink = new RouterLink("", MainView.class);
 	routerLink.getElement().appendChild(backbtn.getElement());
-
 	backLayout.add(routerLink);
 	content.add(backLayout);
 	content.setAlignItems(Alignment.CENTER);
@@ -87,7 +84,6 @@ public class DDCPDF extends HorizontalLayout
 	add(content);
 
 	setSizeFull();
-
 	UI.getCurrent().getPage()
 		.executeJs("window.addEventListener('beforeunload', () => $0.$server.windowClosed()); ", getElement()); // does
 															// not
@@ -117,12 +113,13 @@ public class DDCPDF extends HorizontalLayout
 	if (PdfList.isFilePresent(fileName))
 	    PdfList.deleteFile(fileName);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
-	RouteConfiguration.forSessionScope().removeRoute(DDCPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(AdeverintaDetinerePamantPDF.class);
     }
 
     @Override
     public void afterNavigation(AfterNavigationEvent event) {
-	// parameters = event.getLocation().getQueryParameters().getParameters();
+	if (event.getLocation().getQueryParameters() != null)
+	    parameters = event.getLocation().getQueryParameters().getParameters();
 
 	if (fileName == null) {
 	    fileName = new String(parameters.get("tm").get(0));
@@ -133,7 +130,7 @@ public class DDCPDF extends HorizontalLayout
 	 * pdfView.add(Utils.getFullPath(fileName, true)); }
 	 */
 
-	RouteConfiguration.forSessionScope().removeRoute(DDCPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(AdeverintaDetinerePamantPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
     }
 
@@ -142,17 +139,17 @@ public class DDCPDF extends HorizontalLayout
 
 	try {
 	    String fullPath = Utils.getFullPath(fileName, false);
-	    if(fullPath!=null) {
-		 System.out.println(Files.deleteIfExists(Path.of(fullPath)));
+	    if (fullPath != null) {
+		System.out.println(Files.deleteIfExists(Path.of(fullPath)));
 	    }
 
 	    if (PdfList.isFilePresent(fileName))
 		PdfList.deleteFile(fileName);
 	} catch (IOException e) {
-	
+
 	    e.printStackTrace();
 	}
-	RouteConfiguration.forSessionScope().removeRoute(DDCPDF.class);
+	RouteConfiguration.forSessionScope().removeRoute(AdeverintaDetinerePamantPDF.class);
 	RouteConfiguration.forSessionScope().removeRoute(NAME);
 
     }

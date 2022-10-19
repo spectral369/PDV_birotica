@@ -146,12 +146,17 @@ public class AdresaScoatereEvidentaAutoPDF extends HorizontalLayout
     public void beforeLeave(BeforeLeaveEvent event) {
 
 	try {
-	    System.out.println(Files.deleteIfExists(
-		    Path.of(Utils.getResourcePath(AdresaScoatereEvidentaAutoPDF.class, streamResource.getName()))));
+	    String fullPath = Utils.getFullPath(fileName, false);
+	    if(fullPath!=null) {
+		 System.out.println(Files.deleteIfExists(Path.of(fullPath)));
+	    }
+
+	    if (PdfList.isFilePresent(fileName))
+		PdfList.deleteFile(fileName);
 	} catch (IOException e) {
+	
 	    e.printStackTrace();
 	}
-
 	if (PdfList.isFilePresent(fileName))
 	    PdfList.deleteFile(fileName);
 	RouteConfiguration.forSessionScope().removeRoute(AdresaScoatereEvidentaAutoPDF.class);

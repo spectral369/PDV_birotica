@@ -78,6 +78,7 @@ public class PDFCCOCreator {
 	    float documentHeight = document.getDefaultPageSize().getHeight() - doc.getTopMargin()
 		    - doc.getBottomMargin();
 
+	 
 	    antetLogo.scaleToFit(documentWidth, documentHeight);
 
 	    antet.add(antetLogo);
@@ -139,12 +140,12 @@ public class PDFCCOCreator {
 
 	    Paragraph declaratie = new Paragraph();
 	    declaratie.add(PDFHelper.addTab());
-	    Text dec1 = new Text("Subsemnatul/a " + PDFHelper.getStrWithDots(65, "")
-		    + ", salariat al Primariei Dudestii-vechi, jud. " + "Timis, avand functia de "
-		    + PDFHelper.getStrWithDots(40, "") + " prin prezenta, va rog sa-mi aprobati efectuarea" + " a "
-		    + PDFHelper.getStrWithDots(8, "") + " zile din concediul de odihna aferent anului "
-		    + PDFHelper.getStrWithDots(10, "") + " " + "din data de " + PDFHelper.getStrWithDots(22, "")
-		    + " pana in data de " + PDFHelper.getStrWithDots(22, "") + ".");
+	    Text dec1 = new Text("Subsemnatul/a " + PDFHelper.getStrWithDash(35, "")
+		    + ", salariat al Primariei Dudestii-Vechi, jud. " + "Timis, avand functia de "
+		    + PDFHelper.getStrWithDash(38, "") + " prin prezenta, va rog sa-mi aprobati efectuarea" + " a "
+		    + PDFHelper.getStrWithDash(7, "") + " zile din concediul de odihna aferent anului "
+		    + PDFHelper.getStrWithDash(8, "") + " " + "din data de " + PDFHelper.getStrWithDash(18, "")
+		    + " pana in data de " + PDFHelper.getStrWithDash(18, "") + ".");
 	    declaratie.add(dec1);
 	    declaratie.add(PDFHelper.addTab());
 	    Text dec2 = new Text("\n\n\nVa multumesc!\n\n");
@@ -190,7 +191,7 @@ public class PDFCCOCreator {
 
 	    Text inloc = new Text(
 		    "Pe perioada efectuarii concediului de odihna integral sau partial, atributiile de serviciu "
-			    + "sunt preluate de " + PDFHelper.getStrWithDots(45, ""));
+			    + "sunt preluate de " + PDFHelper.getStrWithDash(45, ""));
 	    setBottomtext(doc, document, inloc.getText());
 
 	    doc.close();

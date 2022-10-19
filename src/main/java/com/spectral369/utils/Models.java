@@ -22,7 +22,9 @@ public enum Models {
     	Cerere_scutire_persoane_cu_handicap(12,"Declaratie Scutire Persoane cu Handicap","com.spectral369.CSPH.CerereScutirePersoaneHandicapInfo"),
     	Proces_verbal_de_predare_primire(13,"PV Predare-Primire","com.spectral369.PVPP.PVPredarePrimireInfo"),
     	Adresa_Scoatere_Evidenta_Auto(14,"Adresa Scoatere Evidenta Auto","com.spectral369.ASEA.AdresaScoatereEvidentaAutoInfo"),
-    	Cerere_Scutire(15,"Cerere Scutire","com.spectral369.CS.CerereScutireInfo");
+    	Cerere_Scutire(15,"Cerere Scutire","com.spectral369.CS.CerereScutireInfo"),
+    	Cerere_Apa(16,"Cerere Apa","com.spectral369.CA.CerereApaInfo"),
+    	Adeverinta_detinere_teren(17,"Adeverinta Teren","com.spectral369.ADP.AdeverintaDetinerePamantInfo");
     	
 	
 	private java.lang.String cls;

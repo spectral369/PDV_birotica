@@ -2,6 +2,8 @@ package com.spectral369.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
@@ -10,6 +12,8 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import com.spectral369.birotica.PdfList;
@@ -17,6 +21,7 @@ import com.spectral369.birotica.PdfList;
 public class Utils {
 
     public static final String FOLDER_PDF = "pdfs";
+    private static final String CONFIG_FILENAME = "birotica.config";
 
     public static String getResourcePath() {
 
@@ -44,7 +49,7 @@ public class Utils {
 
     public static String getResourcePath(Class<?> currentClass, String fileName) {
 	String path = currentClass.getProtectionDomain().getCodeSource().getLocation().getPath();
-	if (System.getProperty("os.name").toLowerCase().contains("win"))  {
+	if (System.getProperty("os.name").toLowerCase().contains("win")) {
 	    path = path.substring(1);
 	}
 
@@ -109,10 +114,9 @@ public class Utils {
 	    return 2;
 	else if (days > 0 && days <= 5)
 	    return 1;
-	else if (days <1) {
+	else if (days < 1) {
 	    return 3;
-	}
-	else
+	} else
 	    return 0;
     }
 
@@ -177,6 +181,69 @@ public class Utils {
 	}
 
 	return hostname.trim();
+    }
+
+    public static boolean saveSettings(Map<String, String[]> map) {
+	String homedir = System.getProperty("user.home");
+	File configFile = new File(homedir + File.separator + CONFIG_FILENAME);
+	FileWriter fw;
+	StringBuilder strBuilder = new StringBuilder();
+	try {
+	    fw = new FileWriter(configFile);
+
+	    for (Map.Entry<String, String[]> item : map.entrySet()) {
+		String key = item.getKey();
+		String[] vals = item.getValue();
+		StringBuilder sb = new StringBuilder();
+		for (String sub_item : vals) {
+		    sb.append(sub_item);
+		    sb.append(";");
+		}
+		strBuilder.append(key + ":" + sb);
+		strBuilder.append(System.lineSeparator());
+
+	    }
+	    fw.write(strBuilder.toString());
+
+	    fw.close();
+
+	} catch (IOException e) {
+
+	    return false;
+	}
+
+	return true;
+    }
+
+    public static Map<String, String[]> getSettingsInfo() {
+
+	Map<String, String[]> map = new HashMap<String, String[]>();
+	String homedir = System.getProperty("user.home");
+	File configFile = new File(homedir + File.separator + CONFIG_FILENAME);
+	FileReader fr;
+	try {
+	    fr = new FileReader(configFile);
+
+	    BufferedReader br = new BufferedReader(fr);
+	    String line;
+	    while ((line = br.readLine()) != null) {
+		String[] data = line.split(":");
+		String[] dataValues = data[1].split(";");
+
+		map.put(data[0], dataValues);
+
+	    }
+	    br.close();
+	    fr.close();
+	} catch (IOException e) {
+	    return null;
+	}
+
+	if (map.isEmpty())
+	    return null;
+	else
+
+	    return map;
     }
 
 }

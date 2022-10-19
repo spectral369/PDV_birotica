@@ -65,11 +65,12 @@ class AutoScalingParagraphRenderer extends ParagraphRenderer {
             
             if(fontSizeL < 12) {
             	int diff = (int) ((int) 12f-fontSizeL);
-            	getOccupiedArea().getBBox().setY(getOccupiedArea().getBBox().getY()-0.55f*(diff));
+            	getOccupiedArea().getBBox().setY(getOccupiedArea().getBBox().getY()-0.65f*(diff));//0.55f
             }
             
             
             this.innerRenderer.setProperty(Property.FONT_SIZE, UnitValue.createPointValue(fontSizeL));
+
 
       //      this.innerRenderer.layout(new LayoutContext(getOccupiedArea().clone()));
         }

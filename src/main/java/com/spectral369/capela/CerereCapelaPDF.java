@@ -138,11 +138,15 @@ public class CerereCapelaPDF extends HorizontalLayout
     public void beforeLeave(BeforeLeaveEvent event) {
 
 	try {
+	    String fullPath = Utils.getFullPath(fileName, false);
+	    if(fullPath!=null) {
+		 System.out.println(Files.deleteIfExists(Path.of(fullPath)));
+	    }
 
-	    System.out.println(Files
-		    .deleteIfExists(Path.of(Utils.getResourcePath(CerereCapelaPDF.class, streamResource.getName()))));
+	    if (PdfList.isFilePresent(fileName))
+		PdfList.deleteFile(fileName);
 	} catch (IOException e) {
-
+	
 	    e.printStackTrace();
 	}
 	RouteConfiguration.forSessionScope().removeRoute(CerereCapelaPDF.class);
