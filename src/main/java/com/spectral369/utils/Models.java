@@ -24,7 +24,8 @@ public enum Models {
     	Adresa_Scoatere_Evidenta_Auto(14,"Adresa Scoatere Evidenta Auto","com.spectral369.ASEA.AdresaScoatereEvidentaAutoInfo"),
     	Cerere_Scutire(15,"Cerere Scutire","com.spectral369.CS.CerereScutireInfo"),
     	Cerere_Apa(16,"Cerere Apa","com.spectral369.CA.CerereApaInfo"),
-    	Adeverinta_detinere_teren(17,"Adeverinta Teren","com.spectral369.ADP.AdeverintaDetinerePamantInfo");
+    	Adeverinta_detinere_teren(17,"Adeverinta Teren","com.spectral369.ADP.AdeverintaDetinerePamantInfo"),
+    	Adeverinta_Ajutor_incalzire(18,"Adeverinta Ajutor Incalzire","com.spectral369.AAI.AdeverintaAjutorIncalzireInfo");
     	
 	
 	private java.lang.String cls;
