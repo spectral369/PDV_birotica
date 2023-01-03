@@ -7,15 +7,12 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.core.env.Environment;
-import org.vaadin.artur.helpers.LaunchUtil;
 
 import com.spectral369.utils.PDFHelper;
 import com.spectral369.utils.Utils;
@@ -27,6 +24,8 @@ import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.shared.communication.PushMode;
 import com.vaadin.flow.shared.ui.Transport;
 import com.vaadin.flow.theme.Theme;
+
+import jakarta.servlet.ServletContextEvent;
 
 /**
  * The entry point of the Spring Boot application.
@@ -41,7 +40,7 @@ import com.vaadin.flow.theme.Theme;
 @Meta(name = "Author", content = "spectral369")
 @Viewport("width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes")
 @Push(value = PushMode.AUTOMATIC, transport = Transport.WEBSOCKET_XHR)
-public class Application extends SpringBootServletInitializer implements AppShellConfigurator, ServletContextListener {
+public class Application extends SpringBootServletInitializer implements AppShellConfigurator,  jakarta.servlet.ServletContextListener {
 
     /**
      * 
@@ -65,7 +64,7 @@ public class Application extends SpringBootServletInitializer implements AppShel
 
 	    }
 	});
-	LaunchUtil.launchBrowserInDevelopmentMode(app.run(args));
+	 SpringApplication.run(Application.class, args);
     }
 
     @Override

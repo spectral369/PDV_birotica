@@ -1,6 +1,5 @@
 package com.spectral369.birotica;
 
-import javax.servlet.http.HttpServletResponse;
 
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.Notification.Position;
@@ -23,6 +22,6 @@ public class CustomNotFoundTarget extends RouteNotFoundError {
 	System.out.println("not found " + event.getErrorParameter() + " " + parameter.getCaughtException());
 	Notification.show("Path Not available!", 3000, Position.BOTTOM_END);
 
-	return HttpServletResponse.SC_NOT_FOUND;
+	return jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
     }
 }

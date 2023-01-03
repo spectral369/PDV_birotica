@@ -193,7 +193,7 @@ public class AdeverintaAjutorIncalzireCreator {
 	   
 	    Text dec2 = new Text(
 		    "Am eliberat prezenta adeverinta pe baza datelor din registrul de rol spre a-i servi "
-		    + "susnumitului/ei la "+PDFHelper.getStrWithDash(20, "")+".\n\n\n\n\n\n\n\n");
+		    + "susnumitului/ei la completarea dosarului pentru "+PDFHelper.getStrWithDash(20, "")+".\n\n\n\n\n\n\n\n");
 	    dec12.add(dec2);
 	    doc.add(dec12);
 	    
@@ -329,7 +329,7 @@ public class AdeverintaAjutorIncalzireCreator {
 	   
 	    declaratie.add(new Tab());
 	    declaratie.add("Se adevereste prin prezenta ca ");
-	    declaratie.add(" "+num);
+	    declaratie.add(" "+num+" ");
 	    declaratie.add(PDFHelper.createAdjustableParagraph(42,
 		    new Paragraph(map.get("nume")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    declaratie.add(" "+dom);
@@ -449,6 +449,7 @@ public class AdeverintaAjutorIncalzireCreator {
 		    "Am eliberat prezenta adeverinta pe baza datelor din registrul de rol spre a-i servi ");
 	    dec12.add(dec2);
 	    dec12.add(" "+susnum+" ");
+	    dec12.add("la completarea dosarului pentru ");
 	    dec12.add(PDFHelper.createAdjustableParagraph(30,
 		    new Paragraph(map.get("detine")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec12.add(" .\n\n\n");

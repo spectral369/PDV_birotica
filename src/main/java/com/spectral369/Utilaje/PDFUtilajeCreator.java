@@ -82,7 +82,7 @@ public class PDFUtilajeCreator {
 	    nrInreg.add("\n\n");
 	    nrInreg.add(new Tab());
 	    Text nrI = new Text(
-		    "\tNr. " + PDFHelper.getStrWithDots(15, "") + " " + "data " + PDFHelper.getStrWithDots(20, ""));
+		    "\tNr. " + PDFHelper.getStrWithDash(15, "") + " " + "data " + PDFHelper.getStrWithDash(20, ""));
 	    nrInreg.add(nrI);
 	    doc.add(nrInreg);
 
@@ -96,19 +96,19 @@ public class PDFUtilajeCreator {
 	    
 	    final Paragraph declaratie = new Paragraph();
 	    declaratie.add(PDFHelper.addTab());
-	    Text dec1 = new Text("Subsemnatul " + PDFHelper.getStrWithDots(50, "") + " avand C.N.P "
-		    + PDFHelper.getStrWithDots(30, "") + " domiciliat in localitatea");
+	    Text dec1 = new Text("Subsemnatul " + PDFHelper.getStrWithDash(26, "") + " avand C.N.P "
+		    + PDFHelper.getStrWithDash(18, "") + " domiciliat in localitatea");
 	    declaratie.add(dec1);
 	    dec1.setTextAlignment(TextAlignment.CENTER);
 
-	    Text dec11 = new Text(PDFHelper.getStrWithDots(32, "")+" la numarul " + PDFHelper.getStrWithDots(12, "") + " telefon "
-		    + PDFHelper.getStrWithDots(20, "") + " .\n");
+	    Text dec11 = new Text(PDFHelper.getStrWithDash(21, "")+" la numarul " + PDFHelper.getStrWithDash(7, "") + " telefon "
+		    + PDFHelper.getStrWithDash(13, "") + " .\n");
 	    dec11.setTextAlignment(TextAlignment.CENTER);
 	    declaratie.add(dec11);
 	    declaratie.add(PDFHelper.addTab());
 	    Text dec2 = new Text("Doresc sa inchiriez utilajele primariei Dudestii-Vechi in data de "
-		    + PDFHelper.getStrWithDots(25, "") + " la adresa "+PDFHelper.getStrWithDots(32, "")+" numarul "
-		    + PDFHelper.getStrWithDots(10, "") + " .\n\n");
+		    + PDFHelper.getStrWithDash(15, "") + " la adresa "+PDFHelper.getStrWithDash(18, "")+" numarul "
+		    + PDFHelper.getStrWithDash(8, "") + " .\n\n");
 	    dec2.setTextAlignment(TextAlignment.CENTER);
 	    declaratie.add(dec2);
 	    declaratie.setTextAlignment(TextAlignment.CENTER);
@@ -152,7 +152,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("120 Ron"));
+	    cell.add(new Paragraph("160 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -174,7 +174,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("120 Ron"));
+	    cell.add(new Paragraph("160 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -196,7 +196,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("120 Ron"));
+	    cell.add(new Paragraph("160 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -218,7 +218,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("120 Ron"));
+	    cell.add(new Paragraph("160 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -260,7 +260,7 @@ public class PDFUtilajeCreator {
 	 
 	    declaratie2.add(PDFHelper.addTab());
 	    Text dec4 = new Text(
-		    "\n * Tarife stabilite in conformitate cu prevederile H.C.L Dudestii-Vechi nr.32 din 19.07.2021.\n\n");
+		    "\n * Tarife stabilite in conformitate cu prevederile H.C.L Dudestii-Vechi nr.84 din 21.12.2022.\n\n");
 	    dec4.setTextAlignment(TextAlignment.CENTER);
 	    declaratie2.add(dec4);
 	    declaratie2.add(PDFHelper.addTab());
@@ -304,11 +304,11 @@ public class PDFUtilajeCreator {
 	    semnaturiR.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    Paragraph semnR = new Paragraph();
 	    //String dateNow = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-	    Text semnPrim = new Text(PDFHelper.getStrWithDots(30, ""));
+	    Text semnPrim = new Text(PDFHelper.getStrWithDash(18, ""));
 	    semnR.add(semnPrim);
 	    semnR.addTabStops(new TabStop(width / 1.18f, TabAlignment.RIGHT));
 	    semnR.add(new Tab());
-	    Text semnIntocmit = new Text(PDFHelper.getStrWithDots(30, ""));
+	    Text semnIntocmit = new Text(PDFHelper.getStrWithDash(18, ""));
 	    semnR.add(semnIntocmit);
 	    Cell cell2 = new Cell();
 	    cell2.setBorder(Border.NO_BORDER);
@@ -357,7 +357,7 @@ public class PDFUtilajeCreator {
 	    nrInreg.add("\n\n");
 	    nrInreg.add(new Tab());
 	    Text nrI = new Text(
-		    "\tNr. " + PDFHelper.getStrWithDots(15, "") + " " + "data " + PDFHelper.getStrWithDots(20, ""));
+		    "\tNr. " + PDFHelper.getStrWithDash(15, "") + " " + "data " + PDFHelper.getStrWithDash(20, ""));
 	    nrInreg.add(nrI);
 	    doc.add(nrInreg);
 
@@ -372,7 +372,7 @@ public class PDFUtilajeCreator {
 	    Paragraph dec =  new Paragraph();
 	    dec.add(new Tab());
 	    dec.add("Subsemnatul/a ");
-	    dec.add(PDFHelper.createAdjustableParagraph(50,
+	    dec.add(PDFHelper.createAdjustableParagraph(45,
 		    new Paragraph(map.get("nume")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec.add(" avand C.N.P ");
 	    dec.add(PDFHelper.createAdjustableParagraph(32,
@@ -383,7 +383,7 @@ public class PDFUtilajeCreator {
 	    dec.add(" la numarul ");
 	    dec.add(PDFHelper.createAdjustableParagraph(8,
 		    new Paragraph(map.get("nrCasaAddr")).setBold().setTextAlignment(TextAlignment.CENTER)));
-	    dec.add(" si telefon ");
+	    dec.add(" telefon ");
 	    dec.add(PDFHelper.createAdjustableParagraph(20,
 		    new Paragraph(map.get("telefon")).setBold().setTextAlignment(TextAlignment.CENTER)));
 	    dec.add(" .\n");
@@ -440,7 +440,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("120 Ron"));
+	    cell.add(new Paragraph("160 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -449,7 +449,7 @@ public class PDFUtilajeCreator {
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
-	    int tr = (Integer.parseInt(map.get("tractorRemorca")) * 120);
+	    int tr = (Integer.parseInt(map.get("tractorRemorca")) * 160);
 	    cell = new Cell();
 	    cell.add(new Paragraph(String.valueOf(tr)));
 	    cell.setTextAlignment(TextAlignment.CENTER);
@@ -463,7 +463,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("120 Ron"));
+	    cell.add(new Paragraph("160 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -472,7 +472,7 @@ public class PDFUtilajeCreator {
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
-	    int ifron = (Integer.parseInt(map.get("ifron")) * 120);
+	    int ifron = (Integer.parseInt(map.get("ifron")) * 160);
 	    cell = new Cell();
 	    cell.add(new Paragraph(String.valueOf(ifron)));
 	    cell.setTextAlignment(TextAlignment.CENTER);
@@ -486,7 +486,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("120 Ron"));
+	    cell.add(new Paragraph("160 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -495,7 +495,7 @@ public class PDFUtilajeCreator {
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
-	    int tu = (Integer.parseInt(map.get("tractorUtilaj")) * 120);
+	    int tu = (Integer.parseInt(map.get("tractorUtilaj")) * 160);
 	    cell = new Cell();
 	    cell.add(new Paragraph(String.valueOf(tu)));
 	    cell.setTextAlignment(TextAlignment.CENTER);
@@ -509,7 +509,7 @@ public class PDFUtilajeCreator {
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
 	    cell = new Cell();
-	    cell.add(new Paragraph("120 Ron"));
+	    cell.add(new Paragraph("160 Ron"));
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
@@ -518,7 +518,7 @@ public class PDFUtilajeCreator {
 	    cell.setTextAlignment(TextAlignment.CENTER);
 	    cell.setHorizontalAlignment(HorizontalAlignment.CENTER);
 	    table.addCell(cell);
-	    int minicastor = (Integer.parseInt(map.get("minicastor")) * 120);
+	    int minicastor = (Integer.parseInt(map.get("minicastor")) * 160);
 	    cell = new Cell();
 	    cell.add(new Paragraph(String.valueOf(minicastor)));
 	    cell.setTextAlignment(TextAlignment.CENTER);
@@ -549,7 +549,7 @@ public class PDFUtilajeCreator {
 	    final Paragraph declaratie2 = new Paragraph();
 	    declaratie2.add(PDFHelper.addTab());
 	    Text dec4 = new Text(
-		    "\n * Tarife stabilite in conformitate cu prevederile H.C.L Dudestii-Vechi nr.32 din 19.07.2021.\n\n");
+		    "\n * Tarife stabilite in conformitate cu prevederile H.C.L Dudestii-Vechi nr.84 din 21.12.2022.\n\n");
 	    dec4.setTextAlignment(TextAlignment.CENTER);
 	    declaratie2.add(dec4);
 	
@@ -598,7 +598,7 @@ public class PDFUtilajeCreator {
 	    semnR.add(semnPrim);
 	    semnR.addTabStops(new TabStop(width / 1.18f, TabAlignment.RIGHT));
 	    semnR.add(new Tab());
-	    Text semnIntocmit = new Text(PDFHelper.getStrWithDots(30, ""));
+	    Text semnIntocmit = new Text(PDFHelper.getStrWithDash(18, ""));
 	    semnR.add(semnIntocmit);
 	    Cell cellsemn2 = new Cell();
 	    cellsemn2.setBorder(Border.NO_BORDER);

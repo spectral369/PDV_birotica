@@ -6,7 +6,7 @@
     <groupId>com.spectral369.application</groupId>
     <artifactId>Birotica</artifactId>
     <name>Proiect Birotica DV</name>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <properties>

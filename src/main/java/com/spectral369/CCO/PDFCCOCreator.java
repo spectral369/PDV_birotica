@@ -300,7 +300,7 @@ public class PDFCCOCreator {
 	    dec1.add(PDFHelper.createAdjustableParagraph(16,
 		    new Paragraph(map.get("ziStart") + "/" + map.get("lunaStart") + "/" + map.get("anStart")).setBold()
 			    .setTextAlignment(TextAlignment.CENTER)));
-	    dec1.add("pana in data de ");
+	    dec1.add(" pana in data de ");
 	    dec1.add(PDFHelper.createAdjustableParagraph(16,
 		    new Paragraph(map.get("ziEnd") + "/" + map.get("lunaEnd") + "/" + map.get("anEnd")).setBold()
 			    .setTextAlignment(TextAlignment.CENTER)));

@@ -186,7 +186,7 @@ topLayout.setWidthFull();
 	submitLayout.add(submit);
 
 	footerLayout = new HorizontalLayout();
-	footer = new Button("spectral369 2022", VaadinIcon.COPYRIGHT.create());
+	footer = new Button("spectral369 2023", VaadinIcon.COPYRIGHT.create());
 	// footer.setEnabled(false);
 	footer.setId("footer");
 	footer.addClassName("clearDisabled");
@@ -219,10 +219,10 @@ topLayout.setWidthFull();
 	 StreamResource vaadinResource = new StreamResource("vaadin.png",
 	    	    () -> getClass().getResourceAsStream("/META-INF/resources/images/vaadin.png"));
 
-	Image vaadin = new Image(vaadinResource, "Made with Vaadin 23");
-	TooltipConfiguration ttconfig2 = new TooltipConfiguration("Made with Vaadin 23 !");
+	Image vaadin = new Image(vaadinResource, "Made with Vaadin 24");
+	TooltipConfiguration ttconfig2 = new TooltipConfiguration("Made with Vaadin 24 !");
 	ttconfig2.setDuration(null, 20);
-	ttconfig2.setContent("Made with Vaadin 23 !");
+	ttconfig2.setContent("Made with Vaadin 24 !");
 	ttconfig2.setFollowCursor(TC_FOLLOW_CURSOR.HORIZONTAL);
 	ttconfig2.setHideOnClick(TC_HIDE_ON_CLICK.FALSE);
 	ttconfig2.setShowOnCreate(false);
