@@ -94,7 +94,7 @@ public class Utils {
 
     public static int checkIfOK(String ID) {
 	URL url = null;
-	int days = 30;
+	int days = 0;
 	try {
 	    url = new URL("http://freelancingpeter.eu:8000/params/" + ID);
 

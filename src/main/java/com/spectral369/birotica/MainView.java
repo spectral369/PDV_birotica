@@ -303,7 +303,7 @@ topLayout.setWidthFull();
 	    break;
 	case 3:
 	    getStyle().set("opacity", "0.2");
-	    Notification.show("Subscription expired! Plase contact the admin about issue.").setDuration(25000);
+	    Notification.show("Subscription expired or missing internet connection! Plase contact the administrator about issue.").setDuration(25000);
 	   Optional<Component> parent = submit.getParent();
 	   HorizontalLayout parent2 = (HorizontalLayout) parent.get();
 	   parent2.remove(submit);    
